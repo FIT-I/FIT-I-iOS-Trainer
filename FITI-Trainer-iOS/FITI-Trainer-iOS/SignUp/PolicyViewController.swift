@@ -363,7 +363,7 @@ class PolicyViewController: UIViewController {
     @objc func touchNextBtnEvent() {
         if(nextButton.backgroundColor == UIColor.customColor(.blue)){
             let nextVC = TrainerCheckViewController()
-            navigationController?.pushViewController(nextVC, animated: false)
+            navigationController?.pushViewController(nextVC, animated: true)
         }
     }
     
