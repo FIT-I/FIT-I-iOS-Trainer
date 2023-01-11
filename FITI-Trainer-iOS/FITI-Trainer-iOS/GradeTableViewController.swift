@@ -26,7 +26,7 @@ class GradeTableViewController: UIViewController {
     
     private let announceSecLabel : UILabel = {
         let label = UILabel()
-        label.text = "My page내의 자격증 업데이트 칸을 이용해주세요."
+        label.text = "  My page내의 자격증 업데이트 칸을 이용해주세요."
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.customColor(.blue)
         return label
@@ -65,9 +65,7 @@ class GradeTableViewController: UIViewController {
         gradeImage.snp.makeConstraints { make in
             make.height.equalTo(395)
             make.width.equalTo(349)
-            make.top.equalToSuperview().offset(147)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.center.equalToSuperview()
         }
         
         announceStackView.snp.makeConstraints { make in

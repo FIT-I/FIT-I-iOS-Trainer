@@ -1,50 +1,62 @@
 //
 //  HomeViewController.swift
-//  FITI-Trainer-iOS
+//  FITI
 //
-//  Created by 박윤빈 on 2023/01/11.
+//  Created by 홍준혁 on 2023/01/01.
 //
 
-import Foundation
 import UIKit
 import SnapKit
 
+// 개인 PT
 class HomeViewController: UIViewController {
-    
-    var titleLabel : UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 25)
-        label.text = "프로필 수정하기"
-        label.textColor = UIColor.customColor(.blue)
-        return label
-    }()
 
+    // line 뷰
+    let lineView : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.customColor(.boxGray)
+        view.snp.makeConstraints { make in
+            make.height.equalTo(10)
+        }
+        return view
+    }()
+    
+    // 트레이너 보여주는 테이블 뷰
+    let trainerTableView : UITableView = {
+        let tableview = UITableView()
+        return tableview
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.topItem?.title = ""
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
-        // Do any additional setup after loading the view.
-        setViewHierarchy()
-        setConstraints()
-    }
-
-    private func setViewHierarchy() {
-        view.addSubview(titleLabel)
+        // Do any additional setup after loading the view.\
+        signInViewAddUI()
+        signInViewSetUI()
     }
     
-    private func setConstraints(){
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(70)
-            make.centerX.equalToSuperview()
-            
+    func signInViewAddUI(){
+//        view.addSubview(lineView)
+        view.addSubview(trainerTableView)
+    }
+    
+    func signInViewSetUI(){
+//        lineView.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(100)
+//            make.leading.trailing.equalToSuperview()
+//        }
+        trainerTableView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(100)
+            make.leading.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-15)
+            make.bottom.equalToSuperview().offset(-50)
         }
     }
-    @objc func backTapped(sender: UIBarButtonItem) {
-            navigationController?.popViewController(animated: true)
+    
+    @objc func tapped(sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
         }
-}
+
+    }
+
 
