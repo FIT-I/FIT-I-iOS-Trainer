@@ -144,6 +144,9 @@ class TrainerCheckViewController: UIViewController {
         // Do any additional setup after loading the view.
         setViewHierarchy()
         setConstraints()
+        
+        self.dismissKeyboard()
+
     }
     
     let emailborder = CALayer()
