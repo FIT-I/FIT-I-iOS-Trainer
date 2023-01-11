@@ -62,6 +62,7 @@ class SignInViewController: UIViewController {
         btn.setTitleColor(UIColor.customColor(.blue), for: .normal)
         btn.titleLabel?.font = UIFont(name: "Noto Sans", size: 0)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        btn.addTarget(self, action: #selector(findPwBtnEvent), for: .touchUpInside)
 
         return btn
     }()
@@ -121,6 +122,7 @@ class SignInViewController: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(horizontalStackView)
         view.addSubview(nextButton)
+        
     }
 
 
@@ -159,12 +161,18 @@ class SignInViewController: UIViewController {
             make.height.equalTo(60)
         }
 
-
     }
     
     @objc func signUpBtnEvent(){
         
         let nextVC = PolicyViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+        
+    }
+    
+    @objc func findPwBtnEvent(){
+        
+        let nextVC = FindPwViewController()
         navigationController?.pushViewController(nextVC, animated: true)
         
     }
