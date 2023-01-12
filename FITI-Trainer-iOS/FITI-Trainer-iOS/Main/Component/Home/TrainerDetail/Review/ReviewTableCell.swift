@@ -34,19 +34,33 @@ class ReviewTableCell: UITableViewCell {
         return label
     }()
     
+    var starIcon : UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "star.svg")
+        return image
+    }()
+    
     var grade : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10.0)
-        label.text = "평점4.3"
+        label.text = "4.3"
         label.textColor = UIColor.customColor(.gray)
         return label
     }()
     
     lazy var dateStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [date,grade])
+        let stackView = UIStackView(arrangedSubviews: [date,rateStackView])
         stackView.axis = .horizontal
         stackView.spacing = 12
         stackView.alignment = .leading
+        return stackView
+    }()
+    
+    lazy var rateStackView : UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [starIcon,grade])
+        stackView.axis = .horizontal
+        stackView.spacing = 2
+        stackView.alignment = .center
         return stackView
     }()
     

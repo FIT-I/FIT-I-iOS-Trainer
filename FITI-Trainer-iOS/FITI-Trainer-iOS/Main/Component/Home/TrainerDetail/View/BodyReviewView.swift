@@ -42,12 +42,32 @@ class BodyReviewView : UIView {
         return label
     }()
     
+    var bodyReviewLineView : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.customColor(.gray)
+        view.snp.makeConstraints { make in
+            make.height.equalTo(1)
+        }
+        return view
+    }()
+    
     var reviewDetailBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = UIColor.systemBackground
         btn.setImage(UIImage(named: "rightBtn"), for: .normal)
 //        btn.addTarget(self, action: #selector(moveToReviewTableView), for: .touchUpInside)
         return btn
+    }()
+    
+    // 리뷰 테이블 뷰
+    private lazy var reviewTableView : UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = UIColor.customColor(.boxGray)
+        tableView.separatorStyle = .none
+        tableView.isScrollEnabled = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
     }()
     
     lazy var reviewTopLeftStackView : UIStackView = {
@@ -67,14 +87,18 @@ class BodyReviewView : UIView {
 
         setViewHierarchy()
         setConstraints()
+        register()
     }
     
     func setViewHierarchy(){
         self.addSubview(reviewTopLeftStackView)
         self.addSubview(reviewDetailBtn)
+        self.addSubview(bodyReviewLineView)
+        self.addSubview(reviewTableView)
     }
     
     func setConstraints(){
+        
         reviewTopLeftStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(17)
             make.leading.equalToSuperview().offset(20)
@@ -83,10 +107,52 @@ class BodyReviewView : UIView {
             make.centerY.equalTo(reviewTopLeftStackView)
             make.trailing.equalToSuperview().offset(-20)
         }
+        bodyReviewLineView.snp.makeConstraints { make in
+            make.top.equalTo(reviewTopLeftStackView.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-22)
+        }
+        reviewTableView.snp.makeConstraints { make in
+            make.top.equalTo(bodyReviewLineView.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-22)
+            make.height.equalTo(270)
+        }
     }
+}
+
+
+extension BodyReviewView {
+    //MARK: - register
     
+    private func register() {
+        reviewTableView.register(PreviewReviewTableCell.self,
+                                 forCellReuseIdentifier: PreviewReviewTableCell.identifier
+        )
+    }
     
     
 }
 
+//MARK: - ReviewTableView Delegate
+extension BodyReviewView : UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return reviewDummy.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: PreviewReviewTableCell.identifier, for: indexPath) as? PreviewReviewTableCell else { return UITableViewCell() }
+        
+        reviewCell.dataBind(model: reviewDummy[indexPath.row])
+        reviewCell.selectionStyle = .none
+        return reviewCell
+    }
+}
 
+
+extension BodyReviewView : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
+}

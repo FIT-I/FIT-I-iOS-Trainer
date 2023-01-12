@@ -58,7 +58,7 @@ class ReviewViewController: UIViewController {
         reviewTableView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(40)
             make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-10)
         }
     }
@@ -97,4 +97,3 @@ extension ReviewViewController : UITableViewDataSource {
 //        return 80
 //    }
 }
-
