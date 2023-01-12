@@ -24,6 +24,12 @@ class BodyIntroView : UIView {
         return label
     }()
     
+    var editBodyIntroButton : UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "edit.svg"), for: .normal)
+        return btn
+    }()
+    
     lazy var introTopStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [introImage,introLabel])
         stackView.axis = .horizontal
@@ -67,6 +73,7 @@ class BodyIntroView : UIView {
         self.addSubview(introTopStackView)
         self.addSubview(introLineView)
         self.addSubview(introTextView)
+        self.addSubview(editBodyIntroButton)
         
     }
     
@@ -74,6 +81,10 @@ class BodyIntroView : UIView {
         introTopStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(17)
             make.leading.equalToSuperview().offset(20)
+        }
+        editBodyIntroButton.snp.makeConstraints { make in
+            make.top.equalTo(introTopStackView)
+            make.trailing.equalToSuperview().offset(-20)
         }
         introLineView.snp.makeConstraints { make in
             make.top.equalTo(introTopStackView.snp.bottom).offset(10)

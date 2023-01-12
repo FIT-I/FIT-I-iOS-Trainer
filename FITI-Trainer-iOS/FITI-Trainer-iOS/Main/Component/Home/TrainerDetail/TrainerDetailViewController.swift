@@ -80,6 +80,9 @@ class TrainerDetailViewController: UIViewController {
     
     func setButtonEvent(){
         bodyReviewView.reviewDetailBtn.addTarget(self, action: #selector(moveToReviewTableView), for: .touchUpInside)
+        bodyPriceView.editBodyPriceButton.addTarget(self, action: #selector(editBodyPriceBtnEvent), for: .touchUpInside)
+        bodyIntroView.editBodyIntroButton.addTarget(self, action: #selector(editBodyIntroBtnEvent), for: .touchUpInside)
+        bodyIntroAboutService.editAboutServiceButton.addTarget(self, action: #selector(editAboutServiceBtnEvent), for: .touchUpInside)
         headView.reviewerImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tappedProfile)))
     }
     
@@ -92,6 +95,21 @@ class TrainerDetailViewController: UIViewController {
     
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func editBodyPriceBtnEvent(){
+        let nextVC = EditBodyPriceViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func editBodyIntroBtnEvent(){
+        let nextVC = EditBodyIntroViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func editAboutServiceBtnEvent(){
+        let nextVC = EditAboutServiceViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc private func dismissVC() {
