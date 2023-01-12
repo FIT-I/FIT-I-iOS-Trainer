@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 import SnapKit
+import Then
 
 class PreviewReviewTableCell: UITableViewCell {
     
@@ -63,8 +64,12 @@ class PreviewReviewTableCell: UITableViewCell {
     lazy var topStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [reviewerImage,nameStackView])
         stackView.axis = .horizontal
+        stackView.backgroundColor = UIColor.customColor(.boxGray)
         stackView.spacing = 8
         stackView.alignment = .leading
+        stackView.snp.makeConstraints { make in
+            make.height.equalTo(30)
+        }
         return stackView
     }()
     
@@ -73,8 +78,11 @@ class PreviewReviewTableCell: UITableViewCell {
         textView.textColor = UIColor.black
         textView.isEditable = false
         textView.isScrollEnabled = false
-        textView.backgroundColor = .systemBackground
+        textView.backgroundColor = UIColor.customColor(.boxGray)
         textView.font = UIFont.systemFont(ofSize: 12.0)
+        textView.snp.makeConstraints { make in
+            make.height.equalTo(50)
+        }
         // 더미 데이터
         textView.text = "친절한 지도 감사합니다:)"
         return textView
@@ -83,7 +91,7 @@ class PreviewReviewTableCell: UITableViewCell {
     lazy var globalStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [topStackView,reviewTextView])
         stackView.axis = .vertical
-        stackView.spacing = 5
+        stackView.backgroundColor = UIColor.customColor(.boxGray)
         stackView.alignment = .leading
         return stackView
     }()
@@ -92,9 +100,11 @@ class PreviewReviewTableCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubview(self.globalStackView)
 
+        self.backgroundColor = UIColor.customColor(.boxGray)
+        
         globalStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
         

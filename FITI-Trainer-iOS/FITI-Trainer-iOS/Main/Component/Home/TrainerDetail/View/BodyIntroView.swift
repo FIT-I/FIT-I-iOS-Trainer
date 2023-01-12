@@ -34,7 +34,10 @@ class BodyIntroView : UIView {
     
     var introLineView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.customColor(.darkGray)
+        view.backgroundColor = UIColor.customColor(.gray)
+        view.snp.makeConstraints { make in
+            make.height.equalTo(1)
+        }
         return view
     }()
     
@@ -45,7 +48,7 @@ class BodyIntroView : UIView {
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.font = UIFont.systemFont(ofSize: 15.0)
-        textView.text = "다양한 자격증을 바탕으로 친절하게 지도해드립니다. 스포애니 3년의 경력을 믿어주세요~!"
+        textView.text = "다양한 자격증을 바탕으로 친절하게 지도해드립니다. 스포애니 3년의 경력을 믿어주세요~!운동 지도를 비롯하여 저만의 체계적인 식단관리표를 활용하여 PT를 진행할 예정입니다. 단기간의 다이어트는 물론 장기적으로 신체 변화를 가져오는 것 또한 자신이 있습니다. 주 2회의 대면 지도를 권장하며 자세한 커리큘럼은 쪽지를 통해 상세히 설명해 드리겠습니다."
         return textView
     }()
     
@@ -81,8 +84,7 @@ class BodyIntroView : UIView {
             make.top.equalTo(introLineView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.equalTo(70)
+            make.height.equalTo(90)
         }
     }
 }
-

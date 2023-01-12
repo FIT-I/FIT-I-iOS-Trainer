@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import Then
 
 class BookCVC: UICollectionViewCell {
     
@@ -47,4 +48,5 @@ class BookCVC: UICollectionViewCell {
     }
     
 }
+
 

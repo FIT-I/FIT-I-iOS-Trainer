@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import SnapKit
 
+import Foundation
+import UIKit
+import SnapKit
+
 class BodyPriceView : UIView {
     var priceImage : UIImageView = {
         let imgView = UIImageView()
@@ -26,7 +30,10 @@ class BodyPriceView : UIView {
     
     var priceLineView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.customColor(.darkGray)
+        view.backgroundColor = UIColor.customColor(.gray)
+        view.snp.makeConstraints { make in
+            make.height.equalTo(1)
+        }
         return view
     }()
     
@@ -120,7 +127,7 @@ class BodyPriceView : UIView {
         }
         priceRightStackView.snp.makeConstraints { make in
             make.top.equalTo(priceLineView.snp.bottom).offset(10)
-            make.leading.equalTo(priceLeftStackView.snp.trailing).offset(80)
+            make.trailing.equalToSuperview().offset(-20)
         }
     }
 }
