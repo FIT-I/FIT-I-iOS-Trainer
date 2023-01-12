@@ -26,6 +26,12 @@ class BodyIntroAboutServiceView : UIView {
         return label
     }()
     
+    var editAboutServiceButton : UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "edit.svg"), for: .normal)
+        return btn
+    }()
+    
     lazy var introServiceTopStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [introServiceImage,introServiceLabel])
         stackView.axis = .horizontal
@@ -70,6 +76,7 @@ class BodyIntroAboutServiceView : UIView {
         self.addSubview(introServiceTopStackView)
         self.addSubview(introServiceLineView)
         self.addSubview(introServiceTextView)
+        self.addSubview(editAboutServiceButton)
         
     }
     
@@ -77,6 +84,10 @@ class BodyIntroAboutServiceView : UIView {
         introServiceTopStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(17)
             make.leading.equalToSuperview().offset(20)
+        }
+        editAboutServiceButton.snp.makeConstraints { make in
+            make.top.equalTo(introServiceTopStackView)
+            make.trailing.equalToSuperview().offset(-20)
         }
         introServiceLineView.snp.makeConstraints { make in
             make.top.equalTo(introServiceTopStackView.snp.bottom).offset(10)

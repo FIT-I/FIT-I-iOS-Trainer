@@ -28,6 +28,12 @@ class BodyPriceView : UIView {
         return label
     }()
     
+    var editBodyPriceButton : UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "edit.svg"), for: .normal)
+        return btn
+    }()
+    
     var priceLineView : UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.customColor(.gray)
@@ -109,12 +115,17 @@ class BodyPriceView : UIView {
         self.addSubview(priceLineView)
         self.addSubview(priceLeftStackView)
         self.addSubview(priceRightStackView)
+        self.addSubview(editBodyPriceButton)
     }
     
     private func setConstraints(){
         priceTopStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(17)
             make.leading.equalToSuperview().offset(20)
+        }
+        editBodyPriceButton.snp.makeConstraints { make in
+            make.top.equalTo(priceTopStackView)
+            make.trailing.equalToSuperview().offset(-20)
         }
         priceLineView.snp.makeConstraints { make in
             make.top.equalTo(priceTopStackView.snp.bottom).offset(10)

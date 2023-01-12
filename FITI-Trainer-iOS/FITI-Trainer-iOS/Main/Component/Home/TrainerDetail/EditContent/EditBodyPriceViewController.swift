@@ -13,7 +13,7 @@ class EditBodyPriceViewController: UIViewController {
     
     private let titleLabel : UILabel = {
         let lb = UILabel()
-        lb.text = "소개글"
+        lb.text = "관리 비용"
         lb.textColor = UIColor.black
         lb.font = UIFont.systemFont(ofSize: 20.0)
         return lb
