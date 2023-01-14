@@ -56,7 +56,7 @@ class GradeTableViewController: UIViewController {
         }
     
     func pagingMove() {
-        let nextVC = HomeViewController()
+        let nextVC = TabBarController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
 

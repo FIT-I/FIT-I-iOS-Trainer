@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
+		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
+		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
+		059D807A2973270B0062C41A /* emailCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80792973270B0062C41A /* emailCheckViewController.swift */; };
 		05A11DA7296C9ED5008D85A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DA6296C9ED5008D85A9 /* AppDelegate.swift */; };
 		05A11DA9296C9ED5008D85A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DA8296C9ED5008D85A9 /* SceneDelegate.swift */; };
 		05A11DB0296C9ED7008D85A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05A11DAF296C9ED7008D85A9 /* Assets.xcassets */; };
@@ -50,6 +53,8 @@
 
 /* Begin PBXFileReference section */
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
+		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
+		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
 		05A11DA3296C9ED5008D85A9 /* FITI-Trainer-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FITI-Trainer-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05A11DA6296C9ED5008D85A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05A11DA8296C9ED5008D85A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05A11DCA296CA07F008D85A9 /* SnapKit in Frameworks */,
+				059D80742972B18B0062C41A /* BSImagePicker in Frameworks */,
 				05A11E01296F172F008D85A9 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,6 +116,25 @@
 				059D806C2971540B0062C41A /* EditBodyPriceView.swift */,
 			);
 			path = EditBodyPrice;
+			sourceTree = "<group>";
+		};
+		059D80752972B7820062C41A /* BottomPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				05A11DFD296F1596008D85A9 /* BookCVC.swift */,
+				05A11DFB296F1589008D85A9 /* BottomPhotoView.swift */,
+				059D80762972B7C00062C41A /* EditPhotoViewController.swift */,
+			);
+			path = BottomPhoto;
+			sourceTree = "<group>";
+		};
+		059D8078297326F00062C41A /* TrainerCheck */ = {
+			isa = PBXGroup;
+			children = (
+				05A11DC6296C9FD9008D85A9 /* TrainerCheckViewController.swift */,
+				059D80792973270B0062C41A /* emailCheckViewController.swift */,
+			);
+			path = TrainerCheck;
 			sourceTree = "<group>";
 		};
 		05A11D9A296C9ED5008D85A9 = {
@@ -170,7 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				05A11DC4296C9FBB008D85A9 /* PolicyViewController.swift */,
-				05A11DC6296C9FD9008D85A9 /* TrainerCheckViewController.swift */,
+				059D8078297326F00062C41A /* TrainerCheck */,
 				05A11DCB296D5FD4008D85A9 /* MakeAccountViewController.swift */,
 			);
 			path = SignUp;
@@ -259,8 +284,7 @@
 				05A11DF5296F1565008D85A9 /* BodyReviewView.swift */,
 				05A11DF7296F1570008D85A9 /* PreviewReviewTableCell.swift */,
 				05A11DF9296F157E008D85A9 /* ReviewModel.swift */,
-				05A11DFB296F1589008D85A9 /* BottomPhotoView.swift */,
-				05A11DFD296F1596008D85A9 /* BookCVC.swift */,
+				059D80752972B7820062C41A /* BottomPhoto */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,6 +327,7 @@
 			packageProductDependencies = (
 				05A11DC9296CA07F008D85A9 /* SnapKit */,
 				05A11E00296F172F008D85A9 /* Then */,
+				059D80732972B18B0062C41A /* BSImagePicker */,
 			);
 			productName = "FITI-Trainer-iOS";
 			productReference = 05A11DA3296C9ED5008D85A9 /* FITI-Trainer-iOS.app */;
@@ -335,6 +360,7 @@
 			packageReferences = (
 				05A11DC8296CA07F008D85A9 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				05A11DFF296F172F008D85A9 /* XCRemoteSwiftPackageReference "Then" */,
+				059D80722972B18B0062C41A /* XCRemoteSwiftPackageReference "BSImagePicker" */,
 			);
 			productRefGroup = 05A11DA4296C9ED5008D85A9 /* Products */;
 			projectDirPath = "";
@@ -365,10 +391,12 @@
 				059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */,
 				05A11E06296F1B99008D85A9 /* ReviewTableCell.swift in Sources */,
 				05A11DC1296C9F99008D85A9 /* UIStackView+.swift in Sources */,
+				059D807A2973270B0062C41A /* emailCheckViewController.swift in Sources */,
 				05A11DCE296D7F26008D85A9 /* GradeTableViewController.swift in Sources */,
 				05A11DF8296F1570008D85A9 /* PreviewReviewTableCell.swift in Sources */,
 				05A11DFA296F157E008D85A9 /* ReviewModel.swift in Sources */,
 				05A11DD2296DB880008D85A9 /* TabBarController.swift in Sources */,
+				059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */,
 				05A11E0B29702548008D85A9 /* EditBodyPriceViewController.swift in Sources */,
 				05A11DC7296C9FD9008D85A9 /* TrainerCheckViewController.swift in Sources */,
 				05A11E0F297025DB008D85A9 /* EditAboutServiceViewController.swift in Sources */,
@@ -606,6 +634,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		059D80722972B18B0062C41A /* XCRemoteSwiftPackageReference "BSImagePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mikaoj/BSImagePicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		05A11DC8296CA07F008D85A9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -625,6 +661,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		059D80732972B18B0062C41A /* BSImagePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 059D80722972B18B0062C41A /* XCRemoteSwiftPackageReference "BSImagePicker" */;
+			productName = BSImagePicker;
+		};
 		05A11DC9296CA07F008D85A9 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 05A11DC8296CA07F008D85A9 /* XCRemoteSwiftPackageReference "SnapKit" */;

@@ -1,20 +1,20 @@
 //
-//  FindPwViewController.swift
+//  emailCheckViewController.swift
 //  FITI-Trainer-iOS
 //
-//  Created by 박윤빈 on 2023/01/11.
+//  Created by 박윤빈 on 2023/01/15.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-class FindPwViewController: UIViewController {
+class emailCheckViewController: UIViewController {
     
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 25)
-        label.text = "비밀번호 찾기"
+        label.text = "트레이너 인증"
         label.textColor = UIColor.customColor(.blue)
         return label
     }()
@@ -23,7 +23,7 @@ class FindPwViewController: UIViewController {
         let tf = UITextField()
         
         tf.attributedPlaceholder = NSAttributedString(
-                    string: "이메일을 입력해주세요.",
+                    string: "학교 이메일을 입력해주세요",
                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.customColor(.gray)]
                 )
         tf.layer.borderColor = UIColor.customColor(.gray).cgColor
@@ -39,6 +39,10 @@ class FindPwViewController: UIViewController {
     private let authTextField : UITextField = {
         let tf = UITextField()
         tf.isEnabled = false
+        tf.attributedPlaceholder = NSAttributedString(
+                    string: "인증코드 6자리를 입력해주세요",
+                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+                )
         tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 2
         tf.layer.cornerRadius = 10
@@ -70,7 +74,7 @@ class FindPwViewController: UIViewController {
     let nextButton : UIButton = {
            let btn = UIButton()
             btn.backgroundColor = UIColor.customColor(.gray)
-            btn.setTitle("인증코드 받기", for: .normal)
+            btn.setTitle("다음", for: .normal)
             btn.setTitleColor(UIColor.white, for: .normal)
             btn.titleLabel?.font = UIFont(name: "Noto Sans", size: 0)
             btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -120,7 +124,7 @@ class FindPwViewController: UIViewController {
             make.trailing.equalToSuperview()
         }
         grayView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.width.equalToSuperview().dividedBy(2)
         }
         
@@ -172,9 +176,9 @@ class FindPwViewController: UIViewController {
     }
     
     @objc func touchNextBtnEvent() {
-        
+        print(nextBtn)
         if(nextBtn == 2){
-            let nextVC = GradeTableViewController()
+            let nextVC = MakeAccountViewController()
             navigationController?.pushViewController(nextVC, animated: true)
         } else if(nextBtn == 1){
             //major  textField 활성화
@@ -186,19 +190,9 @@ class FindPwViewController: UIViewController {
                     )
             //버튼 다시 회색으로
             nextButton.backgroundColor = UIColor.customColor(.gray)
-            nextButton.setTitle("다음", for: .normal)
     
-
-            self.grayView.snp.remakeConstraints({ make in
-                make.trailing.equalToSuperview()
-                make.height.equalTo(5)
-                make.width.equalToSuperview().dividedBy(2)
-            })
-                        
-            UIView.animate(withDuration: 0.5, animations: {
-                self.view.layoutIfNeeded()
-            }, completion: nil)
         }
     }
 
 }
+

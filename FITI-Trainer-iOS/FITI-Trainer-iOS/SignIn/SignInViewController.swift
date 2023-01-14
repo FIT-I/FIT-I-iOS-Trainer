@@ -28,7 +28,7 @@ class SignInViewController: UIViewController {
                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.customColor(.gray)]
                 )
         tf.layer.borderColor = UIColor.customColor(.gray).cgColor
-        tf.layer.borderWidth = 1
+        tf.layer.borderWidth = 2
         tf.layer.cornerRadius = 10
         tf.font = UIFont.systemFont(ofSize: 20)
         tf.textColor = UIColor.customColor(.blue)
@@ -45,10 +45,11 @@ class SignInViewController: UIViewController {
                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.customColor(.gray)]
                 )
         tf.layer.borderColor = UIColor.customColor(.gray).cgColor
-        tf.layer.borderWidth = 1
+        tf.layer.borderWidth = 2
         tf.layer.cornerRadius = 10
         tf.font = UIFont.systemFont(ofSize: 20)
         tf.textColor = UIColor.customColor(.blue)
+        tf.isSecureTextEntry = true
         tf.setLeftPaddingPoints(10)
         tf.addTarget(self, action: #selector(handlePwTfDidChange), for: .editingChanged)
 
