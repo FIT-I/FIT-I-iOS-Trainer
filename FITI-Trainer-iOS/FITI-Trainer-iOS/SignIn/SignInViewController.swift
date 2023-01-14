@@ -185,6 +185,7 @@ class SignInViewController: UIViewController {
         idTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
         id = true
         
+        
         if(id && pw){
             nextButton.backgroundColor = UIColor.customColor(.blue)
         }
