@@ -199,7 +199,7 @@ class MakeAccountViewController: UIViewController {
         }
         
         checkPwTextField.snp.makeConstraints { make in
-            make.top.equalTo(pwRuleLabel.snp.bottom).offset(3)
+            make.top.equalTo(pwRuleLabel.snp.bottom).offset(12)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(52)

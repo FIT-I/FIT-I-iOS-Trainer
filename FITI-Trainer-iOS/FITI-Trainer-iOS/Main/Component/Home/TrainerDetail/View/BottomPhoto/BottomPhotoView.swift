@@ -25,6 +25,12 @@ class BottomPhotoView: UIView {
         return label
     }()
     
+    var editPhotoButton : UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "edit.svg"), for: .normal)
+        return btn
+    }()
+    
     var photoLineView : UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.customColor(.darkGray)
@@ -72,10 +78,16 @@ class BottomPhotoView: UIView {
         self.addSubview(photoTopStackView)
         self.addSubview(photoLineView)
         self.addSubview(editerChoiceCV)
+        self.addSubview(editPhotoButton)
+
         
         photoTopStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(17)
             make.leading.equalToSuperview().offset(20)
+        }
+        editPhotoButton.snp.makeConstraints { make in
+            make.top.equalTo(photoTopStackView)
+            make.trailing.equalToSuperview().offset(-20)
         }
         photoLineView.snp.makeConstraints { make in
             make.top.equalTo(photoTopStackView.snp.bottom).offset(10)
