@@ -36,6 +36,12 @@ class TrainerDetailViewController: UIViewController {
             return picker
         }()
     
+    var noticeImage : UIImageView = {
+        let img = UIImageView()
+        img.image = UIImage(named: "notice.svg")
+        return img
+    }()
+    
     // 스크롤 뷰
     private lazy var contentScrollView = UIScrollView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -219,6 +225,7 @@ extension TrainerDetailViewController {
             topView,
             editBackImageButton,
             headView,
+            noticeImage,
             bodyPriceView,
             bodyIntroView,
             bodyIntroAboutService,
@@ -263,11 +270,18 @@ extension TrainerDetailViewController {
             make.leading.equalToSuperview()
         }
         
+        noticeImage.snp.makeConstraints { make in
+            make.top.equalTo(headView.snp.bottom).offset(25)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            make.bottom.equalTo(bodyPriceView.snp.top).offset(-20)
+        }
+        
         bodyPriceView.snp.makeConstraints {
-            $0.top.equalTo(headView.snp.bottom).offset(20)
+            $0.top.equalTo(noticeImage.snp.bottom).offset(20)
             $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.height.equalTo(130)
+            $0.height.equalTo(86)
         }
         
         bodyIntroView.snp.makeConstraints {

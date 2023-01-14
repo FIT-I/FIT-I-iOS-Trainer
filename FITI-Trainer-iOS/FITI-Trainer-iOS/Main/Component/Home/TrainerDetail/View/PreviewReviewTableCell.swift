@@ -33,20 +33,38 @@ class PreviewReviewTableCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10.0)
         label.text = "2022.12.2"
-        label.textColor = UIColor.customColor(.gray)
+        label.textColor = UIColor.customColor(.darkGray)
         return label
+    }()
+    
+    var starIcon : UIImageView = {
+        let image = UIImageView()
+        image.snp.makeConstraints { make in
+            make.height.width.equalTo(10)
+        }
+        image.image = UIImage(named: "star.svg")
+        return image
     }()
     
     var grade : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10.0)
-        label.text = "평점4.3"
-        label.textColor = UIColor.customColor(.gray)
+        label.text = "4.3"
+        label.textColor = UIColor.customColor(.darkGray)
         return label
     }()
     
+    lazy var rateStackView : UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [starIcon,grade])
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        stackView.alignment = .center
+        return stackView
+    }()
+
+    
     lazy var dateStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [date,grade])
+        let stackView = UIStackView(arrangedSubviews: [date,rateStackView])
         stackView.axis = .horizontal
         stackView.spacing = 12
         stackView.alignment = .leading

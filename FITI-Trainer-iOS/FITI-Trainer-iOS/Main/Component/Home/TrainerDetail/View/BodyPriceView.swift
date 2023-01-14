@@ -83,21 +83,21 @@ class BodyPriceView : UIView {
         return stackView
     }()
     
-    lazy var priceLeftStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [timeLabel,othersLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        stackView.alignment = .leading
-        return stackView
-    }()
-    
-    lazy var priceRightStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [priceForTimeLabel,otherPriceForTimeLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 15
-        stackView.alignment = .trailing
-        return stackView
-    }()
+//    lazy var priceLeftStackView : UIStackView = {
+//        let stackView = UIStackView(arrangedSubviews: [timeLabel,othersLabel])
+//        stackView.axis = .vertical
+//        stackView.spacing = 8
+//        stackView.alignment = .leading
+//        return stackView
+//    }()
+//
+//    lazy var priceRightStackView : UIStackView = {
+//        let stackView = UIStackView(arrangedSubviews: [priceForTimeLabel,otherPriceForTimeLabel])
+//        stackView.axis = .vertical
+//        stackView.spacing = 15
+//        stackView.alignment = .trailing
+//        return stackView
+//    }()
     
     
     required init?(coder: NSCoder) {
@@ -113,8 +113,11 @@ class BodyPriceView : UIView {
     private func setViewHierarchy() {
         self.addSubview(priceTopStackView)
         self.addSubview(priceLineView)
-        self.addSubview(priceLeftStackView)
-        self.addSubview(priceRightStackView)
+//        self.addSubview(priceLeftStackView)
+//        self.addSubview(priceRightStackView)
+        self.addSubview(timeLabel)
+        self.addSubview(priceForTimeLabel)
+
         self.addSubview(editBodyPriceButton)
     }
     
@@ -132,11 +135,11 @@ class BodyPriceView : UIView {
             make.leading.equalToSuperview().offset(18)
             make.trailing.equalToSuperview().offset(-22)
         }
-        priceLeftStackView.snp.makeConstraints { make in
+        timeLabel.snp.makeConstraints { make in
             make.top.equalTo(priceLineView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(20)
         }
-        priceRightStackView.snp.makeConstraints { make in
+        priceForTimeLabel.snp.makeConstraints { make in
             make.top.equalTo(priceLineView.snp.bottom).offset(10)
             make.trailing.equalToSuperview().offset(-20)
         }
