@@ -54,6 +54,13 @@ class EditBodyPriceView: UIView {
         return btn
     }()
     
+    var extraPickBtn : UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "emptyBox.svg"), for: .normal)
+//        btn.addTarget(EditBodyPriceView.self, action: #selector(hourBtnClicked), for: .touchUpInside)
+        return btn
+    }()
+    
     var freeLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20.0)
@@ -92,6 +99,23 @@ class EditBodyPriceView: UIView {
         label.text = "25,000원"
         label.textColor = UIColor.black
         return label
+    }()
+    
+    var extraPriceTextField : UITextField = {
+        let tf = UITextField()
+        tf.attributedPlaceholder = NSAttributedString(
+                    string: "기타 (직접 입력해주세요)",
+                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.customColor(.gray)]
+                )
+        tf.isEnabled = true
+        tf.layer.borderColor = UIColor.customColor(.gray).cgColor
+        tf.layer.borderWidth = 1
+        tf.layer.cornerRadius = 5
+        tf.font = UIFont.systemFont(ofSize: 20)
+        tf.textColor = UIColor.customColor(.blue)
+        tf.setLeftPaddingPoints(10)
+        tf.addTarget(self, action: #selector(handleExtraTfDidChange), for: .editingChanged)
+        return tf
     }()
     
     lazy var freeLeftStackView : UIStackView = {
@@ -134,6 +158,14 @@ class EditBodyPriceView: UIView {
         return stackView
     }()
     
+//    lazy var extraLeftStackView : UIStackView = {
+//        let stackView = UIStackView(arrangedSubviews: [extraPickBtn,extraPriceTextField])
+//        stackView.axis = .horizontal
+//        stackView.alignment = .center
+//        stackView.spacing = 15
+//        return stackView
+//    }()
+//
     lazy var globalStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [freeLeftStackView,firstLeftStackView,secondLeftStackView,thirdLeftStackView,fourthLeftStackView])
         stackView.axis = .vertical
@@ -155,18 +187,47 @@ class EditBodyPriceView: UIView {
 
     private func setViewHierarchy() {
         self.addSubview(globalStackView)
+        self.addSubview(extraPickBtn)
+        self.addSubview(extraPriceTextField)
+
     }
     
     private func setConstraints(){
         globalStackView.snp.makeConstraints { make in
             make.leading.trailing.top.bottom.equalToSuperview()
         }
+        
+        extraPickBtn.snp.makeConstraints { make in
+            make.top.equalTo(globalStackView.snp.bottom).offset(20)
+            make.height.equalTo(30)
+            make.width.equalTo(30)
+            make.leading.equalTo(globalStackView)
+        }
+        
+        extraPriceTextField.snp.makeConstraints { make in
+            make.top.equalTo(extraPickBtn)
+            make.height.equalTo(30)
+            make.trailing.equalToSuperview().offset(-30)
+            make.leading.equalTo(extraPickBtn.snp.trailing).offset(16)
+        }
+        
+        
     }
     
     @objc func hourBtnClicked(sender: UIBarButtonItem) {
         
     }
     @objc func addBtnClicked(sender: UIBarButtonItem) {
+        
+    }
+    
+    @objc func handleExtraTfDidChange(_ textField: UITextField) {
+        if(extraPriceTextField.text == ""){
+            extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
+        }else{
+            extraPriceTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
+            
+        }
         
     }
 }

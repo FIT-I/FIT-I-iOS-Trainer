@@ -44,41 +44,6 @@ class EditBodyPriceViewController: UIViewController {
         return label
     }()
     
-    var extraPriceTitleLabel : UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Avenir-Black", size: 20.0)
-        label.text = "기타 (1시간 기준 / 직접 입력해 주세요.)"
-        label.textColor = UIColor.black
-        return label
-    }()
-    
-    var extraPickBtn : UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(named: "emptyBox.svg"), for: .normal)
-//        btn.addTarget(EditBodyPriceView.self, action: #selector(hourBtnClicked), for: .touchUpInside)
-        return btn
-    }()
-    
-    private let extraPriceTextField : UITextField = {
-        let tf = UITextField()
-        tf.layer.borderColor = UIColor.customColor(.gray).cgColor
-        tf.layer.borderWidth = 1
-        tf.layer.cornerRadius = 5
-        tf.font = UIFont.systemFont(ofSize: 20)
-        tf.textColor = UIColor.customColor(.blue)
-        tf.setLeftPaddingPoints(10)
-        tf.addTarget(self, action: #selector(handleExtraTfDidChange), for: .editingChanged)
-        return tf
-    }()
-    
-//    lazy var extraPriceStackView : UIStackView = {
-//        let stackView = UIStackView(arrangedSubviews: [extraPickBtn,extraPriceTextField])
-//        stackView.axis = .horizontal
-//        stackView.spacing = 15
-//        stackView.alignment = .leading
-//        return stackView
-//    }()
-//
     private let nextBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = UIColor.customColor(.blue)
@@ -120,9 +85,7 @@ class EditBodyPriceViewController: UIViewController {
         view.addSubview(priceTitleLabel)
         view.addSubview(nextBtn)
         view.addSubview(priceStackView)
-        view.addSubview(extraPriceTitleLabel)
-        view.addSubview(extraPickBtn)
-        view.addSubview(extraPriceTextField)
+
     }
     
     private func setConstraints(){
@@ -146,37 +109,8 @@ class EditBodyPriceViewController: UIViewController {
         priceStackView.snp.makeConstraints { make in
             make.top.equalTo(priceTitleLabel.snp.bottom).offset(40)
             make.leading.equalToSuperview().offset(30)
-            make.trailing.equalToSuperview().offset(-30)
-//            make.height.equalTo(80)
+            make.trailing.equalToSuperview()
         }
-        
-        extraPriceTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(priceStackView.snp.bottom).offset(42)
-            make.leading.equalTo(priceTitleLabel)
-        }
-        
-        extraPickBtn.snp.makeConstraints { make in
-            make.top.equalTo(extraPriceTitleLabel.snp.bottom).offset(20)
-            make.leading.equalToSuperview().offset(30)
-            make.height.equalTo(30)
-            make.width.equalTo(30)
-        }
-        
-        extraPriceTextField.snp.makeConstraints { make in
-            make.top.equalTo(extraPickBtn)
-//            make.top.equalTo(extraPriceTitleLabel.snp.bottom).offset(20)
-            make.leading.equalTo(extraPickBtn.snp.trailing).offset(16)
-//            make.leading.equalToSuperview().offset(30)
-            make.trailing.equalToSuperview().offset(-30)
-            make.height.equalTo(30)
-        }
-        
-        
-//        extraPriceStackView.snp.makeConstraints { make in
-//            make.top.equalTo(extraPriceTitleLabel.snp.bottom).offset(20)
-//            make.leading.equalToSuperview().offset(30)
-//            make.trailing.equalToSuperview().offset(-30)
-//        }
         
         nextBtn.snp.makeConstraints { make in
             make.height.equalTo(50)
@@ -187,22 +121,11 @@ class EditBodyPriceViewController: UIViewController {
     }
     
     @objc func nextEvent(){
-        let nextVC = TrainerDetailViewController()
-        navigationController?.pushViewController(nextVC, animated: false)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func handleExtraTfDidChange(_ textField: UITextField) {
-        if(extraPriceTextField.text == ""){
-            extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
-        }else{
-            extraPriceTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
-
-        }
-        
     }
     
 }
