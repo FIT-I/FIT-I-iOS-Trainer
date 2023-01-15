@@ -11,6 +11,23 @@
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
 		059D807A2973270B0062C41A /* emailCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80792973270B0062C41A /* emailCheckViewController.swift */; };
+		059D807C2973E5500062C41A /* CommunityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D807B2973E5500062C41A /* CommunityTableCell.swift */; };
+		059D80802973F3AE0062C41A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D807F2973F3AE0062C41A /* ProfileView.swift */; };
+		059D80822973F3BA0062C41A /* NotificationSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80812973F3BA0062C41A /* NotificationSwitch.swift */; };
+		059D80842973F3C90062C41A /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80832973F3C90062C41A /* BottomView.swift */; };
+		059D80862973F3D70062C41A /* BottomBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80852973F3D70062C41A /* BottomBtnView.swift */; };
+		059D808E2973F4660062C41A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D808D2973F4660062C41A /* SettingViewController.swift */; };
+		059D80912973F47E0062C41A /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80902973F47E0062C41A /* WithdrawViewController.swift */; };
+		059D80932973F4AF0062C41A /* SettingProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80922973F4AF0062C41A /* SettingProfileViewController.swift */; };
+		059D80952973F4B90062C41A /* TopStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80942973F4B90062C41A /* TopStackView.swift */; };
+		059D80972973F4C50062C41A /* BottomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80962973F4C50062C41A /* BottomInfoView.swift */; };
+		059D809A2973F4E10062C41A /* SettingUserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80992973F4E10062C41A /* SettingUserNameViewController.swift */; };
+		059D809C2973F5260062C41A /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D809B2973F5260062C41A /* UpdateViewController.swift */; };
+		059D809E2973F5660062C41A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D809D2973F5650062C41A /* SearchViewController.swift */; };
+		059D80A02973F56F0062C41A /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D809F2973F56F0062C41A /* SearchTVC.swift */; };
+		059D80A22973F5970062C41A /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80A12973F5970062C41A /* NoticeViewController.swift */; };
+		059D80A42973F5AF0062C41A /* ClauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80A32973F5AF0062C41A /* ClauseViewController.swift */; };
+		059D80A7297431A70062C41A /* resetPwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80A6297431A70062C41A /* resetPwViewController.swift */; };
 		05A11DA7296C9ED5008D85A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DA6296C9ED5008D85A9 /* AppDelegate.swift */; };
 		05A11DA9296C9ED5008D85A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DA8296C9ED5008D85A9 /* SceneDelegate.swift */; };
 		05A11DB0296C9ED7008D85A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05A11DAF296C9ED7008D85A9 /* Assets.xcassets */; };
@@ -55,6 +72,23 @@
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
+		059D807B2973E5500062C41A /* CommunityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableCell.swift; sourceTree = "<group>"; };
+		059D807F2973F3AE0062C41A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		059D80812973F3BA0062C41A /* NotificationSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSwitch.swift; sourceTree = "<group>"; };
+		059D80832973F3C90062C41A /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
+		059D80852973F3D70062C41A /* BottomBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBtnView.swift; sourceTree = "<group>"; };
+		059D808D2973F4660062C41A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		059D80902973F47E0062C41A /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
+		059D80922973F4AF0062C41A /* SettingProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileViewController.swift; sourceTree = "<group>"; };
+		059D80942973F4B90062C41A /* TopStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopStackView.swift; sourceTree = "<group>"; };
+		059D80962973F4C50062C41A /* BottomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoView.swift; sourceTree = "<group>"; };
+		059D80992973F4E10062C41A /* SettingUserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserNameViewController.swift; sourceTree = "<group>"; };
+		059D809B2973F5260062C41A /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
+		059D809D2973F5650062C41A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		059D809F2973F56F0062C41A /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
+		059D80A12973F5970062C41A /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
+		059D80A32973F5AF0062C41A /* ClauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClauseViewController.swift; sourceTree = "<group>"; };
+		059D80A6297431A70062C41A /* resetPwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = resetPwViewController.swift; sourceTree = "<group>"; };
 		05A11DA3296C9ED5008D85A9 /* FITI-Trainer-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FITI-Trainer-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05A11DA6296C9ED5008D85A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05A11DA8296C9ED5008D85A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +171,100 @@
 			path = TrainerCheck;
 			sourceTree = "<group>";
 		};
+		059D807D2973F34C0062C41A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				059D807F2973F3AE0062C41A /* ProfileView.swift */,
+				059D80812973F3BA0062C41A /* NotificationSwitch.swift */,
+				059D80832973F3C90062C41A /* BottomView.swift */,
+				059D80852973F3D70062C41A /* BottomBtnView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		059D807E2973F3580062C41A /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				059D80872973F4130062C41A /* Setting */,
+				059D80882973F4180062C41A /* SettingProfile */,
+				059D808B2973F4430062C41A /* Location */,
+				059D80A529742AF20062C41A /* resetPw */,
+				059D808C2973F44A0062C41A /* Update */,
+				059D808A2973F43B0062C41A /* Notice */,
+				059D80892973F42B0062C41A /* Clause */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		059D80872973F4130062C41A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				059D808D2973F4660062C41A /* SettingViewController.swift */,
+				059D80902973F47E0062C41A /* WithdrawViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		059D80882973F4180062C41A /* SettingProfile */ = {
+			isa = PBXGroup;
+			children = (
+				059D80922973F4AF0062C41A /* SettingProfileViewController.swift */,
+				059D80942973F4B90062C41A /* TopStackView.swift */,
+				059D80962973F4C50062C41A /* BottomInfoView.swift */,
+				059D80982973F4CD0062C41A /* SettingUserName */,
+			);
+			path = SettingProfile;
+			sourceTree = "<group>";
+		};
+		059D80892973F42B0062C41A /* Clause */ = {
+			isa = PBXGroup;
+			children = (
+				059D80A32973F5AF0062C41A /* ClauseViewController.swift */,
+			);
+			path = Clause;
+			sourceTree = "<group>";
+		};
+		059D808A2973F43B0062C41A /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				059D80A12973F5970062C41A /* NoticeViewController.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
+		059D808B2973F4430062C41A /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				059D809D2973F5650062C41A /* SearchViewController.swift */,
+				059D809F2973F56F0062C41A /* SearchTVC.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		059D808C2973F44A0062C41A /* Update */ = {
+			isa = PBXGroup;
+			children = (
+				059D809B2973F5260062C41A /* UpdateViewController.swift */,
+			);
+			path = Update;
+			sourceTree = "<group>";
+		};
+		059D80982973F4CD0062C41A /* SettingUserName */ = {
+			isa = PBXGroup;
+			children = (
+				059D80992973F4E10062C41A /* SettingUserNameViewController.swift */,
+			);
+			path = SettingUserName;
+			sourceTree = "<group>";
+		};
+		059D80A529742AF20062C41A /* resetPw */ = {
+			isa = PBXGroup;
+			children = (
+				059D80A6297431A70062C41A /* resetPwViewController.swift */,
+			);
+			path = resetPw;
+			sourceTree = "<group>";
+		};
 		05A11D9A296C9ED5008D85A9 = {
 			isa = PBXGroup;
 			children = (
@@ -213,10 +341,10 @@
 		05A11DD3296DB884008D85A9 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				05A11DD7296DB941008D85A9 /* Community */,
-				05A11DD6296DB937008D85A9 /* MyPage */,
 				05A11DD5296DB930008D85A9 /* Home */,
+				05A11DD7296DB941008D85A9 /* Community */,
 				05A11DD4296DB928008D85A9 /* Chat */,
+				05A11DD6296DB937008D85A9 /* MyPage */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -243,6 +371,8 @@
 			isa = PBXGroup;
 			children = (
 				05A11DDC296DBA84008D85A9 /* MyPageViewController.swift */,
+				059D807D2973F34C0062C41A /* View */,
+				059D807E2973F3580062C41A /* DetailView */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -251,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				05A11DDA296DBA6E008D85A9 /* CommunityViewController.swift */,
+				059D807B2973E5500062C41A /* CommunityTableCell.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -389,8 +520,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */,
+				059D80802973F3AE0062C41A /* ProfileView.swift in Sources */,
+				059D809C2973F5260062C41A /* UpdateViewController.swift in Sources */,
+				059D80862973F3D70062C41A /* BottomBtnView.swift in Sources */,
 				05A11E06296F1B99008D85A9 /* ReviewTableCell.swift in Sources */,
 				05A11DC1296C9F99008D85A9 /* UIStackView+.swift in Sources */,
+				059D80952973F4B90062C41A /* TopStackView.swift in Sources */,
+				059D808E2973F4660062C41A /* SettingViewController.swift in Sources */,
+				059D80822973F3BA0062C41A /* NotificationSwitch.swift in Sources */,
 				059D807A2973270B0062C41A /* emailCheckViewController.swift in Sources */,
 				05A11DCE296D7F26008D85A9 /* GradeTableViewController.swift in Sources */,
 				05A11DF8296F1570008D85A9 /* PreviewReviewTableCell.swift in Sources */,
@@ -398,8 +535,12 @@
 				05A11DD2296DB880008D85A9 /* TabBarController.swift in Sources */,
 				059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */,
 				05A11E0B29702548008D85A9 /* EditBodyPriceViewController.swift in Sources */,
+				059D807C2973E5500062C41A /* CommunityTableCell.swift in Sources */,
 				05A11DC7296C9FD9008D85A9 /* TrainerCheckViewController.swift in Sources */,
+				059D80912973F47E0062C41A /* WithdrawViewController.swift in Sources */,
+				059D80A7297431A70062C41A /* resetPwViewController.swift in Sources */,
 				05A11E0F297025DB008D85A9 /* EditAboutServiceViewController.swift in Sources */,
+				059D809A2973F4E10062C41A /* SettingUserNameViewController.swift in Sources */,
 				05A11DFC296F1589008D85A9 /* BottomPhotoView.swift in Sources */,
 				05A11DBF296C9F8D008D85A9 /* UIColor+.swift in Sources */,
 				05A11DF4296F155B008D85A9 /* BodyIntroAboutServiceView.swift in Sources */,
@@ -409,22 +550,29 @@
 				05A11DA7296C9ED5008D85A9 /* AppDelegate.swift in Sources */,
 				05A11DF6296F1565008D85A9 /* BodyReviewView.swift in Sources */,
 				05A11DA9296C9ED5008D85A9 /* SceneDelegate.swift in Sources */,
+				059D80A42973F5AF0062C41A /* ClauseViewController.swift in Sources */,
+				059D80932973F4AF0062C41A /* SettingProfileViewController.swift in Sources */,
 				05A11DEE296F1532008D85A9 /* HeadView.swift in Sources */,
 				05A11DE3296DE5D0008D85A9 /* TrainerDetailViewController.swift in Sources */,
 				05A11DDD296DBA84008D85A9 /* MyPageViewController.swift in Sources */,
+				059D80A02973F56F0062C41A /* SearchTVC.swift in Sources */,
 				05A11DDB296DBA6E008D85A9 /* CommunityViewController.swift in Sources */,
 				05A11DFE296F1596008D85A9 /* BookCVC.swift in Sources */,
 				05A11DE5296DEBF8008D85A9 /* PriceStackView.swift in Sources */,
 				05A11DD0296DB5EF008D85A9 /* SignInViewController.swift in Sources */,
 				05A11DF0296F1541008D85A9 /* BodyPriceView.swift in Sources */,
+				059D80842973F3C90062C41A /* BottomView.swift in Sources */,
+				059D809E2973F5660062C41A /* SearchViewController.swift in Sources */,
 				05A11E0D29702583008D85A9 /* EditBodyIntroViewController.swift in Sources */,
 				05A11DE7296EBB68008D85A9 /* UIViewController+.swift in Sources */,
 				05A11E03296F17A0008D85A9 /* UIView+.swift in Sources */,
 				05A11DC5296C9FBB008D85A9 /* PolicyViewController.swift in Sources */,
+				059D80A22973F5970062C41A /* NoticeViewController.swift in Sources */,
 				05A11DF2296F1550008D85A9 /* BodyIntroView.swift in Sources */,
 				05A11E08296F1BB6008D85A9 /* ReviewViewController.swift in Sources */,
 				05A11DDF296DBA96008D85A9 /* ChatViewController.swift in Sources */,
 				05A11DD9296DBA05008D85A9 /* HomeViewController.swift in Sources */,
+				059D80972973F4C50062C41A /* BottomInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

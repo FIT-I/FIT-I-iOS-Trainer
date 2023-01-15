@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "eye.slash.svg",
+      "filename" : "OFF.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "eye.slash 1.svg",
+      "filename" : "OFF 1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "eye.slash 2.svg",
+      "filename" : "OFF 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }
