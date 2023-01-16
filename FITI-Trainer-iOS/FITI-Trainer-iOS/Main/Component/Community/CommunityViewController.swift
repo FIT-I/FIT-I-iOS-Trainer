@@ -76,6 +76,8 @@ class CommunityViewController: UIViewController {
 extension CommunityViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("cell did touched")
+        let nextVC = RequestResultViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 
