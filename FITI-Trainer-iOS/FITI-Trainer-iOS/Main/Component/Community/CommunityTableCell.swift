@@ -15,9 +15,11 @@ class CommunityTableCell: UITableViewCell {
     
     var reviewerImage : UIImageView = {
         let imgView = UIImageView()
-        imgView.image = UIImage(named: "reviewerIcon.svg")
+        imgView.image = UIImage(named: "profile.svg")
         imgView.snp.makeConstraints { make in
-            make.height.width.equalTo(40)
+            make.height.equalTo(25.71)
+            make.width.equalTo(15)
+
         }
         return imgView
     }()

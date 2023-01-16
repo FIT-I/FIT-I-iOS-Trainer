@@ -156,6 +156,7 @@ class resetPwViewController: UIViewController {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
+        
         pwRuleLabel.snp.makeConstraints { make in
             make.top.equalTo(newPwTextField.snp.bottom).offset(1)
             make.leading.equalToSuperview().offset(30)
