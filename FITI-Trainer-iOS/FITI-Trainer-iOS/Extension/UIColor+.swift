@@ -15,7 +15,7 @@ enum CustomColor {
     case boxGray
     case skyblue1
     case skyblue2
-
+    case green
 }
 
 extension UIColor {
@@ -34,6 +34,8 @@ extension UIColor {
             return UIColor(red: 0.89, green: 0.95, blue: 1.00, alpha: 1.00)
         case .skyblue2:
             return UIColor(red: 0.69, green: 0.73, blue: 0.82, alpha: 1.00)
+        case .green:
+            return UIColor(red: 0.08, green: 0.58, blue: 0.00, alpha: 1.00)
 
         }
     }
