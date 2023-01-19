@@ -11,6 +11,8 @@ import SnapKit
 
 class FindPwViewController: UIViewController {
     
+    var isAllTrue = [false,false]
+    
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 25)
@@ -32,21 +34,32 @@ class FindPwViewController: UIViewController {
         tf.font = UIFont.systemFont(ofSize: 20)
         tf.textColor = UIColor.customColor(.blue)
         tf.setLeftPaddingPoints(10)
-        tf.addTarget(self, action: #selector(handleSchoolTfDidChange), for: .editingChanged)
         return tf
     }()
     
     private let authTextField : UITextField = {
         let tf = UITextField()
-        tf.isEnabled = false
-        tf.layer.borderColor = UIColor.white.cgColor
+        tf.isHidden = true
+        tf.layer.borderColor = UIColor.customColor(.gray).cgColor
         tf.layer.borderWidth = 2
         tf.layer.cornerRadius = 10
         tf.font = UIFont.systemFont(ofSize: 20)
         tf.textColor = UIColor.customColor(.blue)
         tf.setLeftPaddingPoints(10)
-        tf.addTarget(self, action: #selector(handleMajorTfDidChange), for: .editingChanged)
         return tf
+    }()
+    
+    private let warningLabelForEmail : UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.font = UIFont(name: "Noto Sans", size: 10)
+        return label
+    }()
+    
+    private let warningLabelForAuth : UILabel = {
+        let label = UILabel()
+        label.text = ""
+        return label
     }()
     
     var progressView : UIView = {
@@ -79,7 +92,6 @@ class FindPwViewController: UIViewController {
             return btn
         }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -88,6 +100,9 @@ class FindPwViewController: UIViewController {
         navigationController?.navigationBar.topItem?.title = ""
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEmailTfDidChange(_:)), name: UITextField.textDidChangeNotification, object: emailTextField)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAuthTfDidChange(_:)), name: UITextField.textDidChangeNotification, object: authTextField)
         
         // Do any additional setup after loading the view.
         setViewHierarchy()
@@ -105,6 +120,8 @@ class FindPwViewController: UIViewController {
         view.addSubview(emailTextField)
         view.addSubview(authTextField)
         view.addSubview(nextButton)
+        view.addSubview(warningLabelForAuth)
+        view.addSubview(warningLabelForEmail)
     }
     
     private func setConstraints(){
@@ -131,11 +148,21 @@ class FindPwViewController: UIViewController {
             make.height.equalTo(52)
         }
         
+        warningLabelForEmail.snp.makeConstraints { make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(3)
+            make.leading.equalTo(emailTextField).offset(10)
+        }
+        
         authTextField.snp.makeConstraints { make in
             make.top.equalTo(emailTextField.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(52)
+        }
+        
+        warningLabelForAuth.snp.makeConstraints { make in
+            make.top.equalTo(authTextField.snp.bottom).offset(3)
+            make.leading.equalTo(authTextField).offset(10)
         }
     
         nextButton.snp.makeConstraints { make in
@@ -152,43 +179,21 @@ class FindPwViewController: UIViewController {
     }
     
     
-    var nextBtn = 0
-    
-    @objc func handleSchoolTfDidChange(_ textField: UITextField) {
-        if(emailTextField.text != ""){
-            nextButton.backgroundColor = UIColor.customColor(.blue)
-            emailTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
-        }
-        nextBtn = 1
-    }
-    
-    @objc func handleMajorTfDidChange(_ textField: UITextField) {
-        if(authTextField.text != ""){
-            nextButton.backgroundColor = UIColor.customColor(.blue)
-            authTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
-            
-        }
-        nextBtn = 2
-    }
-    
     @objc func touchNextBtnEvent() {
         
-        if(nextBtn == 2){
+        if(isAllTrue[1]){
             let nextVC = GradeTableViewController()
             navigationController?.pushViewController(nextVC, animated: true)
-        } else if(nextBtn == 1){
+        } else if(isAllTrue[0]){
             //major  textField 활성화
-            authTextField.isEnabled = true
-            authTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
-            authTextField.attributedPlaceholder = NSAttributedString(
-                        string: "인증코드 6자리를 입력해주세요",
-                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.customColor(.gray)]
-                    )
+            authTextField.isHidden = false
+            warningLabelForEmail.isHidden = true
+            
             //버튼 다시 회색으로
             nextButton.backgroundColor = UIColor.customColor(.gray)
-            nextButton.setTitle("다음", for: .normal)
-    
+            nextButton.setTitle("완료", for: .normal)
 
+    
             self.grayView.snp.remakeConstraints({ make in
                 make.trailing.equalToSuperview()
                 make.height.equalTo(5)
@@ -200,5 +205,72 @@ class FindPwViewController: UIViewController {
             }, completion: nil)
         }
     }
+    
+    @objc func handleAuthTfDidChange(_ notification: Notification) {
+        
+        if let textField = notification.object as? UITextField {
+            if let text = textField.text {
+                if text.count < 6  {
+                    warningLabelForAuth.text = "6자리를 입력해주세요"
+                    warningLabelForAuth.textColor = .red
+                    authTextField.layer.borderColor = UIColor.red.cgColor
+
+                    self.isAllTrue[1] = false
+                }else if(text.count == 6){
+                    warningLabelForAuth.text = ""
+                    warningLabelForAuth.textColor = .clear
+                    authTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
+                    nextButton.backgroundColor = UIColor.customColor(.blue)
+
+                    self.isAllTrue[1] = true
+                }else{
+                    warningLabelForAuth.text = "6자리를 입력해주세요"
+                    warningLabelForAuth.textColor = .red
+                    authTextField.layer.borderColor = UIColor.red.cgColor
+                    
+                    self.isAllTrue[1] = false
+
+                }
+            }
+        }
+    }
+    
+    @objc func handleEmailTfDidChange(_ notification: Notification) {
+        if let textField = notification.object as? UITextField {
+            if let text = textField.text {
+                if text.count < 1  {
+                    warningLabelForEmail.text = "이메일을 입력해주세요."
+                    warningLabelForEmail.textColor = .red
+                    emailTextField.layer.borderColor = UIColor.red.cgColor
+
+                    self.isAllTrue[0] = false
+                }else{
+                    if checkEmail(str: text) == false {
+                        warningLabelForEmail.text = "올바르지 않은 이메일 형식입니다."
+                        warningLabelForEmail.textColor = .red
+                        emailTextField.layer.borderColor = UIColor.red.cgColor
+
+                        self.isAllTrue[0] = false
+                    }
+                    else {
+                        warningLabelForEmail.text = "올바른 이메일 형식입니다."
+                        warningLabelForEmail.textColor = UIColor.customColor(.green)
+                        emailTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
+                        nextButton.backgroundColor = UIColor.customColor(.blue)
+
+                        self.isAllTrue[0] = true
+                    }
+                }
+            }
+        }
+    }
+    
+    //이메일 형식 검사 함수 - true || false 반환
+    func checkEmail(str: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+//        print("check")
+        return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: str)
+    }
+    
 
 }
