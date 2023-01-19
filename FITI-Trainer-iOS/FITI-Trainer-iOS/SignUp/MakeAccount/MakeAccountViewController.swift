@@ -10,9 +10,8 @@ import UIKit
 import SnapKit
 
 class MakeAccountViewController: UIViewController {
-    var isAllTrue = [false,false,false,false]
+    var isAllTrue = [false,false]
 
-    
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 25)
@@ -304,13 +303,13 @@ class MakeAccountViewController: UIViewController {
         }
     }
     
+    //비밀번호 유효성 검사 함수
     func checkPw(str: String) -> Bool {
         let pwRegex = "^(?=.*[A-Za-z])(?=.*[!@#$%^&+=])(?=.*[0-9]).{5,}"
-//        let emailRegex = "^([A-Za-z\d@!%*?&]).{5,}"
-//        print("check")
         return  NSPredicate(format: "SELF MATCHES %@", pwRegex).evaluate(with: str)
     }
     
+    //비밀번호 입력 시 실행 함수
     @objc func handlePwTfDidChange(_ notification: Notification) {
         if let textField = notification.object as? UITextField {
             if let text = textField.text {
@@ -318,7 +317,6 @@ class MakeAccountViewController: UIViewController {
                     pwRuleLabel.textColor = UIColor.red
                     pwTextField.layer.borderColor = UIColor.red.cgColor
                     pw = false
-
                 }else{
                     isAllTrue[2] = true
                     pwRuleLabel.textColor = UIColor.customColor(.green)

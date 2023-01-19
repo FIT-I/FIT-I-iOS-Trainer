@@ -23,7 +23,6 @@ class emailCheckViewController: UIViewController {
     
     private let emailTextField : UITextField = {
         let tf = UITextField()
-        
         tf.attributedPlaceholder = NSAttributedString(
                     string: "학교 이메일을 입력해주세요",
                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.customColor(.gray)]
@@ -34,7 +33,6 @@ class emailCheckViewController: UIViewController {
         tf.font = UIFont.systemFont(ofSize: 20)
         tf.textColor = UIColor.customColor(.blue)
         tf.setLeftPaddingPoints(10)
-//        tf.addTarget(self, action: #selector(handleSchoolTfDidChange), for: .editingChanged)
         return tf
     }()
     
