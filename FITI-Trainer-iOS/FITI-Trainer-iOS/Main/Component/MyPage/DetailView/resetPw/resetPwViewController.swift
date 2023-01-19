@@ -251,7 +251,7 @@ class resetPwViewController: UIViewController {
         }
         if(newPwTextField.text == checkPwTextField.text){
             wrongPwLabel.text = "새로운 비밀번호와 일치합니다."
-            wrongPwLabel.textColor = UIColor(red: 0.08, green: 0.58, blue: 0.00, alpha: 1.00)
+            wrongPwLabel.textColor = UIColor.customColor(.green)
             checkPwTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
             newPwLabel.textColor = UIColor.customColor(.blue)
             newPwCheckLabel.textColor = UIColor.customColor(.blue)

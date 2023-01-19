@@ -320,6 +320,14 @@
 			path = EditAboutService;
 			sourceTree = "<group>";
 		};
+		059D80C229780B950062C41A /* MakeAccount */ = {
+			isa = PBXGroup;
+			children = (
+				05A11DCB296D5FD4008D85A9 /* MakeAccountViewController.swift */,
+			);
+			path = MakeAccount;
+			sourceTree = "<group>";
+		};
 		05A11D9A296C9ED5008D85A9 = {
 			isa = PBXGroup;
 			children = (
@@ -379,7 +387,7 @@
 			children = (
 				05A11DC4296C9FBB008D85A9 /* PolicyViewController.swift */,
 				059D8078297326F00062C41A /* TrainerCheck */,
-				05A11DCB296D5FD4008D85A9 /* MakeAccountViewController.swift */,
+				059D80C229780B950062C41A /* MakeAccount */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";

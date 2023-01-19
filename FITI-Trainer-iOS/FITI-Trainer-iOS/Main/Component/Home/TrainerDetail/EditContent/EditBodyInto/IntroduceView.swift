@@ -42,21 +42,6 @@ class IntroduceView: UIView {
         return view
     }()
     
-//    private var introTextView : UITextView = {
-//        let textView = UITextView()
-//        textView.backgroundColor = UIColor.customColor(.boxGray)
-//        textView.textColor = UIColor.customColor(.darkGray)
-//        //textView.layer.cornerRadius = 16
-//        textView.isEditable = true
-//        textView.isScrollEnabled = false
-//        textView.font = UIFont.systemFont(ofSize: 15.0)
-//         //   textview.text = bodyIntro.introTextView.text
-//          //  textView.textContainerInset =  UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
-//        textView.text = "다양한 자격증을 바탕으로 친절하게 지도해드립니다. 스포애니 3년의 경력을 믿어주세요~!운동 지도를 비롯하여 저만의 체계적인 식단관리표를 활용하여 PT를 진행할 예정입니다. 단기간의 다이어트는 물론 장기적으로 신체 변화를 가져오는 것 또한 자신이 있습니다. 주 2회의 대면 지도를 권장하며 자세한 커리큘럼은 쪽지를 통해 상세히 설명해 드리겠습니다."
-//
-//        return textView
-//    }()
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

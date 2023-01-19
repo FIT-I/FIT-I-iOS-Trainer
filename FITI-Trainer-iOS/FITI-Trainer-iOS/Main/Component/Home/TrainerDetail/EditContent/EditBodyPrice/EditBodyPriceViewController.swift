@@ -27,15 +27,6 @@ class EditBodyPriceViewController: UIViewController {
         return view
     }()
     
-    var grayView : UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.lightGray
-        view.snp.makeConstraints { make in
-            make.height.equalTo(5)
-        }
-        return view
-    }()
-    
     var priceTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
@@ -70,22 +61,19 @@ class EditBodyPriceViewController: UIViewController {
         navigationController?.navigationBar.topItem?.title = ""
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
-        
+
         // Do any additional setup after loading the view.
         setViewHierarchy()
         setConstraints()
         self.dismissKeyboard()
-
     }
     
     private func setViewHierarchy() {
         view.addSubview(titleLabel)
         view.addSubview(progressView)
-        progressView.addSubview(grayView)
         view.addSubview(priceTitleLabel)
         view.addSubview(nextBtn)
         view.addSubview(priceStackView)
-
     }
     
     private func setConstraints(){
@@ -98,12 +86,8 @@ class EditBodyPriceViewController: UIViewController {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
-        grayView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.width.equalToSuperview().dividedBy(2)
-        }
         priceTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(grayView.snp.bottom).offset(33)
+            make.top.equalTo(progressView.snp.bottom).offset(33)
             make.leading.equalToSuperview().offset(30)
         }
         priceStackView.snp.makeConstraints { make in
@@ -111,7 +95,6 @@ class EditBodyPriceViewController: UIViewController {
             make.leading.equalToSuperview().offset(30)
             make.trailing.equalToSuperview()
         }
-        
         nextBtn.snp.makeConstraints { make in
             make.height.equalTo(50)
             make.leading.equalToSuperview().offset(14)

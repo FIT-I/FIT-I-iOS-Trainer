@@ -111,10 +111,15 @@ class EditBodyPriceView: UIView {
         tf.layer.borderColor = UIColor.customColor(.gray).cgColor
         tf.layer.borderWidth = 1
         tf.layer.cornerRadius = 5
-        tf.font = UIFont.systemFont(ofSize: 20)
+        tf.font = UIFont.systemFont(ofSize: 17)
         tf.textColor = UIColor.customColor(.blue)
         tf.setLeftPaddingPoints(10)
         tf.addTarget(self, action: #selector(handleExtraTfDidChange), for: .editingChanged)
+//        tf.snp.makeConstraints { make in
+//            make.trailing.equalToSuperview()
+//        }
+        tf.isEnabled = false
+        
         return tf
     }()
     
@@ -158,16 +163,16 @@ class EditBodyPriceView: UIView {
         return stackView
     }()
     
-//    lazy var extraLeftStackView : UIStackView = {
-//        let stackView = UIStackView(arrangedSubviews: [extraPickBtn,extraPriceTextField])
-//        stackView.axis = .horizontal
-//        stackView.alignment = .center
-//        stackView.spacing = 15
-//        return stackView
-//    }()
-//
+    lazy var extraLeftStackView : UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [extraPickBtn,extraPriceTextField])
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 15
+        return stackView
+    }()
+
     lazy var globalStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [freeLeftStackView,firstLeftStackView,secondLeftStackView,thirdLeftStackView,fourthLeftStackView])
+        let stackView = UIStackView(arrangedSubviews: [freeLeftStackView,firstLeftStackView,secondLeftStackView,thirdLeftStackView,fourthLeftStackView,extraLeftStackView])
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.spacing = 20
@@ -184,11 +189,10 @@ class EditBodyPriceView: UIView {
         setConstraints()
     }
     
-
     private func setViewHierarchy() {
         self.addSubview(globalStackView)
-        self.addSubview(extraPickBtn)
-        self.addSubview(extraPriceTextField)
+//        self.addSubview(extraPickBtn)
+//        self.addSubview(extraPriceTextField)
 
     }
     
@@ -197,29 +201,14 @@ class EditBodyPriceView: UIView {
             make.leading.trailing.top.bottom.equalToSuperview()
         }
         
-        extraPickBtn.snp.makeConstraints { make in
-            make.top.equalTo(globalStackView.snp.bottom).offset(20)
-            make.height.equalTo(30)
-            make.width.equalTo(30)
-            make.leading.equalTo(globalStackView)
-        }
-        
         extraPriceTextField.snp.makeConstraints { make in
-            make.top.equalTo(extraPickBtn)
+            make.width.equalTo(250)
             make.height.equalTo(30)
-            make.trailing.equalToSuperview().offset(-30)
-            make.leading.equalTo(extraPickBtn.snp.trailing).offset(16)
+
         }
         
-        
     }
-    
-    @objc func hourBtnClicked(sender: UIBarButtonItem) {
-        
-    }
-    @objc func addBtnClicked(sender: UIBarButtonItem) {
-        
-    }
+
     
     @objc func handleExtraTfDidChange(_ textField: UITextField) {
         if(extraPriceTextField.text == ""){
