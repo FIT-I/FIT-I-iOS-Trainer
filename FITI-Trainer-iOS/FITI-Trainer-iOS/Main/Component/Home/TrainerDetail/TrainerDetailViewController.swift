@@ -257,7 +257,6 @@ extension TrainerDetailViewController {
             make.top.equalToSuperview()
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(180)
-            make.width.equalTo(390)
         }
         
         editBackImageButton.snp.makeConstraints { make in
@@ -306,7 +305,7 @@ extension TrainerDetailViewController {
         }
         
         bottomPhotoView.snp.makeConstraints {
-            $0.top.equalTo(bodyReviewView.snp.bottom).offset(25)
+            $0.top.equalTo(bodyReviewView.snp.bottom).offset(5)
             $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
             $0.height.equalTo(200)
