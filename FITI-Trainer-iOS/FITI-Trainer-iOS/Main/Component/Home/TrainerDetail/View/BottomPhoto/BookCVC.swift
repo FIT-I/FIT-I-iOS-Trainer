@@ -18,6 +18,7 @@ class BookCVC: UICollectionViewCell {
     let editerChoiceImageView : UIImageView = {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
+        img.contentMode = .scaleAspectFit
         return img
     }()
 

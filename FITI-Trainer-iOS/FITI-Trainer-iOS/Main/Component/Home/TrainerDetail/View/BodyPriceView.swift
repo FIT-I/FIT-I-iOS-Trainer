@@ -83,23 +83,6 @@ class BodyPriceView : UIView {
         return stackView
     }()
     
-//    lazy var priceLeftStackView : UIStackView = {
-//        let stackView = UIStackView(arrangedSubviews: [timeLabel,othersLabel])
-//        stackView.axis = .vertical
-//        stackView.spacing = 8
-//        stackView.alignment = .leading
-//        return stackView
-//    }()
-//
-//    lazy var priceRightStackView : UIStackView = {
-//        let stackView = UIStackView(arrangedSubviews: [priceForTimeLabel,otherPriceForTimeLabel])
-//        stackView.axis = .vertical
-//        stackView.spacing = 15
-//        stackView.alignment = .trailing
-//        return stackView
-//    }()
-    
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
