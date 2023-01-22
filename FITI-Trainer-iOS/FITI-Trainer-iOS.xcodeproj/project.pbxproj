@@ -173,7 +173,6 @@
 			children = (
 				05A11DFD296F1596008D85A9 /* BookCVC.swift */,
 				05A11DFB296F1589008D85A9 /* BottomPhotoView.swift */,
-				059D80762972B7C00062C41A /* EditPhotoViewController.swift */,
 			);
 			path = BottomPhoto;
 			sourceTree = "<group>";
@@ -326,6 +325,14 @@
 				05A11DCB296D5FD4008D85A9 /* MakeAccountViewController.swift */,
 			);
 			path = MakeAccount;
+			sourceTree = "<group>";
+		};
+		059D80C5297BD2920062C41A /* EditPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				059D80762972B7C00062C41A /* EditPhotoViewController.swift */,
+			);
+			path = EditPhoto;
 			sourceTree = "<group>";
 		};
 		05A11D9A296C9ED5008D85A9 = {
@@ -499,6 +506,7 @@
 				059D806B297153E60062C41A /* EditBodyPrice */,
 				059D80BA2976A8A90062C41A /* EditBodyInto */,
 				059D80BF2976CCD00062C41A /* EditAboutService */,
+				059D80C5297BD2920062C41A /* EditPhoto */,
 			);
 			path = EditContent;
 			sourceTree = "<group>";

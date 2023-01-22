@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import BSImagePicker
 
 class EditPhotoViewController: UIViewController {
     
@@ -64,4 +65,16 @@ class EditPhotoViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    func addPhotoEvent(_ sender: Any){
+        let imagePicker = ImagePickerController()
+        imagePicker.settings.selection.max = 10
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
+        self.presentImagePicker(imagePicker,
+                                select: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
+                                deselect: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
+                                cancel: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>,
+                                finish: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>)
+    }
+    
 }
+

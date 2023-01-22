@@ -90,6 +90,7 @@ class TrainerDetailViewController: UIViewController {
         bodyIntroView.editBodyIntroButton.addTarget(self, action: #selector(editBodyIntroBtnEvent), for: .touchUpInside)
         bodyIntroAboutService.editAboutServiceButton.addTarget(self, action: #selector(editAboutServiceBtnEvent), for: .touchUpInside)
         headView.reviewerImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tappedProfile)))
+        bottomPhotoView.editPhotoButton.addTarget(self, action: #selector(editPhotoBtnEvent), for: .touchUpInside)
     }
     
     func setViewLayer(){
@@ -115,6 +116,11 @@ class TrainerDetailViewController: UIViewController {
     
     @objc func editAboutServiceBtnEvent(){
         let nextVC = EditAboutServiceViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func editPhotoBtnEvent(){
+        let nextVC = EditPhotoViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
