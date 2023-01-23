@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class EditBodyPriceViewController: UIViewController {
-
+    
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
@@ -37,14 +37,12 @@ class EditBodyPriceViewController: UIViewController {
     
     private let nextBtn : UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = UIColor.customColor(.blue)
+        btn.backgroundColor = UIColor.customColor(.gray)
         btn.layer.cornerRadius = 8
         btn.setTitle("다음", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.layer.borderWidth = 1
-        btn.layer.borderColor = UIColor.customColor(.blue).cgColor
-        btn.addTarget(self, action: #selector(nextEvent), for: .touchUpInside)
+        
         return btn
     }()
 
@@ -65,7 +63,9 @@ class EditBodyPriceViewController: UIViewController {
         // Do any additional setup after loading the view.
         setViewHierarchy()
         setConstraints()
+        setButtonEvent()
         self.dismissKeyboard()
+        
     }
     
     private func setViewHierarchy() {
@@ -103,12 +103,123 @@ class EditBodyPriceViewController: UIViewController {
         }
     }
     
-    @objc func nextEvent(){
-        navigationController?.popViewController(animated: true)
+    func setButtonEvent(){
+        priceStackView.freePickBtn.addTarget(self, action: #selector(freeCheckBtnEvent), for: .touchUpInside)
+        priceStackView.firstPickBtn.addTarget(self, action: #selector(firstCheckBtnEvent), for: .touchUpInside)
+        priceStackView.secondPickBtn.addTarget(self, action: #selector(secondCheckBtnEvent), for: .touchUpInside)
+        priceStackView.thirdPickBtn.addTarget(self, action: #selector(thirdCheckBtnEvent), for: .touchUpInside)
+        priceStackView.fourthPickBtn.addTarget(self, action: #selector(fourthCheckBtnEvent), for: .touchUpInside)
+        priceStackView.extraPickBtn.addTarget(self, action: #selector(extraCheckBtnEvent), for: .touchUpInside)
+        nextBtn.addTarget(self, action: #selector(tapNextBtnEvent), for: .touchUpInside)
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - 버튼 logic -> 버튼이 하나만 눌리도록!
+    
+    var checkPosition = -1
+    lazy var btnArr: [UIButton] = [
+                    priceStackView.freePickBtn,
+                    priceStackView.firstPickBtn,
+                    priceStackView.secondPickBtn,
+                    priceStackView.thirdPickBtn,
+                    priceStackView.fourthPickBtn,
+                    priceStackView.extraPickBtn
+                            ]
+    
+    @objc func freeCheckBtnEvent(){
+        if(checkPosition == -1 || checkPosition == 0){
+            priceStackView.freePickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        } else{
+            btnArr[checkPosition].setImage(UIImage(named: "emptyBox.svg"), for: .normal)
+            priceStackView.freePickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        }
+        checkPosition = 0
+        priceStackView.extraPriceTextField.isEnabled = false
+        priceStackView.extraPriceTextField.text = ""
+        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
+        nextBtn.backgroundColor = UIColor.customColor(.blue)
+
+
+    }
+    
+    @objc func firstCheckBtnEvent(){
+        if(checkPosition == -1 || checkPosition == 1){
+            priceStackView.firstPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        } else{
+            btnArr[checkPosition].setImage(UIImage(named: "emptyBox.svg"), for: .normal)
+            priceStackView.firstPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        }
+        checkPosition = 1
+        priceStackView.extraPriceTextField.isEnabled = false
+        priceStackView.extraPriceTextField.text = ""
+        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
+        nextBtn.backgroundColor = UIColor.customColor(.blue)
+    }
+    
+    @objc func secondCheckBtnEvent(){
+        if(checkPosition == -1 || checkPosition == 2){
+            priceStackView.secondPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        } else{
+            btnArr[checkPosition].setImage(UIImage(named: "emptyBox.svg"), for: .normal)
+            priceStackView.secondPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        }
+        checkPosition = 2
+        priceStackView.extraPriceTextField.isEnabled = false
+        priceStackView.extraPriceTextField.text = ""
+        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
+        nextBtn.backgroundColor = UIColor.customColor(.blue)
+
+    }
+    
+    @objc func thirdCheckBtnEvent(){
+        if(checkPosition == -1 || checkPosition == 3){
+            priceStackView.thirdPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        } else{
+            btnArr[checkPosition].setImage(UIImage(named: "emptyBox.svg"), for: .normal)
+            priceStackView.thirdPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        }
+        checkPosition = 3
+        priceStackView.extraPriceTextField.isEnabled = false
+        priceStackView.extraPriceTextField.text = ""
+        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
+        nextBtn.backgroundColor = UIColor.customColor(.blue)
+
+    }
+    
+    @objc func fourthCheckBtnEvent(){
+        if(checkPosition == -1 || checkPosition == 4){
+            priceStackView.fourthPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        } else{
+            btnArr[checkPosition].setImage(UIImage(named: "emptyBox.svg"), for: .normal)
+            priceStackView.fourthPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        }
+        checkPosition = 4
+        priceStackView.extraPriceTextField.isEnabled = false
+        priceStackView.extraPriceTextField.text = ""
+        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
+        nextBtn.backgroundColor = UIColor.customColor(.blue)
+
+    }
+    
+    @objc func extraCheckBtnEvent(){
+        if(checkPosition == -1 || checkPosition == 5){
+            priceStackView.extraPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        } else{
+            btnArr[checkPosition].setImage(UIImage(named: "emptyBox.svg"), for: .normal)
+            priceStackView.extraPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
+        }
+        checkPosition = 5
+        priceStackView.extraPriceTextField.isEnabled = true
+        nextBtn.backgroundColor = UIColor.customColor(.blue)
+    }
+    
+    @objc func tapNextBtnEvent(){
+        if(nextBtn.backgroundColor == UIColor.customColor(.blue)){
+            navigationController?.popViewController(animated: true)
+        }
     }
     
 }

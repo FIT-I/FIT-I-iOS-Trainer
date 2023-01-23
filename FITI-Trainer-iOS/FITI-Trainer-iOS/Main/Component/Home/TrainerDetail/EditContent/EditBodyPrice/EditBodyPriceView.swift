@@ -187,6 +187,7 @@ class EditBodyPriceView: UIView {
         super .init(frame: .zero)
         setViewHierarchy()
         setConstraints()
+
     }
     
     private func setViewHierarchy() {

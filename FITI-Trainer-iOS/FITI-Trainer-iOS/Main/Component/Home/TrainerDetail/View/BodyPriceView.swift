@@ -51,26 +51,11 @@ class BodyPriceView : UIView {
         return label
     }()
     
-    var othersLabel : UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15.0)
-        label.text = "+추가관리"
-        label.textColor = UIColor.customColor(.darkGray)
-        return label
-    }()
-    
     var priceForTimeLabel : UILabel = {
         let label = UILabel()
+        let editPrice = EditBodyPriceViewController()
         label.font = UIFont.systemFont(ofSize: 12.0)
         label.text = "10,000원"
-        label.textColor = UIColor.customColor(.darkGray)
-        return label
-    }()
-    
-    var otherPriceForTimeLabel : UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12.0)
-        label.text = "20,000원"
         label.textColor = UIColor.customColor(.darkGray)
         return label
     }()
@@ -96,11 +81,8 @@ class BodyPriceView : UIView {
     private func setViewHierarchy() {
         self.addSubview(priceTopStackView)
         self.addSubview(priceLineView)
-//        self.addSubview(priceLeftStackView)
-//        self.addSubview(priceRightStackView)
         self.addSubview(timeLabel)
         self.addSubview(priceForTimeLabel)
-
         self.addSubview(editBodyPriceButton)
     }
     
