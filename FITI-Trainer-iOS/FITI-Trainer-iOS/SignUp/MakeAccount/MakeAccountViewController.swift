@@ -318,7 +318,7 @@ class MakeAccountViewController: UIViewController {
                     pwTextField.layer.borderColor = UIColor.red.cgColor
                     pw = false
                 }else{
-                    isAllTrue[2] = true
+                    isAllTrue[1] = true
                     pwRuleLabel.textColor = UIColor.customColor(.green)
                     pwRuleLabel.text = "사용 가능한 비밀번호입니다."
                     pwTextField.layer.borderColor = UIColor.customColor(.blue).cgColor

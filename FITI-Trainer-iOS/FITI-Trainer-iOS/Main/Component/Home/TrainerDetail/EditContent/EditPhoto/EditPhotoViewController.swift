@@ -69,11 +69,11 @@ class EditPhotoViewController: UIViewController {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 10
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
-        self.presentImagePicker(imagePicker,
-                                select: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
-                                deselect: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
-                                cancel: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>,
-                                finish: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>)
+//        self.presentImagePicker(imagePicker,
+//                                select: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
+//                                deselect: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
+//                                cancel: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>,
+//                                finish: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>)
     }
     
 }
