@@ -188,7 +188,7 @@ class MakeAccountViewController: UIViewController {
 
         pwRuleLabel.snp.makeConstraints { make in
             make.top.equalTo(pwTextField.snp.bottom).offset(3)
-            make.leading.equalTo(pwTextField).offset(20)
+            make.leading.equalTo(pwTextField).offset(10)
         }
 
         checkPwTextField.snp.makeConstraints { make in
@@ -230,7 +230,7 @@ class MakeAccountViewController: UIViewController {
     
     @objc func touchNextBtnEvent() {
         if(nextButton.backgroundColor == UIColor.customColor(.blue)){
-            let nextVC = GradeTableViewController()
+            let nextVC = SignInViewController()
             navigationController?.pushViewController(nextVC, animated: true)
         }
     }

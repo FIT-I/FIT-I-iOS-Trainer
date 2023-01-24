@@ -203,7 +203,7 @@ class SignInViewController: UIViewController {
     
     @objc func touchNextBtnEvent() {
         if((idTextField.text != "") && (passwordTextField.text != "")){
-            let nextVC = TabBarController()
+            let nextVC = GradeTableViewController()
             navigationController?.pushViewController(nextVC, animated: true)
         }
     }

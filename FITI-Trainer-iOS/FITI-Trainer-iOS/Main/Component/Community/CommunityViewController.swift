@@ -93,7 +93,6 @@ extension CommunityViewController : UITableViewDataSource {
         cell.selectionStyle = .none
         cell.accessoryType = .disclosureIndicator
     
-
         return cell
         
     }

@@ -88,7 +88,6 @@ extension ReviewViewController : UITableViewDataSource {
 //        cell.binding()
         cell.selectionStyle = .none
     
-
         return cell
         
     }
