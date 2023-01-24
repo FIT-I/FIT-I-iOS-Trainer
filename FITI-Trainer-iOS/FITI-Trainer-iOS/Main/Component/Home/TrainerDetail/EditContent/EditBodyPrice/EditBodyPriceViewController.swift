@@ -65,7 +65,6 @@ class EditBodyPriceViewController: UIViewController {
         setConstraints()
         setButtonEvent()
         self.dismissKeyboard()
-        
     }
     
     private func setViewHierarchy() {

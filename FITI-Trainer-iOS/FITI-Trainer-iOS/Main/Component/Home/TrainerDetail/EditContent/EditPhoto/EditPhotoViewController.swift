@@ -12,6 +12,7 @@ import BSImagePicker
 
 class EditPhotoViewController: UIViewController {
     
+    let images = ["blueScreen.svg","dummy1.svg","blueScreen.svg","dummy1.svg","dummy1.svg","dummy1.svg","blueScreen.svg","dummy1.svg","dummy1.svg","blueScreen.svg","dummy1.svg","dummy1.svg","blueScreen.svg","dummy1.svg","dummy1.svg","dummy1.svg","blueScreen.svg"]
     
     var titleLabel : UILabel = {
         let label = UILabel()
@@ -30,6 +31,37 @@ class EditPhotoViewController: UIViewController {
         return view
     }()
     
+    var addImageImg : UIImageView = {
+        let img = UIImageView()
+        img.image = UIImage(named: "addImage.svg")
+        img.snp.makeConstraints { make in
+            make.width.equalTo(UIScreen.main.bounds.width/3 - (15 + 7.5))
+            make.height.equalTo(UIScreen.main.bounds.width/3 - (15 + 7.5))
+        }
+        return img
+    }()
+    
+    private var editerPhotoChoiceCV: UICollectionView = {
+        let itemSize : CGFloat = UIScreen.main.bounds.width/3 - (15 + 7.5)
+        let itemSpacing : CGFloat = 15
+        
+        //flowLayout의 인스턴스
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = itemSpacing
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+        
+        //collectionView의 인스턴스
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.isScrollEnabled = true
+        cv.backgroundColor = .clear
+        cv.clipsToBounds = true
+        cv.backgroundColor = .clear
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.showsVerticalScrollIndicator = false
+        return cv
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -38,6 +70,12 @@ class EditPhotoViewController: UIViewController {
         navigationController?.navigationBar.topItem?.title = ""
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         
+        editerPhotoChoiceCV.backgroundColor = .clear
+        editerPhotoChoiceCV.register(EditPhotoTableCell.self, forCellWithReuseIdentifier: EditPhotoTableCell.identifier)
+        editerPhotoChoiceCV.delegate = self
+        editerPhotoChoiceCV.dataSource = self
+        editerPhotoChoiceCV.showsHorizontalScrollIndicator = false
+    
         setViewHierarchy()
         setConstraints()
     }
@@ -45,6 +83,7 @@ class EditPhotoViewController: UIViewController {
     private func setViewHierarchy() {
         view.addSubview(titleLabel)
         view.addSubview(progressView)
+        view.addSubview(editerPhotoChoiceCV)
     }
     
     private func setConstraints(){
@@ -59,22 +98,62 @@ class EditPhotoViewController: UIViewController {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
+        
+        editerPhotoChoiceCV.snp.makeConstraints { make in
+            make.top.equalTo(progressView.snp.bottom).offset(15)
+            make.leading.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-15)
+            make.bottom.equalToSuperview()
+        }
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
     
-    func addPhotoEvent(_ sender: Any){
-        let imagePicker = ImagePickerController()
-        imagePicker.settings.selection.max = 10
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
+//    func addPhotoEvent(_ sender: Any){
+//        let imagePicker = ImagePickerController()
+//        imagePicker.settings.selection.max = 10
+//        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
 //        self.presentImagePicker(imagePicker,
 //                                select: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
 //                                deselect: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
 //                                cancel: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>,
 //                                finish: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>)
-    }
+//    }
     
 }
 
+//MARK: - collectionView Extension
+extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let lastIndex = self.editerPhotoChoiceCV.lastIndexpath().row
+        
+        if(lastIndex == indexPath.row){
+            
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let lastIndex = self.editerPhotoChoiceCV.lastIndexpath().row
+        let cell = editerPhotoChoiceCV.dequeueReusableCell(withReuseIdentifier: EditPhotoTableCell.identifier, for: indexPath) as! EditPhotoTableCell
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
+        
+        if(indexPath.row == lastIndex){
+            cell.editerChoiceImageView.image = UIImage(named: "addImage.svg")
+            return cell
+        }else{
+            cell.editerChoiceImageView.image = UIImage(named: images[indexPath.row])
+            return cell
+        }
+        
+    }
+    
+}

@@ -39,13 +39,14 @@ class emailCheckViewController: UIViewController {
     private let warningLabelForEmail : UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont(name: "Noto Sans", size: 10)
+        label.font = UIFont.systemFont(ofSize: 10)
         return label
     }()
     
     private let warningLabelForAuth : UILabel = {
         let label = UILabel()
         label.text = ""
+        label.font = UIFont.systemFont(ofSize: 10)
         return label
     }()
     
