@@ -15,8 +15,8 @@ class EditPhotoViewController: UIViewController {
     var itemProviders: [NSItemProvider] = []
 
     var imageArray : [UIImage] = []
-//    var images = ["dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg"]
-//MARK: - FIX: 에러 발생 부분
+    
+//FIXME: ---------------------------------------
 //    var bottomPhotoView = BottomPhotoView()
 
     var titleLabel : UILabel = {
@@ -125,7 +125,6 @@ class EditPhotoViewController: UIViewController {
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
     }
-    
 }
 
 //MARK: - collectionView Extension
