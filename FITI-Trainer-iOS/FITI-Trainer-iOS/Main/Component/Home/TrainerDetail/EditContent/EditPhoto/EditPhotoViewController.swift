@@ -8,11 +8,15 @@
 import Foundation
 import UIKit
 import SnapKit
-import BSImagePicker
+import PhotosUI
 
 class EditPhotoViewController: UIViewController {
+    //선택한 이미지를 저장할 배열
+//    var itemProviders: [NSItemProvider] = []
+
+    var images = ["dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg"]
     
-    let images = ["blueScreen.svg","dummy1.svg","blueScreen.svg","dummy1.svg","dummy1.svg","dummy1.svg","blueScreen.svg","dummy1.svg","dummy1.svg","blueScreen.svg","dummy1.svg","dummy1.svg","blueScreen.svg","dummy1.svg","dummy1.svg","dummy1.svg","blueScreen.svg"]
+//    let bottomPhotoView = BottomPhotoView()
     
     var titleLabel : UILabel = {
         let label = UILabel()
@@ -61,7 +65,7 @@ class EditPhotoViewController: UIViewController {
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -111,16 +115,15 @@ class EditPhotoViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-//    func addPhotoEvent(_ sender: Any){
-//        let imagePicker = ImagePickerController()
-//        imagePicker.settings.selection.max = 10
-//        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
-//        self.presentImagePicker(imagePicker,
-//                                select: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
-//                                deselect: <#T##((PHAsset) -> Void)?##((PHAsset) -> Void)?##(_ asset: PHAsset) -> Void#>,
-//                                cancel: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>,
-//                                finish: <#T##(([PHAsset]) -> Void)?##(([PHAsset]) -> Void)?##([PHAsset]) -> Void#>)
-//    }
+    func selectImagePicker(){
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 20 - (images.count)
+        configuration.filter = .images
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+    }
     
 }
 
@@ -135,7 +138,7 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
         let lastIndex = self.editerPhotoChoiceCV.lastIndexpath().row
         
         if(lastIndex == indexPath.row){
-            
+            selectImagePicker()
         }
     }
     
@@ -155,5 +158,48 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         
     }
+    
+}
+
+
+extension EditPhotoViewController: PHPickerViewControllerDelegate{
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        //PHPicker 닫기
+        picker.dismiss(animated: true)
+        
+//        itemProviders = results.map(\.itemProvider)
+//        for item in itemProviders {
+//             if item.canLoadObject(ofClass: UIImage.self) {
+//                 item.loadObject(ofClass: UIImage.self) { image, error in
+//                     DispatchQueue.main.async {
+//                         guard let image = image as? UIImage else { return }
+//                         let imageView = UIImageView()
+//                         imageView.image = image
+//                         self.images.append(image) // 얘 이미지 뷰로 바꾸기
+//                         self.bottomPhotoView.editerChoiceCV.reloadData()
+//                         self.editerPhotoChoiceCV.reloadData()
+//
+//
+//                     }
+//                 }
+//             }
+//         }
+                
+                let itemProvider = results.first?.itemProvider
+
+                if let itemProvider = itemProvider,
+                   itemProvider.canLoadObject(ofClass: UIImage.self) { // 3
+                    itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in // 4
+                        DispatchQueue.main.async {
+//                            self.myImageView.image = image as? UIImage // 5
+                        }
+                    }
+                } else {
+                    // TODO: Handle empty results or item provider not being able load UIImage
+                }
+    }
+    
+    
     
 }

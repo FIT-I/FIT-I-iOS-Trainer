@@ -68,7 +68,7 @@ class TrainerDetailViewController: UIViewController {
     let bottomPhotoView = BottomPhotoView()
     
     
-    // MARK: - View Life Cycle
+    // MARK: - View Life Cycle`
     
     override func viewDidLoad() {
         super.viewDidLoad()
