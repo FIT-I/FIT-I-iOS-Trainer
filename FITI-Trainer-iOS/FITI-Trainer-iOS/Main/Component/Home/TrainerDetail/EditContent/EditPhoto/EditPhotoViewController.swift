@@ -12,12 +12,13 @@ import PhotosUI
 
 class EditPhotoViewController: UIViewController {
     //선택한 이미지를 저장할 배열
-//    var itemProviders: [NSItemProvider] = []
+    var itemProviders: [NSItemProvider] = []
 
-    var images = ["dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg"]
-    
-//    let bottomPhotoView = BottomPhotoView()
-    
+    var imageArray : [UIImage] = []
+//    var images = ["dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg"]
+//MARK: - FIX: 에러 발생 부분
+//    var bottomPhotoView = BottomPhotoView()
+
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -117,7 +118,7 @@ class EditPhotoViewController: UIViewController {
     
     func selectImagePicker(){
         var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 20 - (images.count)
+        configuration.selectionLimit = 20 - (imageArray.count)
         configuration.filter = .images
         
         let picker = PHPickerViewController(configuration: configuration)
@@ -131,7 +132,7 @@ class EditPhotoViewController: UIViewController {
 extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count + 1
+        return imageArray.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -153,7 +154,9 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.editerChoiceImageView.image = UIImage(named: "addImage.svg")
             return cell
         }else{
-            cell.editerChoiceImageView.image = UIImage(named: images[indexPath.row])
+//            cell.editerChoiceImageView.image = UIImage(named: images[indexPath.row])
+            cell.editerChoiceImageView.image = imageArray[indexPath.row]
+
             return cell
         }
         
@@ -161,45 +164,24 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
     
 }
 
-
+//MARK: - PHPicker Extension
 extension EditPhotoViewController: PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
         //PHPicker 닫기
         picker.dismiss(animated: true)
         
-//        itemProviders = results.map(\.itemProvider)
-//        for item in itemProviders {
-//             if item.canLoadObject(ofClass: UIImage.self) {
-//                 item.loadObject(ofClass: UIImage.self) { image, error in
-//                     DispatchQueue.main.async {
-//                         guard let image = image as? UIImage else { return }
-//                         let imageView = UIImageView()
-//                         imageView.image = image
-//                         self.images.append(image) // 얘 이미지 뷰로 바꾸기
-//                         self.bottomPhotoView.editerChoiceCV.reloadData()
-//                         self.editerPhotoChoiceCV.reloadData()
-//
-//
-//                     }
-//                 }
-//             }
-//         }
-                
-                let itemProvider = results.first?.itemProvider
-
-                if let itemProvider = itemProvider,
-                   itemProvider.canLoadObject(ofClass: UIImage.self) { // 3
-                    itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in // 4
-                        DispatchQueue.main.async {
-//                            self.myImageView.image = image as? UIImage // 5
-                        }
-                    }
-                } else {
-                    // TODO: Handle empty results or item provider not being able load UIImage
-                }
+        itemProviders = results.map(\.itemProvider)
+        for item in itemProviders {
+             if item.canLoadObject(ofClass: UIImage.self) {
+                 item.loadObject(ofClass: UIImage.self) { image, error in
+                     DispatchQueue.main.async {
+                         guard let image = image as? UIImage else { return }
+                         self.imageArray.append(image)
+                         self.editerPhotoChoiceCV.reloadData()
+                     }
+                 }
+             }
+         }
     }
-    
-    
-    
 }

@@ -10,7 +10,6 @@ import SnapKit
 
 class BottomPhotoView: UIView {
     
-//    let images = ["dummy1.svg","dummy1.svg","dummy1.svg","dummy1.svg"]
     let editPhotoView = EditPhotoViewController()
     let space : CGFloat = 10
     
@@ -123,17 +122,20 @@ class BottomPhotoView: UIView {
 }
 
 //MARK: - collectionView Extension
+
 extension BottomPhotoView: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return editPhotoView.images.count
+        return editPhotoView.imageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = editerChoiceCV.dequeueReusableCell(withReuseIdentifier: BookCVC.identifier, for: indexPath) as! BookCVC
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
-        cell.editerChoiceImageView.image = UIImage(named: editPhotoView.images[indexPath.row])
+//        cell.editerChoiceImageView.image = UIImage(named: editPhotoView.images[indexPath.row])
+        cell.editerChoiceImageView.image = editPhotoView.imageArray[indexPath.row]
+
         return cell
     }
 
