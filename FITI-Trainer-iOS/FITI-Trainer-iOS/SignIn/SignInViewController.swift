@@ -112,6 +112,12 @@ class SignInViewController: UIViewController {
 
         signInViewAddUI()
         signInViewSetUI()
+        
+//        self.realm.resetDB()
+                
+        if checkRealmToken() {
+            ifSuccessPushHome()
+        }
 
         self.dismissKeyboard()
     }
@@ -168,6 +174,13 @@ class SignInViewController: UIViewController {
 
     }
     
+    func checkRealmToken()->Bool{
+        if realm.getToken() == ""{
+            return false
+        }else{
+            return true
+        }
+    }
     
     @objc func signUpBtnEvent(){
         
@@ -206,11 +219,58 @@ class SignInViewController: UIViewController {
         }
     }
     
-    @objc func touchNextBtnEvent() {
-        if((idTextField.text != "") && (passwordTextField.text != "")){
-            let nextVC = GradeTableViewController()
-            navigationController?.pushViewController(nextVC, animated: true)
+    func postServer(){
+        // server
+        let param = SignInRequest.init(self.idTextField.text ?? "" ,self.passwordTextField.text ?? "")
+        print(param)
+        self.provider.request(.signIn(param: param)){ response in
+            switch response {
+                case .success(let moyaResponse):
+                    do {
+                        let responseData = try moyaResponse.map(SignInResponse.self)
+                        self.addTokenInRealm(item: responseData.result.accessToken)
+                        self.ifSuccessPushHome()
+                    } catch(let err) {
+                        print(err.localizedDescription)
+                        self.showFailAlert()
+                    }
+                case .failure(let err):
+                    print(err.localizedDescription)
+                self.showFailAlert()
+            }
         }
     }
+    
+    func addTokenInRealm(item:String){
+        // add token in realm
+        realm.addToken(item: item)
+        print(realm.getToken())
+    }
+    
+    @objc func touchNextBtnEvent() {
+        switch checkRealmToken() {
+        case false :
+            // 서버 통신
+            if((idTextField.text != "") && (passwordTextField.text != "")){
+                self.postServer()
+            }
+        default:
+            ifSuccessPushHome()
+        }
+    }
+    
+    private func ifSuccessPushHome(){
+        let nextVC = GradeTableViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
 
+    func showFailAlert(){
+        let alert = UIAlertController(title: "로그인 실패", message: "이메일 또는 비밀번호를 확인해주세요.", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { okAction in
+            self.idTextField.text = ""
+            self.passwordTextField.text = ""
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 }

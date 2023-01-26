@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		058403722982932D002272B1 /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403712982932D002272B1 /* BaseURL.swift */; };
 		058403752982935E002272B1 /* SignServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403742982935E002272B1 /* SignServices.swift */; };
 		0584037729829379002272B1 /* SignInRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584037629829379002272B1 /* SignInRequest.swift */; };
 		0584037929829387002272B1 /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584037829829387002272B1 /* SignUpRequest.swift */; };
@@ -89,10 +88,10 @@
 		05A11E0B29702548008D85A9 /* EditBodyPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11E0A29702548008D85A9 /* EditBodyPriceViewController.swift */; };
 		05A11E0D29702583008D85A9 /* EditBodyIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11E0C29702583008D85A9 /* EditBodyIntroViewController.swift */; };
 		05A11E0F297025DB008D85A9 /* EditAboutServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11E0E297025DB008D85A9 /* EditAboutServiceViewController.swift */; };
+		9181B6E329829980001D9427 /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9181B6E229829980001D9427 /* BaseURL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		058403712982932D002272B1 /* BaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
 		058403742982935E002272B1 /* SignServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignServices.swift; sourceTree = "<group>"; };
 		0584037629829379002272B1 /* SignInRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRequest.swift; sourceTree = "<group>"; };
 		0584037829829387002272B1 /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
@@ -170,6 +169,7 @@
 		05A11E0A29702548008D85A9 /* EditBodyPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceViewController.swift; sourceTree = "<group>"; };
 		05A11E0C29702583008D85A9 /* EditBodyIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyIntroViewController.swift; sourceTree = "<group>"; };
 		05A11E0E297025DB008D85A9 /* EditAboutServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAboutServiceViewController.swift; sourceTree = "<group>"; };
+		9181B6E229829980001D9427 /* BaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,9 +200,9 @@
 		058403702982931A002272B1 /* Moya */ = {
 			isa = PBXGroup;
 			children = (
+				9181B6E229829980001D9427 /* BaseURL.swift */,
 				05840388298296D4002272B1 /* Model */,
 				0584037A2982939C002272B1 /* LocalDB */,
-				058403712982932D002272B1 /* BaseURL.swift */,
 				058403732982933C002272B1 /* SignInAPI */,
 			);
 			path = Moya;
@@ -688,6 +688,7 @@
 				058403752982935E002272B1 /* SignServices.swift in Sources */,
 				059D80BC2976AB340062C41A /* IntroduceView.swift in Sources */,
 				0584037729829379002272B1 /* SignInRequest.swift in Sources */,
+				9181B6E329829980001D9427 /* BaseURL.swift in Sources */,
 				059D80952973F4B90062C41A /* TopStackView.swift in Sources */,
 				059D80B22975A05E0062C41A /* NoticeBtnView.swift in Sources */,
 				0584038C298296F4002272B1 /* SignInModel.swift in Sources */,
@@ -700,7 +701,6 @@
 				05A11DD2296DB880008D85A9 /* TabBarController.swift in Sources */,
 				05840380298293D8002272B1 /* Profile.swift in Sources */,
 				059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */,
-				058403722982932D002272B1 /* BaseURL.swift in Sources */,
 				05A11E0B29702548008D85A9 /* EditBodyPriceViewController.swift in Sources */,
 				059D807C2973E5500062C41A /* CommunityTableCell.swift in Sources */,
 				059D80B72975B5C00062C41A /* RequestResultViewController.swift in Sources */,
