@@ -29,6 +29,15 @@ class UpdateViewController: UIViewController {
         img.image = UIImage(named: "updateComment.svg")
         return img
     }()
+    
+    private lazy var updateStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [updateImage, updateCommentImage])
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 49
+        
+        return stackView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +54,7 @@ class UpdateViewController: UIViewController {
     
     func setViewHierarchy(){
         view.addSubview(myPageTitleLabel)
-        view.addSubview(updateImage)
-        view.addSubview(updateCommentImage)
+        view.addSubview(updateStackView)
     }
     
     func setConstraints(){
@@ -55,19 +63,12 @@ class UpdateViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        updateImage.snp.makeConstraints { make in
-            make.top.equalTo(myPageTitleLabel.snp.bottom).offset(119)
-            make.height.equalTo(202)
-            make.width.equalTo(172)
+        updateStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
         
-        updateCommentImage.snp.makeConstraints { make in
-            make.top.equalTo(updateImage.snp.bottom).offset(49)
-            make.height.equalTo(230)
-            make.width.equalTo(286)
-            make.centerX.equalToSuperview()
-        }
+        
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {

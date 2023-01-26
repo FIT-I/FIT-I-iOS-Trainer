@@ -10,6 +10,9 @@ import SnapKit
 
 class MyPageViewController: UIViewController {
     
+    var didProfileShown = true
+    var delegate: isProfileShown?
+    
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
@@ -146,7 +149,7 @@ class MyPageViewController: UIViewController {
         midProfileStackView.fixProfileBtn.addTarget(self, action: #selector(settingProfileBtnEvent), for: .touchUpInside)
         notiView.showProfileBtn.addTarget(self, action: #selector(showProfileBtnEvent), for: .touchUpInside)
     }
-
+    
     @objc func settingProfileBtnEvent(){
         let nextVC = SettingProfileViewController()
         navigationController?.pushViewController(nextVC, animated: true)
@@ -176,18 +179,23 @@ class MyPageViewController: UIViewController {
         let nextVC = resetPwViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
-    
-    var didProfileShown = true
-    
+        
     @objc func showProfileBtnEvent(){
         if(didProfileShown == true){
             notiView.showProfileBtn.setImage(UIImage(named: "OFF.svg"), for: .normal)
             didProfileShown = false
+            delegate?.isShown(isProfileShown: didProfileShown)
         }else{
             notiView.showProfileBtn.setImage(UIImage(named: "ON.svg"), for: .normal)
             didProfileShown = true
+            delegate?.isShown(isProfileShown: didProfileShown)
+
         }
     }
-    
-    
+}
+
+//MARK: - protocol
+
+protocol isProfileShown{
+    func isShown(isProfileShown: Bool)
 }

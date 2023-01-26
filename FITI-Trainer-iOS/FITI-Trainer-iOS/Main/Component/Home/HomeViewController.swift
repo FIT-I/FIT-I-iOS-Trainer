@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 class HomeViewController: UIViewController {
+
+    var didProfileShown : Bool = true
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -286,4 +288,10 @@ class HomeViewController: UIViewController {
         
     }
 
+}
+
+extension HomeViewController: isProfileShown{
+    func isShown(isProfileShown: Bool) {
+        
+    }
 }
