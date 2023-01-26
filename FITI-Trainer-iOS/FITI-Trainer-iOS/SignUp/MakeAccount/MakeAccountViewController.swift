@@ -8,8 +8,13 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class MakeAccountViewController: UIViewController {
+    
+    private let provider = MoyaProvider<SignServices>()
+    static var userMajor = String()
+    
     var isAllTrue = [false,false]
 
     var titleLabel : UILabel = {
@@ -224,12 +229,31 @@ class MakeAccountViewController: UIViewController {
         }
     }
     
+    func postServer(){
+        let param = SignUpRequest.init(self.nameTextField.text ?? "",self.emailTextField.text ?? "",self.pwTextField.text ?? "", MakeAccountViewController.userMajor)
+        provider.request(.signUp(param: param)) { response in
+                switch response {
+                case .success(let moyaResponse):
+                    do {
+                        print("success")
+                        let responseData = try moyaResponse.map(SignUpResponse.self)
+                        print(responseData.message)
+                    } catch(let err) {
+                        print(err.localizedDescription)
+                    }
+                case .failure(let err):
+                    print(err.localizedDescription)
+            }
+        }
+    }
+    
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
     
     @objc func touchNextBtnEvent() {
         if(nextButton.backgroundColor == UIColor.customColor(.blue)){
+            self.postServer()
             let nextVC = SignInViewController()
             navigationController?.pushViewController(nextVC, animated: true)
         }

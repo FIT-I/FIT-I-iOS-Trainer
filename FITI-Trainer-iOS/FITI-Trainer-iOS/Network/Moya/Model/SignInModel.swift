@@ -12,8 +12,15 @@ struct SignInModel: Codable {
     let major:String
 }
 
+// MARK: - SignInResponse
 struct SignInResponse: Codable {
     let isSuccess: Bool
     let code: Int
-    let message, result: String
+    let message: String
+    let result: Result
+}
+
+// MARK: - Result
+struct Result: Codable {
+    let accessToken, refreshToken: String
 }
