@@ -8,8 +8,12 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class SignInViewController: UIViewController {
+    
+    private let provider = MoyaProvider<SignServices>()
+    let realm = RealmService()
 
     private let titleLabel : UILabel = {
         let label = UILabel()
@@ -163,6 +167,7 @@ class SignInViewController: UIViewController {
         }
 
     }
+    
     
     @objc func signUpBtnEvent(){
         
