@@ -135,6 +135,8 @@ class TrainerCheckViewController: UIViewController {
     
     @objc func handleSchoolTfDidChange(_ textField: UITextField) {
         if(schoolTextField.text != ""){
+            //MARK: - 데이터 전달 방식 수정
+            MakeAccountViewController.userMajor = schoolTextField.text ?? ""
             nextButton.backgroundColor = UIColor.customColor(.blue)
             schoolTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
         }else{
@@ -145,6 +147,7 @@ class TrainerCheckViewController: UIViewController {
     
     @objc func touchNextBtnEvent() {
         if(nextButton.backgroundColor == UIColor.customColor(.blue)){
+            
             let nextVC = emailCheckViewController()
             navigationController?.pushViewController(nextVC, animated: true)
         }
