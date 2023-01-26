@@ -10,8 +10,9 @@ import SnapKit
 
 class BottomPhotoView: UIView {
     
-    let editPhotoView = EditPhotoViewController()
+//    let editPhotoView = EditPhotoViewController()
     let space : CGFloat = 10
+    var takenImage : [UIImage] = []
     
     // 하단 뷰
     var photoImage : UIImageView = {
@@ -48,7 +49,7 @@ class BottomPhotoView: UIView {
         return stackView
     }()
     
-    private var editerChoiceCV: UICollectionView = {
+    var editerChoiceCV: UICollectionView = {
         
         //flowLayout의 인스턴스
         let layout = UICollectionViewFlowLayout()
@@ -79,6 +80,7 @@ class BottomPhotoView: UIView {
         editerChoiceCV.delegate = self
         editerChoiceCV.dataSource = self
         editerChoiceCV.showsHorizontalScrollIndicator = false
+        
     }
     
     required init?(coder: NSCoder) {
@@ -121,12 +123,16 @@ class BottomPhotoView: UIView {
     
 }
 
+
 //MARK: - collectionView Extension
 
 extension BottomPhotoView: UICollectionViewDelegate, UICollectionViewDataSource{
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return editPhotoView.imageArray.count
+//        return editPhotoView.imageArray.count
+        return takenImage.count
+
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -134,7 +140,8 @@ extension BottomPhotoView: UICollectionViewDelegate, UICollectionViewDataSource{
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
 //        cell.editerChoiceImageView.image = UIImage(named: editPhotoView.images[indexPath.row])
-        cell.editerChoiceImageView.image = editPhotoView.imageArray[indexPath.row]
+//        cell.editerChoiceImageView.image = editPhotoView.imageArray[indexPath.row]
+        cell.editerChoiceImageView.image = takenImage[indexPath.row]
 
         return cell
     }

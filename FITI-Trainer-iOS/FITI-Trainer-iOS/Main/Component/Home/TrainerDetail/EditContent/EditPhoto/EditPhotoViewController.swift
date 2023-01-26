@@ -13,11 +13,9 @@ import PhotosUI
 class EditPhotoViewController: UIViewController {
     //선택한 이미지를 저장할 배열
     var itemProviders: [NSItemProvider] = []
-
     var imageArray : [UIImage] = []
     
-//FIXME: ---------------------------------------
-//    var bottomPhotoView = BottomPhotoView()
+    var bottomPhotoView = BottomPhotoView()
 
     var titleLabel : UILabel = {
         let label = UILabel()

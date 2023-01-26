@@ -21,10 +21,9 @@ class MyPageViewController: UIViewController {
     var settingBtn : UIButton = {
         let btn = UIButton()
         btn.snp.makeConstraints { make in
-            make.height.equalTo(30)
-            make.width.equalTo(50)
+            make.height.equalTo(90)
+            make.width.equalTo(98)
         }
-//        btn.backgroundColor = .red
         btn.setImage(UIImage(named: "gearshape.svg"), for: .normal)
         btn.addTarget(self, action: #selector(settingBtnEvent), for: .touchUpInside)
         return btn
@@ -98,7 +97,7 @@ class MyPageViewController: UIViewController {
         }
         settingBtn.snp.makeConstraints { make in
             make.centerY.equalTo(myPageTitleLabel)
-            make.trailing.equalToSuperview().offset(-24)
+            make.trailing.equalToSuperview()
         }
         progressView.snp.makeConstraints { make in
             make.top.equalTo(myPageTitleLabel.snp.bottom).offset(20)
