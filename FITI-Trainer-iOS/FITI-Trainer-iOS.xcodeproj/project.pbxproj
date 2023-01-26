@@ -38,6 +38,7 @@
 		059D80C12976D0F70062C41A /* AboutServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80C02976D0F70062C41A /* AboutServiceView.swift */; };
 		059D80C9297FC7EB0062C41A /* EditPhotoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80C8297FC7EB0062C41A /* EditPhotoTableCell.swift */; };
 		059D80CC297FFBF40062C41A /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80CB297FFBF40062C41A /* UICollectionView+.swift */; };
+		059D80D1298121BC0062C41A /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80D0298121BC0062C41A /* Moya */; };
 		05A11DA7296C9ED5008D85A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DA6296C9ED5008D85A9 /* AppDelegate.swift */; };
 		05A11DA9296C9ED5008D85A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DA8296C9ED5008D85A9 /* SceneDelegate.swift */; };
 		05A11DB0296C9ED7008D85A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05A11DAF296C9ED7008D85A9 /* Assets.xcassets */; };
@@ -156,6 +157,7 @@
 			files = (
 				05A11DCA296CA07F008D85A9 /* SnapKit in Frameworks */,
 				059D80742972B18B0062C41A /* BSImagePicker in Frameworks */,
+				059D80D1298121BC0062C41A /* Moya in Frameworks */,
 				05A11E01296F172F008D85A9 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -537,6 +539,7 @@
 				05A11DC9296CA07F008D85A9 /* SnapKit */,
 				05A11E00296F172F008D85A9 /* Then */,
 				059D80732972B18B0062C41A /* BSImagePicker */,
+				059D80D0298121BC0062C41A /* Moya */,
 			);
 			productName = "FITI-Trainer-iOS";
 			productReference = 05A11DA3296C9ED5008D85A9 /* FITI-Trainer-iOS.app */;
@@ -570,6 +573,7 @@
 				05A11DC8296CA07F008D85A9 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				05A11DFF296F172F008D85A9 /* XCRemoteSwiftPackageReference "Then" */,
 				059D80722972B18B0062C41A /* XCRemoteSwiftPackageReference "BSImagePicker" */,
+				059D80CF298121BC0062C41A /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = 05A11DA4296C9ED5008D85A9 /* Products */;
 			projectDirPath = "";
@@ -878,6 +882,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		059D80CF298121BC0062C41A /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		05A11DC8296CA07F008D85A9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -901,6 +913,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 059D80722972B18B0062C41A /* XCRemoteSwiftPackageReference "BSImagePicker" */;
 			productName = BSImagePicker;
+		};
+		059D80D0298121BC0062C41A /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 059D80CF298121BC0062C41A /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
 		};
 		05A11DC9296CA07F008D85A9 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

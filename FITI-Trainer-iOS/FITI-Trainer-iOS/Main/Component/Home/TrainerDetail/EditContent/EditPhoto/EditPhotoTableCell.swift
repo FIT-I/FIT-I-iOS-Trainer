@@ -18,8 +18,6 @@ class EditPhotoTableCell: UICollectionViewCell {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
         img.contentMode = .scaleAspectFit
-//        img.layer.cornerRadius = 5
-//        img.layer.masksToBounds = true
         return img
     }()
 
@@ -41,21 +39,13 @@ class EditPhotoTableCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    func dataBind(image : UIImage) {
-//        editerChoiceImageView.image = image
-//    }
-    
+
     private func setLayout() {
         contentView.addSubview(editerChoiceImageView)
-        
-        
         self.backgroundColor = .systemGroupedBackground
-        
         addSubview(editerChoiceImageView)
-                
+    
         editerChoiceImageView.snp.makeConstraints { make in
-//            make.top.bottom.leading.trailing.equalToSuperview()
             make.edges.equalToSuperview()
         }
         
