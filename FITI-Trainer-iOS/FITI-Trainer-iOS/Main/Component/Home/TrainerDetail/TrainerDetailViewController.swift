@@ -9,11 +9,13 @@ import Foundation
 import UIKit
 import SnapKit
 import Then
+import Moya
 
 class TrainerDetailViewController: UIViewController {
+    //MoyaTarget과 상호작용하는 MoyaProvider를 생성하기 위해 MoyaProvider인스턴스 생성
+    private let profileInfoProvider = MoyaProvider<EditProfileServices>()
         
     //MARK: - UI Components
-    
     // 상단 뷰
     var topView : UIImageView = {
         let imgView = UIImageView()

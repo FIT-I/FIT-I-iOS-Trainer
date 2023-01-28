@@ -17,10 +17,10 @@ struct SignInResponse: Codable {
     let isSuccess: Bool
     let code: Int
     let message: String
-    let result: Result
+    let result: SignInResult
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct SignInResult: Codable {
     let accessToken, refreshToken: String
 }

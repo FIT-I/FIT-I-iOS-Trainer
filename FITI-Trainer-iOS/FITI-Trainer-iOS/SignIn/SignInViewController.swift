@@ -25,7 +25,7 @@ class SignInViewController: UIViewController {
     }()
 
     
-    let idTextField : UITextField = {
+    lazy var idTextField : UITextField = {
         let tf = UITextField()
         tf.attributedPlaceholder = NSAttributedString(
                     string: "아이디",
@@ -42,7 +42,7 @@ class SignInViewController: UIViewController {
         return tf
     }()
 
-    let passwordTextField : UITextField = {
+    lazy var passwordTextField : UITextField = {
         let tf = UITextField()
         tf.attributedPlaceholder = NSAttributedString(
                     string: "비밀번호",
@@ -60,7 +60,7 @@ class SignInViewController: UIViewController {
         return tf
     }()
 
-    let findPasswordButton : UIButton = {
+    lazy var findPasswordButton : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .none
         btn.setTitle("비밀번호 찾기", for: .normal)
@@ -72,7 +72,7 @@ class SignInViewController: UIViewController {
         return btn
     }()
 
-    let signUpButton : UIButton = {
+    lazy var signUpButton : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .none
         btn.setTitle("회원가입", for: .normal)
@@ -92,7 +92,7 @@ class SignInViewController: UIViewController {
         return stackView
     }()
     
-    let nextButton : UIButton = {
+    lazy var nextButton : UIButton = {
            let btn = UIButton()
             btn.backgroundColor = UIColor.customColor(.gray)
             btn.setTitle("로그인", for: .normal)

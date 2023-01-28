@@ -7,9 +7,24 @@
 
 import UIKit
 import SnapKit
+import Moya
+
+struct UserInfo {
+    var userName = ""
+    var profile = ""
+    var email = ""
+    var location = ""
+}
+
 
 class MyPageViewController: UIViewController {
     
+    static var MyInfo = UserInfo()
+    private let myPageProvider = MoyaProvider<MyPageServices>()
+    var didProfileShown = true
+    var delegate: isProfileShown?
+    
+    //MARK: - set UI
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
@@ -58,18 +73,32 @@ class MyPageViewController: UIViewController {
     let bottomView = BottomView()
     let bottomBtn = BottomBtnView()
     
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         self.navigationItem.hidesBackButton = true
-        // Do any additional setup after loading the view.
         
+        setServerData()
+        getMyPageServer()
         setViewLayer()
         setViewHierarchy()
         setConstraints()
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setServerData()
+        getMyPageServer()
+    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+////        delegate?.isShown(isProfileShown: didProfileShown)
+//
+//    }
+    
+    //MARK: - set Function
     func setViewLayer(){
         notiView.layer.cornerRadius = 10
     }
@@ -146,7 +175,7 @@ class MyPageViewController: UIViewController {
         midProfileStackView.fixProfileBtn.addTarget(self, action: #selector(settingProfileBtnEvent), for: .touchUpInside)
         notiView.showProfileBtn.addTarget(self, action: #selector(showProfileBtnEvent), for: .touchUpInside)
     }
-
+    
     @objc func settingProfileBtnEvent(){
         let nextVC = SettingProfileViewController()
         navigationController?.pushViewController(nextVC, animated: true)
@@ -176,18 +205,49 @@ class MyPageViewController: UIViewController {
         let nextVC = resetPwViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
-    
-    var didProfileShown = true
-    
+        
     @objc func showProfileBtnEvent(){
         if(didProfileShown == true){
             notiView.showProfileBtn.setImage(UIImage(named: "OFF.svg"), for: .normal)
             didProfileShown = false
+            delegate?.isShown(isProfileShown: didProfileShown)
+            print(didProfileShown)
+
         }else{
             notiView.showProfileBtn.setImage(UIImage(named: "ON.svg"), for: .normal)
             didProfileShown = true
+            delegate?.isShown(isProfileShown: didProfileShown)
+            print(didProfileShown)
+
         }
     }
     
+    //MARK: - set server
     
+    func getMyPageServer(){
+        self.myPageProvider.request(.myPage){ response in
+            switch response {
+                
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(MyPageResponse.self)
+                    MyPageViewController.MyInfo.userName = responseData.result.userName
+                    MyPageViewController.MyInfo.profile = responseData.result.profile
+                    MyPageViewController.MyInfo.email = responseData.result.email
+                    MyPageViewController.MyInfo.location = responseData.result.location
+                    print(responseData)
+
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func setServerData(){
+        midProfileStackView.name.text = MyPageViewController.MyInfo.userName
+        midProfileStackView.userId.text = MyPageViewController.MyInfo.email
+    }
 }
