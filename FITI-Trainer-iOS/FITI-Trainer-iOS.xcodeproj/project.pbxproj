@@ -23,6 +23,14 @@
 		0584039329854A8C002272B1 /* AddEctImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039229854A8C002272B1 /* AddEctImageRequest.swift */; };
 		0584039529854BA3002272B1 /* AddEctImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039429854BA3002272B1 /* AddEctImageModel.swift */; };
 		05840397298550E4002272B1 /* EditProfileServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05840396298550E4002272B1 /* EditProfileServices.swift */; };
+		0584039929857F15002272B1 /* ChangeProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039829857F15002272B1 /* ChangeProfileRequest.swift */; };
+		0584039B29857F7F002272B1 /* ChangeProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039A29857F7F002272B1 /* ChangeProfileModel.swift */; };
+		0584039D29858033002272B1 /* ChangeBackgroundRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039C29858033002272B1 /* ChangeBackgroundRequest.swift */; };
+		0584039F2985805B002272B1 /* ChangeBackgroundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039E2985805B002272B1 /* ChangeBackgroundModel.swift */; };
+		058403A529858937002272B1 /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403A429858937002272B1 /* MyPageModel.swift */; };
+		058403A729858AA9002272B1 /* NoticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403A629858AA9002272B1 /* NoticeModel.swift */; };
+		058403A929858B07002272B1 /* PolicyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403A829858B07002272B1 /* PolicyModel.swift */; };
+		058403AB29858B3A002272B1 /* MyPageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403AA29858B3A002272B1 /* MyPageServices.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -111,6 +119,14 @@
 		0584039229854A8C002272B1 /* AddEctImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEctImageRequest.swift; sourceTree = "<group>"; };
 		0584039429854BA3002272B1 /* AddEctImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEctImageModel.swift; sourceTree = "<group>"; };
 		05840396298550E4002272B1 /* EditProfileServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileServices.swift; sourceTree = "<group>"; };
+		0584039829857F15002272B1 /* ChangeProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileRequest.swift; sourceTree = "<group>"; };
+		0584039A29857F7F002272B1 /* ChangeProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileModel.swift; sourceTree = "<group>"; };
+		0584039C29858033002272B1 /* ChangeBackgroundRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBackgroundRequest.swift; sourceTree = "<group>"; };
+		0584039E2985805B002272B1 /* ChangeBackgroundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBackgroundModel.swift; sourceTree = "<group>"; };
+		058403A429858937002272B1 /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
+		058403A629858AA9002272B1 /* NoticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeModel.swift; sourceTree = "<group>"; };
+		058403A829858B07002272B1 /* PolicyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyModel.swift; sourceTree = "<group>"; };
+		058403AA29858B3A002272B1 /* MyPageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageServices.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +231,7 @@
 				0584037A2982939C002272B1 /* LocalDB */,
 				058403732982933C002272B1 /* SignInAPI */,
 				0584038D29852544002272B1 /* TrainerAPI */,
+				058403A2298587CA002272B1 /* MyPageAPI */,
 			);
 			path = Moya;
 			sourceTree = "<group>";
@@ -243,10 +260,9 @@
 		05840388298296D4002272B1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				05840389298296DE002272B1 /* SignUpModel.swift */,
-				0584038B298296F4002272B1 /* SignInModel.swift */,
-				0584039029853CD5002272B1 /* ChangeInfoModel.swift */,
-				0584039429854BA3002272B1 /* AddEctImageModel.swift */,
+				058403A329858918002272B1 /* MyPage */,
+				058403A1298580EF002272B1 /* Trainer */,
+				058403A0298580DD002272B1 /* Sign */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,8 +273,48 @@
 				0584038E298525A8002272B1 /* ChangeInfoRequest.swift */,
 				0584039229854A8C002272B1 /* AddEctImageRequest.swift */,
 				05840396298550E4002272B1 /* EditProfileServices.swift */,
+				0584039829857F15002272B1 /* ChangeProfileRequest.swift */,
+				0584039C29858033002272B1 /* ChangeBackgroundRequest.swift */,
 			);
 			path = TrainerAPI;
+			sourceTree = "<group>";
+		};
+		058403A0298580DD002272B1 /* Sign */ = {
+			isa = PBXGroup;
+			children = (
+				05840389298296DE002272B1 /* SignUpModel.swift */,
+				0584038B298296F4002272B1 /* SignInModel.swift */,
+			);
+			path = Sign;
+			sourceTree = "<group>";
+		};
+		058403A1298580EF002272B1 /* Trainer */ = {
+			isa = PBXGroup;
+			children = (
+				0584039029853CD5002272B1 /* ChangeInfoModel.swift */,
+				0584039429854BA3002272B1 /* AddEctImageModel.swift */,
+				0584039A29857F7F002272B1 /* ChangeProfileModel.swift */,
+				0584039E2985805B002272B1 /* ChangeBackgroundModel.swift */,
+			);
+			path = Trainer;
+			sourceTree = "<group>";
+		};
+		058403A2298587CA002272B1 /* MyPageAPI */ = {
+			isa = PBXGroup;
+			children = (
+				058403AA29858B3A002272B1 /* MyPageServices.swift */,
+			);
+			path = MyPageAPI;
+			sourceTree = "<group>";
+		};
+		058403A329858918002272B1 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				058403A429858937002272B1 /* MyPageModel.swift */,
+				058403A629858AA9002272B1 /* NoticeModel.swift */,
+				058403A829858B07002272B1 /* PolicyModel.swift */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		059D806B297153E60062C41A /* EditBodyPrice */ = {
@@ -722,10 +778,14 @@
 				05A11DCE296D7F26008D85A9 /* GradeTableViewController.swift in Sources */,
 				05A11DF8296F1570008D85A9 /* PreviewReviewTableCell.swift in Sources */,
 				05A11DFA296F157E008D85A9 /* ReviewModel.swift in Sources */,
+				0584039B29857F7F002272B1 /* ChangeProfileModel.swift in Sources */,
 				05A11DD2296DB880008D85A9 /* TabBarController.swift in Sources */,
 				05840380298293D8002272B1 /* Profile.swift in Sources */,
 				059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */,
+				0584039D29858033002272B1 /* ChangeBackgroundRequest.swift in Sources */,
 				05A11E0B29702548008D85A9 /* EditBodyPriceViewController.swift in Sources */,
+				058403A929858B07002272B1 /* PolicyModel.swift in Sources */,
+				0584039F2985805B002272B1 /* ChangeBackgroundModel.swift in Sources */,
 				059D807C2973E5500062C41A /* CommunityTableCell.swift in Sources */,
 				059D80B72975B5C00062C41A /* RequestResultViewController.swift in Sources */,
 				05A11DC7296C9FD9008D85A9 /* TrainerCheckViewController.swift in Sources */,
@@ -738,9 +798,12 @@
 				05A11DFC296F1589008D85A9 /* BottomPhotoView.swift in Sources */,
 				05A11DBF296C9F8D008D85A9 /* UIColor+.swift in Sources */,
 				05A11DF4296F155B008D85A9 /* BodyIntroAboutServiceView.swift in Sources */,
+				0584039929857F15002272B1 /* ChangeProfileRequest.swift in Sources */,
 				05A11DC3296C9FA5008D85A9 /* UITextField+.swift in Sources */,
 				059D80B02975571E0062C41A /* PrivacyNoticeViewController.swift in Sources */,
 				05A11DCC296D5FD4008D85A9 /* MakeAccountViewController.swift in Sources */,
+				058403A529858937002272B1 /* MyPageModel.swift in Sources */,
+				058403A729858AA9002272B1 /* NoticeModel.swift in Sources */,
 				059D80C9297FC7EB0062C41A /* EditPhotoTableCell.swift in Sources */,
 				05A11DEA296EE318008D85A9 /* FindPwViewController.swift in Sources */,
 				0584039329854A8C002272B1 /* AddEctImageRequest.swift in Sources */,
@@ -753,6 +816,7 @@
 				05840382298293E8002272B1 /* CustomNotification.swift in Sources */,
 				059D80A42973F5AF0062C41A /* ClauseViewController.swift in Sources */,
 				05840397298550E4002272B1 /* EditProfileServices.swift in Sources */,
+				058403AB29858B3A002272B1 /* MyPageServices.swift in Sources */,
 				059D80932973F4AF0062C41A /* SettingProfileViewController.swift in Sources */,
 				05A11DEE296F1532008D85A9 /* HeadView.swift in Sources */,
 				05A11DE3296DE5D0008D85A9 /* TrainerDetailViewController.swift in Sources */,
