@@ -18,6 +18,11 @@
 		05840387298294BF002272B1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 05840386298294BF002272B1 /* RealmSwift */; };
 		0584038A298296DE002272B1 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05840389298296DE002272B1 /* SignUpModel.swift */; };
 		0584038C298296F4002272B1 /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584038B298296F4002272B1 /* SignInModel.swift */; };
+		0584038F298525A8002272B1 /* ChangeInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584038E298525A8002272B1 /* ChangeInfoRequest.swift */; };
+		0584039129853CD5002272B1 /* ChangeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039029853CD5002272B1 /* ChangeInfoModel.swift */; };
+		0584039329854A8C002272B1 /* AddEctImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039229854A8C002272B1 /* AddEctImageRequest.swift */; };
+		0584039529854BA3002272B1 /* AddEctImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039429854BA3002272B1 /* AddEctImageModel.swift */; };
+		05840397298550E4002272B1 /* EditProfileServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05840396298550E4002272B1 /* EditProfileServices.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -101,6 +106,11 @@
 		05840381298293E8002272B1 /* CustomNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotification.swift; sourceTree = "<group>"; };
 		05840389298296DE002272B1 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		0584038B298296F4002272B1 /* SignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
+		0584038E298525A8002272B1 /* ChangeInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfoRequest.swift; sourceTree = "<group>"; };
+		0584039029853CD5002272B1 /* ChangeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfoModel.swift; sourceTree = "<group>"; };
+		0584039229854A8C002272B1 /* AddEctImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEctImageRequest.swift; sourceTree = "<group>"; };
+		0584039429854BA3002272B1 /* AddEctImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEctImageModel.swift; sourceTree = "<group>"; };
+		05840396298550E4002272B1 /* EditProfileServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileServices.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +214,7 @@
 				05840388298296D4002272B1 /* Model */,
 				0584037A2982939C002272B1 /* LocalDB */,
 				058403732982933C002272B1 /* SignInAPI */,
+				0584038D29852544002272B1 /* TrainerAPI */,
 			);
 			path = Moya;
 			sourceTree = "<group>";
@@ -234,8 +245,20 @@
 			children = (
 				05840389298296DE002272B1 /* SignUpModel.swift */,
 				0584038B298296F4002272B1 /* SignInModel.swift */,
+				0584039029853CD5002272B1 /* ChangeInfoModel.swift */,
+				0584039429854BA3002272B1 /* AddEctImageModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0584038D29852544002272B1 /* TrainerAPI */ = {
+			isa = PBXGroup;
+			children = (
+				0584038E298525A8002272B1 /* ChangeInfoRequest.swift */,
+				0584039229854A8C002272B1 /* AddEctImageRequest.swift */,
+				05840396298550E4002272B1 /* EditProfileServices.swift */,
+			);
+			path = TrainerAPI;
 			sourceTree = "<group>";
 		};
 		059D806B297153E60062C41A /* EditBodyPrice */ = {
@@ -685,6 +708,7 @@
 				059D80862973F3D70062C41A /* BottomBtnView.swift in Sources */,
 				05A11E06296F1B99008D85A9 /* ReviewTableCell.swift in Sources */,
 				05A11DC1296C9F99008D85A9 /* UIStackView+.swift in Sources */,
+				0584039129853CD5002272B1 /* ChangeInfoModel.swift in Sources */,
 				058403752982935E002272B1 /* SignServices.swift in Sources */,
 				059D80BC2976AB340062C41A /* IntroduceView.swift in Sources */,
 				0584037729829379002272B1 /* SignInRequest.swift in Sources */,
@@ -719,6 +743,8 @@
 				05A11DCC296D5FD4008D85A9 /* MakeAccountViewController.swift in Sources */,
 				059D80C9297FC7EB0062C41A /* EditPhotoTableCell.swift in Sources */,
 				05A11DEA296EE318008D85A9 /* FindPwViewController.swift in Sources */,
+				0584039329854A8C002272B1 /* AddEctImageRequest.swift in Sources */,
+				0584038F298525A8002272B1 /* ChangeInfoRequest.swift in Sources */,
 				059D80C12976D0F70062C41A /* AboutServiceView.swift in Sources */,
 				059D80CC297FFBF40062C41A /* UICollectionView+.swift in Sources */,
 				05A11DA7296C9ED5008D85A9 /* AppDelegate.swift in Sources */,
@@ -726,6 +752,7 @@
 				05A11DA9296C9ED5008D85A9 /* SceneDelegate.swift in Sources */,
 				05840382298293E8002272B1 /* CustomNotification.swift in Sources */,
 				059D80A42973F5AF0062C41A /* ClauseViewController.swift in Sources */,
+				05840397298550E4002272B1 /* EditProfileServices.swift in Sources */,
 				059D80932973F4AF0062C41A /* SettingProfileViewController.swift in Sources */,
 				05A11DEE296F1532008D85A9 /* HeadView.swift in Sources */,
 				05A11DE3296DE5D0008D85A9 /* TrainerDetailViewController.swift in Sources */,
@@ -751,6 +778,7 @@
 				05A11E08296F1BB6008D85A9 /* ReviewViewController.swift in Sources */,
 				05A11DDF296DBA96008D85A9 /* ChatViewController.swift in Sources */,
 				05A11DD9296DBA05008D85A9 /* HomeViewController.swift in Sources */,
+				0584039529854BA3002272B1 /* AddEctImageModel.swift in Sources */,
 				059D80972973F4C50062C41A /* BottomInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,6 +12,8 @@ import SnapKit
 class HomeViewController: UIViewController {
 
     var didProfileShown : Bool = true
+    private let myPageView = MyPageViewController()
+    
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -206,14 +208,28 @@ class HomeViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var unShownImage: UIImageView = {
+        let img = UIImageView()
+        img.image = UIImage(named: "profileHidden.svg")
+        img.isHidden = true
+        return img
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-
         trainerEditViewAddUI()
         trainerEditViewSetUI()
+        self.setDelegate()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       
+//        print(didProfileShown)
+
     }
     
 
@@ -227,6 +243,7 @@ class HomeViewController: UIViewController {
         view.addSubview(allStackView)
         view.addSubview(underlineView)
         view.addSubview(profileButton)
+        view.addSubview(unShownImage)
     }
     
     func trainerEditViewSetUI(){
@@ -279,19 +296,39 @@ class HomeViewController: UIViewController {
             make.top.equalTo(underlineView.snp.bottom).offset(10)
             make.trailing.equalTo(boxView).offset(-15)
         }
+        
+        unShownImage.snp.makeConstraints { make in
+            make.centerY.equalTo(boxView).offset(20)
+            make.centerX.equalTo(boxView)
+        }
 
     }
     
     @objc func touchNextBtnEvent() {
             let nextVC = TrainerDetailViewController()
             navigationController?.pushViewController(nextVC, animated: true)
-        
+    }
+    
+    func setDelegate(){
+        self.myPageView.delegate = self
     }
 
 }
 
+protocol isProfileShown: AnyObject {
+    func isShown(isProfileShown: Bool)
+}
+
 extension HomeViewController: isProfileShown{
     func isShown(isProfileShown: Bool) {
-        
+//        if(isProfileShown){
+//            allStackView.isHidden = false
+//            unShownImage.isHidden = true
+//        } else{
+//            allStackView.isHidden = true
+//            unShownImage.isHidden = false
+//
+//        }
+        print(isProfileShown)
     }
 }

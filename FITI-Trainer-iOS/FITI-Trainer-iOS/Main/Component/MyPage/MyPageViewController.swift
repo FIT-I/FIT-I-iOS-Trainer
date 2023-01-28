@@ -73,6 +73,12 @@ class MyPageViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        delegate?.isShown(isProfileShown: didProfileShown)
+        
+    }
+    
     func setViewLayer(){
         notiView.layer.cornerRadius = 10
     }
@@ -185,10 +191,13 @@ class MyPageViewController: UIViewController {
             notiView.showProfileBtn.setImage(UIImage(named: "OFF.svg"), for: .normal)
             didProfileShown = false
             delegate?.isShown(isProfileShown: didProfileShown)
+            print(didProfileShown)
+
         }else{
             notiView.showProfileBtn.setImage(UIImage(named: "ON.svg"), for: .normal)
             didProfileShown = true
             delegate?.isShown(isProfileShown: didProfileShown)
+            print(didProfileShown)
 
         }
     }
@@ -196,6 +205,6 @@ class MyPageViewController: UIViewController {
 
 //MARK: - protocol
 
-protocol isProfileShown{
-    func isShown(isProfileShown: Bool)
-}
+//protocol isProfileShown{
+//    func isShown(isProfileShown: Bool)
+//}
