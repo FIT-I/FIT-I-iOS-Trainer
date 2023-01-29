@@ -32,9 +32,6 @@ class TrainerDetailViewController: UIViewController {
     
     lazy var imagePicker: UIImagePickerController = {
             let picker = UIImagePickerController()
-//            picker.delegate = self
-//            picker.allowsEditing = true
-
             return picker
         }()
     
@@ -83,7 +80,6 @@ class TrainerDetailViewController: UIViewController {
         setViewLayer()
         setLayout()
         changeBackAlertEvent()
-        changeProfileAlertEvent()
     }
     
     func setButtonEvent(){
@@ -91,7 +87,6 @@ class TrainerDetailViewController: UIViewController {
         bodyPriceView.editBodyPriceButton.addTarget(self, action: #selector(editBodyPriceBtnEvent), for: .touchUpInside)
         bodyIntroView.editBodyIntroButton.addTarget(self, action: #selector(editBodyIntroBtnEvent), for: .touchUpInside)
         bodyIntroAboutService.editAboutServiceButton.addTarget(self, action: #selector(editAboutServiceBtnEvent), for: .touchUpInside)
-        headView.reviewerImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tappedProfile)))
         bottomPhotoView.editPhotoButton.addTarget(self, action: #selector(editPhotoBtnEvent), for: .touchUpInside)
     }
     
@@ -136,20 +131,7 @@ class TrainerDetailViewController: UIViewController {
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
-    @objc func editBackBtnTapped(_ sender: UITapGestureRecognizer) {
-        print(" topView 수정 버튼 클릭됨")
-        present(imagePicker, animated: true)
-
-    }
-    
-    @objc func viewTapped(_ sender: UITapGestureRecognizer) {
-        print(" imageView 클릭됨")
-        present(headView.imagePicker, animated: true)
-
-    }
-    
     let backAlertController = UIAlertController(title: "배경 이미지 변경", message: "사진 앨범에서 선택 또는 기본 이미지", preferredStyle: .actionSheet)
-    let profileAlertController = UIAlertController(title: "프로필 이미지 변경", message: "사진 앨범에서 선택 또는 기본 이미지", preferredStyle: .actionSheet)
     
     func changeBackAlertEvent() {
             let photoLibraryAlertAction = UIAlertAction(title: "앨범에서 선택", style: .default) {
@@ -169,52 +151,19 @@ class TrainerDetailViewController: UIViewController {
             prepareForPopoverPresentation(alertControllerPopoverPresentationController)
     }
     
-    func changeProfileAlertEvent() {
-            let photoLibraryAlertAction = UIAlertAction(title: "앨범에서 선택", style: .default) {
-                (action) in
-                self.openProfileAlbum() // 아래에서 설명 예정.
-            }
-            let normalImgAlertAction = UIAlertAction(title: "기본 이미지로 변경", style: .default) {(action) in
-                self.changeProfileNormal() // 아래에서 설명 예정.
-            }
-            let cancelAlertAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-            self.profileAlertController.addAction(photoLibraryAlertAction)
-            self.profileAlertController.addAction(normalImgAlertAction)
-            self.profileAlertController.addAction(cancelAlertAction)
-            guard let alertControllerPopoverPresentationController
-                    = profileAlertController.popoverPresentationController
-            else {return}
-            prepareForPopoverPresentation(alertControllerPopoverPresentationController)
-    }
-    
     func openBackAlbum() {
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         present(self.imagePicker, animated: true, completion: nil)
     }
     
-    func openProfileAlbum() {
-        // headView의 image에 대한 delegate는 headView의 image 선언부에 존재한다.
-        headView.imagePicker.allowsEditing = true
-        present(headView.imagePicker, animated: true, completion: nil)
-    }
-    
-    
     func changeBackNormal() {
         topView.image = UIImage(named: "blueScreen.svg")
-    }
-    
-    func changeProfileNormal() {
-        headView.reviewerImage.image = UIImage(named: "reviewerIcon.svg")
     }
     
     
     @objc func tappedEditBtn(_ gesture: UITapGestureRecognizer) {
             self.present(backAlertController, animated: true, completion: nil)
-    }
-    
-    @objc func tappedProfile(_ gesture: UITapGestureRecognizer) {
-            self.present(profileAlertController, animated: true, completion: nil)
     }
     
 }
@@ -322,24 +271,25 @@ extension TrainerDetailViewController {
         
     }
 }
+
 extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            
+
 //            var newImage: UIImage? = nil // update 할 이미지
-            
+
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
 //            topView.contentMode = .scaleAspectFit
             topView.image = image
         }
-        
+
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
                 picker.dismiss(animated: true, completion: nil)
             }
-            
+
 //        editPhotoButton.setImage(newImage, for: .normal)
         //self.photoImage.image = newImage // 받아온 이미지를 update
             picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
-        
+
         }
 }
 
@@ -352,7 +302,7 @@ extension TrainerDetailViewController: UIPopoverPresentationControllerDelegate {
             = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
             popoverPresentationController.permittedArrowDirections = []
         }
-        
+
     }
 }
 
