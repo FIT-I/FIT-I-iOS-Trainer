@@ -36,6 +36,10 @@
 		058403B12986CCBB002272B1 /* MyMatchingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403B02986CCBB002272B1 /* MyMatchingModel.swift */; };
 		058403B32986E73F002272B1 /* GetTrainerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403B22986E73F002272B1 /* GetTrainerInfoModel.swift */; };
 		058403B52986F21F002272B1 /* patchLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403B42986F21F002272B1 /* patchLocationModel.swift */; };
+		058403B72987AB9A002272B1 /* TrainerServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403B62987AB9A002272B1 /* TrainerServices.swift */; };
+		058403B929882E16002272B1 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403B829882E16002272B1 /* CategoryView.swift */; };
+		058403BC29882EF7002272B1 /* EditCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403BB29882EF7002272B1 /* EditCategoryViewController.swift */; };
+		058403BE29882F05002272B1 /* EditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403BD29882F05002272B1 /* EditCategoryView.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -137,6 +141,10 @@
 		058403B02986CCBB002272B1 /* MyMatchingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchingModel.swift; sourceTree = "<group>"; };
 		058403B22986E73F002272B1 /* GetTrainerInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTrainerInfoModel.swift; sourceTree = "<group>"; };
 		058403B42986F21F002272B1 /* patchLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = patchLocationModel.swift; sourceTree = "<group>"; };
+		058403B62987AB9A002272B1 /* TrainerServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerServices.swift; sourceTree = "<group>"; };
+		058403B829882E16002272B1 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		058403BB29882EF7002272B1 /* EditCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryViewController.swift; sourceTree = "<group>"; };
+		058403BD29882F05002272B1 /* EditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryView.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +293,7 @@
 				05840396298550E4002272B1 /* EditProfileServices.swift */,
 				0584039829857F15002272B1 /* ChangeProfileRequest.swift */,
 				0584039C29858033002272B1 /* ChangeBackgroundRequest.swift */,
+				058403B62987AB9A002272B1 /* TrainerServices.swift */,
 			);
 			path = TrainerAPI;
 			sourceTree = "<group>";
@@ -328,6 +337,15 @@
 				058403B42986F21F002272B1 /* patchLocationModel.swift */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		058403BA29882ED9002272B1 /* EditCategory */ = {
+			isa = PBXGroup;
+			children = (
+				058403BB29882EF7002272B1 /* EditCategoryViewController.swift */,
+				058403BD29882F05002272B1 /* EditCategoryView.swift */,
+			);
+			path = EditCategory;
 			sourceTree = "<group>";
 		};
 		059D806B297153E60062C41A /* EditBodyPrice */ = {
@@ -656,6 +674,7 @@
 			isa = PBXGroup;
 			children = (
 				05A11DED296F1532008D85A9 /* HeadView.swift */,
+				058403B829882E16002272B1 /* CategoryView.swift */,
 				05A11DEF296F1541008D85A9 /* BodyPriceView.swift */,
 				05A11DF1296F1550008D85A9 /* BodyIntroView.swift */,
 				05A11DF3296F155B008D85A9 /* BodyIntroAboutServiceView.swift */,
@@ -679,6 +698,7 @@
 		05A11E0929702417008D85A9 /* EditContent */ = {
 			isa = PBXGroup;
 			children = (
+				058403BA29882ED9002272B1 /* EditCategory */,
 				059D806B297153E60062C41A /* EditBodyPrice */,
 				059D80BA2976A8A90062C41A /* EditBodyInto */,
 				059D80BF2976CCD00062C41A /* EditAboutService */,
@@ -772,6 +792,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				058403BC29882EF7002272B1 /* EditCategoryViewController.swift in Sources */,
 				059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */,
 				0584037E298293C6002272B1 /* Token.swift in Sources */,
 				059D80802973F3AE0062C41A /* ProfileView.swift in Sources */,
@@ -786,7 +807,10 @@
 				9181B6E329829980001D9427 /* BaseURL.swift in Sources */,
 				059D80952973F4B90062C41A /* TopStackView.swift in Sources */,
 				059D80B22975A05E0062C41A /* NoticeBtnView.swift in Sources */,
+				058403B929882E16002272B1 /* CategoryView.swift in Sources */,
+				058403BE29882F05002272B1 /* EditCategoryView.swift in Sources */,
 				0584038C298296F4002272B1 /* SignInModel.swift in Sources */,
+				058403B72987AB9A002272B1 /* TrainerServices.swift in Sources */,
 				059D808E2973F4660062C41A /* SettingViewController.swift in Sources */,
 				059D80822973F3BA0062C41A /* NotificationSwitch.swift in Sources */,
 				059D807A2973270B0062C41A /* emailCheckViewController.swift in Sources */,

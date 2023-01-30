@@ -10,20 +10,11 @@ import SnapKit
 import Moya
 import Realm
 
-
-struct UserInfo {
-    var userName = ""
-    var profile = ""
-    var email = ""
-    var location = ""
-}
-
 class MyPageViewController: UIViewController {
     
     static var MyInfo = UserInfo()
     private let myPageProvider = MoyaProvider<MyPageServices>()
     var didProfileShown = true
-    var delegate: isProfileShown?
     
     //MARK: - set UI
     var myPageTitleLabel : UILabel = {

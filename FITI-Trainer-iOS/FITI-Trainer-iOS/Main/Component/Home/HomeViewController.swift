@@ -8,12 +8,14 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class HomeViewController: UIViewController {
-
-    var didProfileShown : Bool = true
-    private let myPageView = MyPageViewController()
     
+    static var userInfo = UserInfo()
+    private let myPageView = MyPageViewController()
+    let TrainerProvider = MoyaProvider<TrainerServices>()
+    var didProfileShown : Bool = true
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -82,11 +84,23 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    private lazy var goldIcon: UIImageView = {
+//    private lazy var goldIcon: UIImageView = {
+//        let image = UIImageView()
+//        image.image =  UIImage(named: "gold.svg")
+//        return image
+//    }()
+    
+    private lazy var levelIcon: UIImageView = {
         let image = UIImageView()
-        image.image =  UIImage(named: "Gold.svg")
+        image.image =  UIImage(named: "bronze.svg")
         return image
     }()
+    
+//    private lazy var silverIcon: UIImageView = {
+//        let image = UIImageView()
+//        image.image =  UIImage(named: "silver.svg")
+//        return image
+//    }()
     
     private lazy var yellowstarIcon: UIImageView = {
         let image = UIImageView()
@@ -166,7 +180,7 @@ class HomeViewController: UIViewController {
     }()
     
     private lazy var ptStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [ptIcon,slashLabel,goldIcon])
+        let stackView = UIStackView(arrangedSubviews: [ptIcon,slashLabel,levelIcon])
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.alignment = .trailing
@@ -220,14 +234,13 @@ class HomeViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         trainerEditViewAddUI()
         trainerEditViewSetUI()
-        self.setDelegate()
-
+        setServerData()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+        setServerData()
 //        print(didProfileShown)
 
     }
@@ -309,26 +322,41 @@ class HomeViewController: UIViewController {
             navigationController?.pushViewController(nextVC, animated: true)
     }
     
-    func setDelegate(){
-        self.myPageView.delegate = self
+    
+    func setServerData(){
+        self.nameLabel.text = HomeViewController.userInfo.userName
+        self.emailLabel.text = HomeViewController.userInfo.email
+        self.introTextView.text = HomeViewController.userInfo.intro
+        self.levelIcon.image =  UIImage(named: "\(HomeViewController.userInfo.level).svg")
+        self.schoolLabel.text = HomeViewController.userInfo.school
+        self.gradeLabel.text = "\(HomeViewController.userInfo.grade)"
+
+    }
+    
+    func getTrainerServer(){
+        self.TrainerProvider.request(.loadTrainer){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                    TrainerDetailViewController.userInfo.userName = responseData.result.name
+                    TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? ""
+                    TrainerDetailViewController.userInfo.grade = responseData.result.grade
+                    TrainerDetailViewController.userInfo.school = responseData.result.school
+                    TrainerDetailViewController.userInfo.level = responseData.result.levelName
+
+                    print(responseData)
+
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+            
+        }
     }
 
-}
-
-protocol isProfileShown: AnyObject {
-    func isShown(isProfileShown: Bool)
-}
-
-extension HomeViewController: isProfileShown{
-    func isShown(isProfileShown: Bool) {
-//        if(isProfileShown){
-//            allStackView.isHidden = false
-//            unShownImage.isHidden = true
-//        } else{
-//            allStackView.isHidden = true
-//            unShownImage.isHidden = false
-//
-//        }
-        print(isProfileShown)
-    }
 }

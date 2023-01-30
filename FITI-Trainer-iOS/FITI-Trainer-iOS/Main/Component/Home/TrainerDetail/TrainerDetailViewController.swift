@@ -14,7 +14,7 @@ import Moya
 class TrainerDetailViewController: UIViewController {
     //MoyaTarget과 상호작용하는 MoyaProvider를 생성하기 위해 MoyaProvider인스턴스 생성
     private let profileInfoProvider = MoyaProvider<EditProfileServices>()
-        
+    static var userInfo = UserInfo()
     //MARK: - UI Components
     // 상단 뷰
     var topView : UIImageView = {
@@ -51,6 +51,9 @@ class TrainerDetailViewController: UIViewController {
     //MARK: -
     let headView = HeadView()
     
+    //카테고리 선택
+    let categoryView = CategoryView()
+    
     // 관리 비용
     let bodyPriceView = BodyPriceView()
     
@@ -85,12 +88,14 @@ class TrainerDetailViewController: UIViewController {
     func setButtonEvent(){
         bodyReviewView.reviewDetailBtn.addTarget(self, action: #selector(moveToReviewTableView), for: .touchUpInside)
         bodyPriceView.editBodyPriceButton.addTarget(self, action: #selector(editBodyPriceBtnEvent), for: .touchUpInside)
+        categoryView.editBodyPriceButton.addTarget(self, action: #selector(editCategoryBtnEvent), for: .touchUpInside)
         bodyIntroView.editBodyIntroButton.addTarget(self, action: #selector(editBodyIntroBtnEvent), for: .touchUpInside)
         bodyIntroAboutService.editAboutServiceButton.addTarget(self, action: #selector(editAboutServiceBtnEvent), for: .touchUpInside)
         bottomPhotoView.editPhotoButton.addTarget(self, action: #selector(editPhotoBtnEvent), for: .touchUpInside)
     }
     
     func setViewLayer(){
+        categoryView.layer.cornerRadius = 8
         bodyPriceView.layer.cornerRadius = 8
         bodyIntroView.layer.cornerRadius = 8
         bodyIntroAboutService.layer.cornerRadius = 8
@@ -103,6 +108,11 @@ class TrainerDetailViewController: UIViewController {
     
     @objc func editBodyPriceBtnEvent(){
         let nextVC = EditBodyPriceViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func editCategoryBtnEvent(){
+        let nextVC = EditCategoryViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -181,6 +191,7 @@ extension TrainerDetailViewController {
         contentScrollView.addSubviews(
             topView,
             editBackImageButton,
+            categoryView,
             headView,
             noticeImage,
             bodyPriceView,
@@ -194,6 +205,7 @@ extension TrainerDetailViewController {
         
         // testColors
         view.backgroundColor = .systemBackground
+        categoryView.backgroundColor = UIColor.customColor(.boxGray)
         bodyPriceView.backgroundColor = UIColor.customColor(.boxGray)
         bodyIntroView.backgroundColor = UIColor.customColor(.boxGray)
         bodyIntroAboutService.backgroundColor = UIColor.customColor(.boxGray)
@@ -230,11 +242,18 @@ extension TrainerDetailViewController {
             make.top.equalTo(headView.snp.bottom).offset(25)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            make.bottom.equalTo(bodyPriceView.snp.top).offset(-20)
+            make.bottom.equalTo(categoryView.snp.top).offset(-20)
+        }
+        
+        categoryView.snp.makeConstraints {
+            $0.top.equalTo(noticeImage.snp.bottom).offset(20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.height.equalTo(86)
         }
         
         bodyPriceView.snp.makeConstraints {
-            $0.top.equalTo(noticeImage.snp.bottom).offset(20)
+            $0.top.equalTo(categoryView.snp.bottom).offset(20)
             $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
             $0.height.equalTo(86)

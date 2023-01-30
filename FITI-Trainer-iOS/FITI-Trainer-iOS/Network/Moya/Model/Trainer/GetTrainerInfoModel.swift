@@ -17,9 +17,27 @@ struct GetTrainerInfoResponse: Codable {
 
 // MARK: - Result
 struct User: Codable {
-    let name, profile, background, levelName: String
+    let name, profile: String
+    var background: String? = nil
+    let levelName: String
     let school: String
     let grade: Double
     let cost: Int
-    let intro, service, reviewDto, imageList: String
+    var intro: String? = nil
+    var service: String? = nil
+    let reviewDto, imageList: [String]
+    let matching_state: Bool
 }
+
+//MARK: - UserInfo Struct
+struct UserInfo {
+    var userName = ""
+    var profile = ""
+    var email = ""
+    var level = ""
+    var location = ""
+    var intro = ""
+    var school = ""
+    var grade : Double = 0
+}
+
