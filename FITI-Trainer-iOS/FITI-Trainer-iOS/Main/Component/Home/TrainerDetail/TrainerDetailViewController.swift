@@ -82,7 +82,12 @@ class TrainerDetailViewController: UIViewController {
         setButtonEvent()
         setViewLayer()
         setLayout()
+        setServerDate()
         changeBackAlertEvent()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setServerDate()
     }
     
     func setButtonEvent(){
@@ -211,7 +216,6 @@ extension TrainerDetailViewController {
         bodyIntroAboutService.backgroundColor = UIColor.customColor(.boxGray)
         bodyReviewView.backgroundColor = UIColor.customColor(.boxGray)
         
-        //MARK: - toolBarLayout
     
         
         //MARK: - scrollViewLayout
@@ -221,7 +225,6 @@ extension TrainerDetailViewController {
             $0.bottom.equalToSuperview()
         }
         
-        //MARK: - containerViewLayout
         topView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -287,7 +290,19 @@ extension TrainerDetailViewController {
             $0.height.equalTo(200)
             $0.bottom.equalToSuperview()
         }
-        
+    }
+}
+
+extension TrainerDetailViewController{
+    func setServerDate(){
+        self.headView.name.text = TrainerDetailViewController.userInfo.userName
+        self.headView.levelIcon.image =  UIImage(named: "\(TrainerDetailViewController.userInfo.level).svg")
+        self.headView.grade.text = "\(TrainerDetailViewController.userInfo.grade)"
+        self.headView.school.text = TrainerDetailViewController.userInfo.school
+        self.categoryView.choosedCategoryLabel.text = "개인 PT"
+        self.bodyPriceView.priceForTimeLabel.text = "\(TrainerDetailViewController.userInfo.cost)"
+        self.bodyIntroView.introTextView.text = TrainerDetailViewController.userInfo.intro
+        self.bodyIntroAboutService.introServiceTextView.text = TrainerDetailViewController.userInfo.service
     }
 }
 

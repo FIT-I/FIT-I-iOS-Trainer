@@ -16,7 +16,7 @@ class CategoryView : UIView {
         return imgView
     }()
     
-    var priceLabel : UILabel = {
+    var categoryLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0)
         label.text = "카테고리 선택"
@@ -39,7 +39,7 @@ class CategoryView : UIView {
         return view
     }()
     
-    var timeLabel : UILabel = {
+    var choosedCategoryLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0)
         label.text = "개인 PT"
@@ -48,7 +48,7 @@ class CategoryView : UIView {
     }()
     
     lazy var priceTopStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [priceImage,priceLabel])
+        let stackView = UIStackView(arrangedSubviews: [priceImage,categoryLabel])
         stackView.axis = .horizontal
         stackView.spacing = 8
         stackView.alignment = .trailing
@@ -68,7 +68,7 @@ class CategoryView : UIView {
     private func setViewHierarchy() {
         self.addSubview(priceTopStackView)
         self.addSubview(priceLineView)
-        self.addSubview(timeLabel)
+        self.addSubview(choosedCategoryLabel)
         self.addSubview(editBodyPriceButton)
     }
     
@@ -86,7 +86,7 @@ class CategoryView : UIView {
             make.leading.equalToSuperview().offset(18)
             make.trailing.equalToSuperview().offset(-22)
         }
-        timeLabel.snp.makeConstraints { make in
+        choosedCategoryLabel.snp.makeConstraints { make in
             make.top.equalTo(priceLineView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(20)
         }

@@ -235,12 +235,16 @@ class HomeViewController: UIViewController {
         trainerEditViewAddUI()
         trainerEditViewSetUI()
         setServerData()
+        getTrainerServer()
+
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setServerData()
+        getTrainerServer()
+
 //        print(didProfileShown)
 
     }
@@ -342,10 +346,12 @@ class HomeViewController: UIViewController {
                     print(moyaResponse.response)
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
                     TrainerDetailViewController.userInfo.userName = responseData.result.name
-                    TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? ""
                     TrainerDetailViewController.userInfo.grade = responseData.result.grade
                     TrainerDetailViewController.userInfo.school = responseData.result.school
                     TrainerDetailViewController.userInfo.level = responseData.result.levelName
+                    TrainerDetailViewController.userInfo.cost = responseData.result.cost
+                    TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? ""
+                    TrainerDetailViewController.userInfo.service = responseData.result.service ?? ""
 
                     print(responseData)
 

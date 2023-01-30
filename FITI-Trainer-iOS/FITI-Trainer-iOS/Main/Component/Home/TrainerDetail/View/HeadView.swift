@@ -30,7 +30,7 @@ class HeadView : UIView {
         return label
     }()
     
-    var goldIcon : UIImageView = {
+    var levelIcon : UIImageView = {
         let image = UIImageView()
         image.image =  UIImage(named: "gold.svg")
         return image
@@ -67,7 +67,7 @@ class HeadView : UIView {
     }()
     
     lazy var nameStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [name,goldIcon])
+        let stackView = UIStackView(arrangedSubviews: [name,levelIcon])
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.alignment = .trailing

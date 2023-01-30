@@ -35,8 +35,10 @@ struct UserInfo {
     var profile = ""
     var email = ""
     var level = ""
+    var cost : Int = 0
     var location = ""
     var intro = ""
+    var service = ""
     var school = ""
     var grade : Double = 0
 }
