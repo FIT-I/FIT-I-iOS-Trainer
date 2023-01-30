@@ -1,13 +1,13 @@
 //
-//  ChangeBackgroundModel.swift
+//  MyMatchingModel.swift
 //  FITI-Trainer-iOS
 //
-//  Created by 박윤빈 on 2023/01/29.
+//  Created by 박윤빈 on 2023/01/30.
 //
 
 import Foundation
 
-struct ChangeBackgroundResponse: Codable {
+struct MyMatchingResponse: Codable {
     let isSuccess: Bool
     let code: Int
     let message: String

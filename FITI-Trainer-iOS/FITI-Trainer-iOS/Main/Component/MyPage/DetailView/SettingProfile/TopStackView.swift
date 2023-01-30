@@ -11,23 +11,15 @@ import UIKit
 
 class TopStackView : UIView {
     
-//    var reviewerImage : UIImageView = {
-//        let imgView = UIImageView()
-//        imgView.image = UIImage(named: "reviewerIcon.svg")
-//        imgView.snp.makeConstraints { make in
-//            make.height.width.equalTo(60)
-//        }
-//        return imgView
-//    }()
-    
-    var settingUserProfile : UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(named:"chooseProfile.svg"), for: .normal)
-        btn.snp.makeConstraints { make in
-            make.width.height.equalTo(75)
-        }
-        btn.backgroundColor = .systemBackground
-        return btn
+    var settingUserProfile : UIImageView = {
+        let imgView = UIImageView()
+        imgView.image = UIImage(named: "reviewerIcon.svg")
+        imgView.layer.cornerRadius = 10
+        imgView.clipsToBounds = true
+        imgView.isUserInteractionEnabled = true
+//        imgView.contentMode = .scaleAspectFit
+//        imgView.translatesAutoresizingMaskIntoConstraints = false
+        return imgView
     }()
     
     var userName : UILabel = {
@@ -38,37 +30,22 @@ class TopStackView : UIView {
         return label
     }()
     
-    var blank : UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Avenir-Black", size: 15.0)
-        label.text = "  "
-        label.textColor = UIColor.black
-        return label
-    }()
-    
-    lazy var userNameStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [userName,blank])
-        stackView.axis = .horizontal
-        stackView.spacing = 3
-        stackView.alignment = .center
-        return stackView
-    }()
-    
     lazy var globalStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [settingUserProfile,userNameStackView])
+        let stackView = UIStackView(arrangedSubviews: [settingUserProfile,userName])
         stackView.axis = .vertical
         stackView.spacing = 7
         stackView.alignment = .center
         return stackView
     }()
     
-//    lazy var globalStackView : UIStackView = {
-//        let stackView = UIStackView(arrangedSubviews: [reviewerImage,userNameStackView])
-//        stackView.axis = .vertical
-//        stackView.spacing = 7
-//        stackView.alignment = .center
-//        return stackView
-//    }()
+    lazy var imagePicker: UIImagePickerController = {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+
+//            picker.allowsEditing = true
+
+            return picker
+        }()
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -85,8 +62,14 @@ class TopStackView : UIView {
     }
     
     private func setConstraints() {
+        
         globalStackView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        settingUserProfile.snp.makeConstraints { make in
+            make.height.equalTo(60)
+            make.width.equalTo(60)
         }
     }
     
@@ -96,3 +79,23 @@ class TopStackView : UIView {
     
 }
 
+extension TopStackView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            
+//            var newImage: UIImage? = nil // update 할 이미지
+            
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            settingUserProfile.image = image
+//            self.settingUserProfile.contentMode = .scaleAspectFit
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+                picker.dismiss(animated: true, completion: nil)
+            }
+            
+//        editPhotoButton.setImage(newImage, for: .normal)
+        //self.photoImage.image = newImage // 받아온 이미지를 update
+            picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
+        
+        }
+}

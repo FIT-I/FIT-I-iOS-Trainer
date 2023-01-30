@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AddEctImageRequest: Codable {
+struct AddBottomImageRequest: Codable {
     var ectImage: [String]
     
     init(ectImage: [String]) {

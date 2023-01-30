@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Moya
+import Realm
+
 
 struct UserInfo {
     var userName = ""
@@ -15,7 +17,6 @@ struct UserInfo {
     var email = ""
     var location = ""
 }
-
 
 class MyPageViewController: UIViewController {
     
@@ -173,7 +174,7 @@ class MyPageViewController: UIViewController {
         bottomBtn.resetPwBtn.addTarget(self, action: #selector(resetPwBtnEvent), for: .touchUpInside)
         bottomBtn.clauseBtn.addTarget(self, action: #selector(clauseBtnEvent), for: .touchUpInside)
         midProfileStackView.fixProfileBtn.addTarget(self, action: #selector(settingProfileBtnEvent), for: .touchUpInside)
-        notiView.showProfileBtn.addTarget(self, action: #selector(showProfileBtnEvent), for: .touchUpInside)
+        notiView.showProfileBtn.addTarget(self, action: #selector(patchSwitchServer), for: .touchUpInside)
     }
     
     @objc func settingProfileBtnEvent(){
@@ -205,36 +206,21 @@ class MyPageViewController: UIViewController {
         let nextVC = resetPwViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
-        
-    @objc func showProfileBtnEvent(){
-        if(didProfileShown == true){
-            notiView.showProfileBtn.setImage(UIImage(named: "OFF.svg"), for: .normal)
-            didProfileShown = false
-            delegate?.isShown(isProfileShown: didProfileShown)
-            print(didProfileShown)
-
-        }else{
-            notiView.showProfileBtn.setImage(UIImage(named: "ON.svg"), for: .normal)
-            didProfileShown = true
-            delegate?.isShown(isProfileShown: didProfileShown)
-            print(didProfileShown)
-
-        }
-    }
     
     //MARK: - set server
     
     func getMyPageServer(){
         self.myPageProvider.request(.myPage){ response in
             switch response {
-                
             case .success(let moyaResponse):
                 do{
+//                    print(moyaResponse.statusCode)
+//                    print(moyaResponse.response)
                     let responseData = try moyaResponse.map(MyPageResponse.self)
                     MyPageViewController.MyInfo.userName = responseData.result.userName
                     MyPageViewController.MyInfo.profile = responseData.result.profile
                     MyPageViewController.MyInfo.email = responseData.result.email
-                    MyPageViewController.MyInfo.location = responseData.result.location
+                    MyPageViewController.MyInfo.location = responseData.result.location ?? ""
                     print(responseData)
 
                 } catch(let err) {
@@ -246,8 +232,44 @@ class MyPageViewController: UIViewController {
         }
     }
     
+    @objc func patchSwitchServer(){
+        
+        didProfileShown = !didProfileShown
+        self.myPageProvider.request(.showProfile){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(MyMatchingResponse.self)
+                    print(responseData)
+                    if(self.didProfileShown){
+                        self.notiView.showProfileBtn.setImage(UIImage(named: "OFF.svg"), for: .normal)
+                    } else{
+                        self.notiView.showProfileBtn.setImage(UIImage(named: "ON.svg"), for: .normal)
+                    }
+                    
+                } catch(let err){
+                    print(err.localizedDescription)
+                    self.showFailAlert()
+                    
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                self.showFailAlert()
+            }
+        }
+    }
+    
     func setServerData(){
         midProfileStackView.name.text = MyPageViewController.MyInfo.userName
         midProfileStackView.userId.text = MyPageViewController.MyInfo.email
+    }
+    
+    func showFailAlert(){
+        let alert = UIAlertController(title: " 실패", message: "이메일 또는 비밀번호를 확인해주세요.", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { okAction in
+            self.didProfileShown = !self.didProfileShown
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 }
