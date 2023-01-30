@@ -32,6 +32,20 @@ class BottomInfoView : UIView {
         return label
     }()
     
+    var locationLabel : UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12.0)
+        label.text = "매칭 위치 설정"
+        label.textColor = UIColor.customColor(.blue)
+        return label
+    }()
+    var userLocation : UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12.0)
+        label.textColor = UIColor.customColor(.blue)
+        return label
+    }()
+    
     lazy var emailStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [emailLabel,userEmail])
         stackView.axis = .vertical
@@ -40,8 +54,16 @@ class BottomInfoView : UIView {
         return stackView
     }()
     
+    lazy var locationStackView : UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [locationLabel,userLocation])
+        stackView.axis = .vertical
+        stackView.spacing = 7
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
     lazy var globalStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [title,emailStackView])
+        let stackView = UIStackView(arrangedSubviews: [title,emailStackView,locationStackView])
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.alignment = .leading

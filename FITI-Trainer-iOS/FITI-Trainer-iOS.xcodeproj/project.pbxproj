@@ -20,8 +20,8 @@
 		0584038C298296F4002272B1 /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584038B298296F4002272B1 /* SignInModel.swift */; };
 		0584038F298525A8002272B1 /* ChangeInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584038E298525A8002272B1 /* ChangeInfoRequest.swift */; };
 		0584039129853CD5002272B1 /* ChangeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039029853CD5002272B1 /* ChangeInfoModel.swift */; };
-		0584039329854A8C002272B1 /* AddEctImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039229854A8C002272B1 /* AddEctImageRequest.swift */; };
-		0584039529854BA3002272B1 /* AddEctImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039429854BA3002272B1 /* AddEctImageModel.swift */; };
+		0584039329854A8C002272B1 /* AddBottomImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039229854A8C002272B1 /* AddBottomImageRequest.swift */; };
+		0584039529854BA3002272B1 /* AddBottomImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039429854BA3002272B1 /* AddBottomImageModel.swift */; };
 		05840397298550E4002272B1 /* EditProfileServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05840396298550E4002272B1 /* EditProfileServices.swift */; };
 		0584039929857F15002272B1 /* ChangeProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039829857F15002272B1 /* ChangeProfileRequest.swift */; };
 		0584039B29857F7F002272B1 /* ChangeProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0584039A29857F7F002272B1 /* ChangeProfileModel.swift */; };
@@ -31,6 +31,11 @@
 		058403A729858AA9002272B1 /* NoticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403A629858AA9002272B1 /* NoticeModel.swift */; };
 		058403A929858B07002272B1 /* PolicyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403A829858B07002272B1 /* PolicyModel.swift */; };
 		058403AB29858B3A002272B1 /* MyPageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403AA29858B3A002272B1 /* MyPageServices.swift */; };
+		058403AD2986CB27002272B1 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403AC2986CB27002272B1 /* String+.swift */; };
+		058403AF2986CB84002272B1 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403AE2986CB84002272B1 /* UIImage+.swift */; };
+		058403B12986CCBB002272B1 /* MyMatchingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403B02986CCBB002272B1 /* MyMatchingModel.swift */; };
+		058403B32986E73F002272B1 /* GetTrainerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403B22986E73F002272B1 /* GetTrainerInfoModel.swift */; };
+		058403B52986F21F002272B1 /* patchLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403B42986F21F002272B1 /* patchLocationModel.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -116,8 +121,8 @@
 		0584038B298296F4002272B1 /* SignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
 		0584038E298525A8002272B1 /* ChangeInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfoRequest.swift; sourceTree = "<group>"; };
 		0584039029853CD5002272B1 /* ChangeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfoModel.swift; sourceTree = "<group>"; };
-		0584039229854A8C002272B1 /* AddEctImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEctImageRequest.swift; sourceTree = "<group>"; };
-		0584039429854BA3002272B1 /* AddEctImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEctImageModel.swift; sourceTree = "<group>"; };
+		0584039229854A8C002272B1 /* AddBottomImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBottomImageRequest.swift; sourceTree = "<group>"; };
+		0584039429854BA3002272B1 /* AddBottomImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBottomImageModel.swift; sourceTree = "<group>"; };
 		05840396298550E4002272B1 /* EditProfileServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileServices.swift; sourceTree = "<group>"; };
 		0584039829857F15002272B1 /* ChangeProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileRequest.swift; sourceTree = "<group>"; };
 		0584039A29857F7F002272B1 /* ChangeProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileModel.swift; sourceTree = "<group>"; };
@@ -127,6 +132,11 @@
 		058403A629858AA9002272B1 /* NoticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeModel.swift; sourceTree = "<group>"; };
 		058403A829858B07002272B1 /* PolicyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyModel.swift; sourceTree = "<group>"; };
 		058403AA29858B3A002272B1 /* MyPageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageServices.swift; sourceTree = "<group>"; };
+		058403AC2986CB27002272B1 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		058403AE2986CB84002272B1 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		058403B02986CCBB002272B1 /* MyMatchingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchingModel.swift; sourceTree = "<group>"; };
+		058403B22986E73F002272B1 /* GetTrainerInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTrainerInfoModel.swift; sourceTree = "<group>"; };
+		058403B42986F21F002272B1 /* patchLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = patchLocationModel.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -271,7 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				0584038E298525A8002272B1 /* ChangeInfoRequest.swift */,
-				0584039229854A8C002272B1 /* AddEctImageRequest.swift */,
+				0584039229854A8C002272B1 /* AddBottomImageRequest.swift */,
 				05840396298550E4002272B1 /* EditProfileServices.swift */,
 				0584039829857F15002272B1 /* ChangeProfileRequest.swift */,
 				0584039C29858033002272B1 /* ChangeBackgroundRequest.swift */,
@@ -292,9 +302,11 @@
 			isa = PBXGroup;
 			children = (
 				0584039029853CD5002272B1 /* ChangeInfoModel.swift */,
-				0584039429854BA3002272B1 /* AddEctImageModel.swift */,
+				0584039429854BA3002272B1 /* AddBottomImageModel.swift */,
 				0584039A29857F7F002272B1 /* ChangeProfileModel.swift */,
 				0584039E2985805B002272B1 /* ChangeBackgroundModel.swift */,
+				058403B02986CCBB002272B1 /* MyMatchingModel.swift */,
+				058403B22986E73F002272B1 /* GetTrainerInfoModel.swift */,
 			);
 			path = Trainer;
 			sourceTree = "<group>";
@@ -313,6 +325,7 @@
 				058403A429858937002272B1 /* MyPageModel.swift */,
 				058403A629858AA9002272B1 /* NoticeModel.swift */,
 				058403A829858B07002272B1 /* PolicyModel.swift */,
+				058403B42986F21F002272B1 /* patchLocationModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -537,6 +550,8 @@
 				05A11DE6296EBB68008D85A9 /* UIViewController+.swift */,
 				05A11E02296F17A0008D85A9 /* UIView+.swift */,
 				059D80CB297FFBF40062C41A /* UICollectionView+.swift */,
+				058403AC2986CB27002272B1 /* String+.swift */,
+				058403AE2986CB84002272B1 /* UIImage+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -775,6 +790,7 @@
 				059D808E2973F4660062C41A /* SettingViewController.swift in Sources */,
 				059D80822973F3BA0062C41A /* NotificationSwitch.swift in Sources */,
 				059D807A2973270B0062C41A /* emailCheckViewController.swift in Sources */,
+				058403AD2986CB27002272B1 /* String+.swift in Sources */,
 				05A11DCE296D7F26008D85A9 /* GradeTableViewController.swift in Sources */,
 				05A11DF8296F1570008D85A9 /* PreviewReviewTableCell.swift in Sources */,
 				05A11DFA296F157E008D85A9 /* ReviewModel.swift in Sources */,
@@ -785,6 +801,7 @@
 				0584039D29858033002272B1 /* ChangeBackgroundRequest.swift in Sources */,
 				05A11E0B29702548008D85A9 /* EditBodyPriceViewController.swift in Sources */,
 				058403A929858B07002272B1 /* PolicyModel.swift in Sources */,
+				058403B52986F21F002272B1 /* patchLocationModel.swift in Sources */,
 				0584039F2985805B002272B1 /* ChangeBackgroundModel.swift in Sources */,
 				059D807C2973E5500062C41A /* CommunityTableCell.swift in Sources */,
 				059D80B72975B5C00062C41A /* RequestResultViewController.swift in Sources */,
@@ -806,9 +823,10 @@
 				058403A729858AA9002272B1 /* NoticeModel.swift in Sources */,
 				059D80C9297FC7EB0062C41A /* EditPhotoTableCell.swift in Sources */,
 				05A11DEA296EE318008D85A9 /* FindPwViewController.swift in Sources */,
-				0584039329854A8C002272B1 /* AddEctImageRequest.swift in Sources */,
+				0584039329854A8C002272B1 /* AddBottomImageRequest.swift in Sources */,
 				0584038F298525A8002272B1 /* ChangeInfoRequest.swift in Sources */,
 				059D80C12976D0F70062C41A /* AboutServiceView.swift in Sources */,
+				058403AF2986CB84002272B1 /* UIImage+.swift in Sources */,
 				059D80CC297FFBF40062C41A /* UICollectionView+.swift in Sources */,
 				05A11DA7296C9ED5008D85A9 /* AppDelegate.swift in Sources */,
 				05A11DF6296F1565008D85A9 /* BodyReviewView.swift in Sources */,
@@ -823,6 +841,7 @@
 				05A11DDD296DBA84008D85A9 /* MyPageViewController.swift in Sources */,
 				059D80A02973F56F0062C41A /* SearchTVC.swift in Sources */,
 				05A11DDB296DBA6E008D85A9 /* CommunityViewController.swift in Sources */,
+				058403B32986E73F002272B1 /* GetTrainerInfoModel.swift in Sources */,
 				05A11DFE296F1596008D85A9 /* BookCVC.swift in Sources */,
 				05A11DE5296DEBF8008D85A9 /* PriceStackView.swift in Sources */,
 				0584038A298296DE002272B1 /* SignUpModel.swift in Sources */,
@@ -841,8 +860,9 @@
 				059D80B92975B5CE0062C41A /* RequestSheet.swift in Sources */,
 				05A11E08296F1BB6008D85A9 /* ReviewViewController.swift in Sources */,
 				05A11DDF296DBA96008D85A9 /* ChatViewController.swift in Sources */,
+				058403B12986CCBB002272B1 /* MyMatchingModel.swift in Sources */,
 				05A11DD9296DBA05008D85A9 /* HomeViewController.swift in Sources */,
-				0584039529854BA3002272B1 /* AddEctImageModel.swift in Sources */,
+				0584039529854BA3002272B1 /* AddBottomImageModel.swift in Sources */,
 				059D80972973F4C50062C41A /* BottomInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

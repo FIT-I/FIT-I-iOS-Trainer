@@ -7,8 +7,11 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class GradeTableViewController: UIViewController {
+    
+    let provider = MoyaProvider<MyPageServices>()
     
     private let gradeImage : UIImageView = {
             let imageView = UIImageView()
@@ -16,19 +19,19 @@ class GradeTableViewController: UIViewController {
             return imageView
         }()
     
-   
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.topItem?.title = ""
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         pagingTimer()
-        // Do any additional setup after loading the view.
         setViewHierarchy()
         setConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getMyPageServer()
     }
 
     private func setViewHierarchy() {
@@ -59,5 +62,29 @@ class GradeTableViewController: UIViewController {
         let nextVC = TabBarController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
+    
+    func getMyPageServer(){
+        self.provider.request(.myPage){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    print(moyaResponse.statusCode)
+                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(MyPageResponse.self)
+                    MyPageViewController.MyInfo.userName = responseData.result.userName
+                    MyPageViewController.MyInfo.profile = responseData.result.profile
+                    MyPageViewController.MyInfo.email = responseData.result.email
+                    MyPageViewController.MyInfo.location = responseData.result.location ?? ""
+                    print(responseData)
+
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
 
 }

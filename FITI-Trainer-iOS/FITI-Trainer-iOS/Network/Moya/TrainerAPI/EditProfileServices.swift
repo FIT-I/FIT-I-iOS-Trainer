@@ -11,6 +11,7 @@ import Moya
 enum EditProfileServices {
     //param에 들어가는 것: request 할 값
     case changeInfo(param: ChangeInfoRequest)
+    case bottomPhoto(param: AddBottomImageRequest)
 }
 
 extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필요한 속성들을 제공! (밑의 path, method 같은 것들)
@@ -25,6 +26,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
         switch self {
         case .changeInfo:
             return "/api/trainer/information"
+        case .bottomPhoto:
+            return "/api/trainer/etcimg"
         }
     }
     
@@ -32,6 +35,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
         switch self {
         case .changeInfo:
             return .put
+        case .bottomPhoto:
+            return .post
         }
     }
     
@@ -39,13 +44,26 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
         switch self {
         case .changeInfo(let param):
             return .requestJSONEncodable(param)
+        case .bottomPhoto(let param):
+            return .requestJSONEncodable(param)
         }
     }
     
     var headers: [String : String]? {
         switch self {
         default:
-            return ["Content-Type":"application/json"]
+            let realm = RealmService()
+            let token = realm.getToken()
+            return ["Content-Type":"application/json",
+                    "Authorization": "Bearer \(token)"]
+            }
+        }
+    
+    var authorizationType: Moya.AuthorizationType? {
+        switch self {
+        default:
+            return .bearer
         }
     }
+
 }

@@ -12,6 +12,8 @@ enum MyPageServices {
     case myPage
     case notice
     case policy
+    case showProfile
+    case locationSetting(_ location:String)
 }
 
 extension MyPageServices: TargetType {
@@ -27,6 +29,11 @@ extension MyPageServices: TargetType {
             return "/api/communal/announcement"
         case .policy:
             return "/api/communal/terms"
+        case .showProfile:
+            return "/api/trainer/mymatching"
+        case .locationSetting(let location):
+            return "/api/customer/location/\(location)"
+
         }
     }
     
@@ -38,6 +45,10 @@ extension MyPageServices: TargetType {
             return .get
         case .policy:
             return .get
+        case .showProfile:
+            return .patch
+        case .locationSetting(_):
+            return .patch
         }
     }
     
@@ -49,15 +60,37 @@ extension MyPageServices: TargetType {
             return .requestPlain
         case .policy:
             return .requestPlain
+        case .showProfile:
+            return .requestPlain
+        case .locationSetting:
+            return .requestPlain
+
         }
     }
-    
+//
+//    var headers: [String : String]? {
+//        switch self {
+//        default:
+//            return ["Content-Type":"application/json"]
+//        }
+//    }
+//
     var headers: [String : String]? {
         switch self {
         default:
-            return ["Content-Type":"application/json"]
+            let realm = RealmService()
+            let token = realm.getToken()
+            return ["Content-Type":"application/json",
+                    "Authorization": "Bearer \(token)"]
         }
     }
-    
+
+    var authorizationType: Moya.AuthorizationType? {
+        switch self {
+        default:
+            return .bearer
+        }
+    }
+
     
 }

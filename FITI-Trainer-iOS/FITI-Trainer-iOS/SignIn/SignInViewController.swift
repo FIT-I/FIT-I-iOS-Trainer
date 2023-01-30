@@ -24,7 +24,6 @@ class SignInViewController: UIViewController {
         return label
     }()
 
-    
     lazy var idTextField : UITextField = {
         let tf = UITextField()
         tf.attributedPlaceholder = NSAttributedString(
@@ -108,8 +107,9 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        // Do any additional setup after loading the view.
-
+//        navigationController?.navigationBar.isHidden = true
+//        navigationController?.navigationBar.topItem?.title = ""
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         signInViewAddUI()
         signInViewSetUI()
         
@@ -173,6 +173,10 @@ class SignInViewController: UIViewController {
         }
 
     }
+    
+//    @objc func backTapped(sender: UIBarButtonItem) {
+//        navigationController?.popViewController(animated: true)
+//    }
     
     func checkRealmToken()->Bool{
         if realm.getToken() == ""{
@@ -240,7 +244,7 @@ class SignInViewController: UIViewController {
             }
         }
     }
-    
+        
     func addTokenInRealm(item:String){
         // add token in realm
         realm.addToken(item: item)

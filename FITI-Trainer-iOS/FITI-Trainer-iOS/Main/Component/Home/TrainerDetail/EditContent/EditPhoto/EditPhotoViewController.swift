@@ -9,11 +9,13 @@ import Foundation
 import UIKit
 import SnapKit
 import PhotosUI
+import Moya
 
 class EditPhotoViewController: UIViewController {
     //선택한 이미지를 저장할 배열
     var itemProviders: [NSItemProvider] = []
     var imageArray : [UIImage] = []
+    let imageProvider = MoyaProvider<EditProfileServices>()
     
     var bottomPhotoView = BottomPhotoView()
 
@@ -123,6 +125,10 @@ class EditPhotoViewController: UIViewController {
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
     }
+    
+    func postImageServer() {
+       let param = AddBottomImageRequest.init(ectImage: )
+    }
 }
 
 //MARK: - collectionView Extension
@@ -175,6 +181,7 @@ extension EditPhotoViewController: PHPickerViewControllerDelegate{
                      DispatchQueue.main.async {
                          guard let image = image as? UIImage else { return }
                          self.imageArray.append(image)
+                         print(self.imageArray)
                          self.editerPhotoChoiceCV.reloadData()
                      }
                  }

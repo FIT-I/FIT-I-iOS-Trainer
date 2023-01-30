@@ -44,11 +44,15 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         
         self.dismissKeyboard()
-        
+        setServerData()
         setViewHierarchy()
         setConstraints()
         setBtnEvent()
         changeProfileAlertEvent()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setServerData()
     }
     
     func setViewHierarchy(){
@@ -124,6 +128,12 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
         // headView의 image에 대한 delegate는 headView의 image 선언부에 존재한다.
         topStackView.imagePicker.allowsEditing = true
         present(topStackView.imagePicker, animated: true, completion: nil)
+    }
+    
+    private func setServerData(){
+        topStackView.userName.text = MyPageViewController.MyInfo.userName
+        bottomInfoView.userEmail.text = MyPageViewController.MyInfo.email
+        bottomInfoView.userLocation.text = MyPageViewController.MyInfo.location
     }
 
 }
