@@ -14,10 +14,10 @@ import Moya
 class EditPhotoViewController: UIViewController {
     //선택한 이미지를 저장할 배열
     var itemProviders: [NSItemProvider] = []
-    var imageArray : [UIImage] = []
+    static var imageArray : [UIImage] = []
     let imageProvider = MoyaProvider<EditProfileServices>()
     
-    var bottomPhotoView = BottomPhotoView()
+//    var bottomPhotoView = BottomPhotoView()
 
     var titleLabel : UILabel = {
         let label = UILabel()
@@ -118,7 +118,7 @@ class EditPhotoViewController: UIViewController {
     
     func selectImagePicker(){
         var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 20 - (imageArray.count)
+        configuration.selectionLimit = 20 - (EditPhotoViewController.imageArray.count)
         configuration.filter = .images
         
         let picker = PHPickerViewController(configuration: configuration)
@@ -135,7 +135,7 @@ class EditPhotoViewController: UIViewController {
 extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageArray.count + 1
+        return EditPhotoViewController.imageArray.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -158,7 +158,7 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
             return cell
         }else{
 //            cell.editerChoiceImageView.image = UIImage(named: images[indexPath.row])
-            cell.editerChoiceImageView.image = imageArray[indexPath.row]
+            cell.editerChoiceImageView.image = EditPhotoViewController.imageArray[indexPath.row]
 
             return cell
         }
@@ -180,8 +180,8 @@ extension EditPhotoViewController: PHPickerViewControllerDelegate{
                  item.loadObject(ofClass: UIImage.self) { image, error in
                      DispatchQueue.main.async {
                          guard let image = image as? UIImage else { return }
-                         self.imageArray.append(image)
-                         print(self.imageArray)
+                         EditPhotoViewController.imageArray.append(image)
+                         print(EditPhotoViewController.imageArray)
                          self.editerPhotoChoiceCV.reloadData()
                      }
                  }

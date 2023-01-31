@@ -95,7 +95,7 @@ class BodyIntroView : UIView {
             make.top.equalTo(introLineView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.equalTo(90)
+//            make.height.equalTo(90)
         }
     }
 }

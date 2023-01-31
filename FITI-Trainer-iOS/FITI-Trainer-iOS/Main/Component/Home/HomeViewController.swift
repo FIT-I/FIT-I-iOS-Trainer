@@ -350,8 +350,8 @@ class HomeViewController: UIViewController {
                     TrainerDetailViewController.userInfo.school = responseData.result.school
                     TrainerDetailViewController.userInfo.level = responseData.result.levelName
                     TrainerDetailViewController.userInfo.cost = responseData.result.cost
-                    TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? ""
-                    TrainerDetailViewController.userInfo.service = responseData.result.service ?? ""
+                    TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
+                    TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
 
                     print(responseData)
 

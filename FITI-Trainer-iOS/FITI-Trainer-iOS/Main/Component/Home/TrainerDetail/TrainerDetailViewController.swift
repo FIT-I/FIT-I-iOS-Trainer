@@ -3,7 +3,7 @@
 //  FITI-Trainer-iOS
 //
 //  Created by 박윤빈 on 2023/01/11.
-//
+// Debug > Attach to Process > FITI-Trainer-iOS.
 
 import Foundation
 import UIKit
@@ -303,6 +303,11 @@ extension TrainerDetailViewController{
         self.bodyPriceView.priceForTimeLabel.text = "\(TrainerDetailViewController.userInfo.cost)"
         self.bodyIntroView.introTextView.text = TrainerDetailViewController.userInfo.intro
         self.bodyIntroAboutService.introServiceTextView.text = TrainerDetailViewController.userInfo.service
+        if TrainerDetailViewController.userInfo.intro == "" {
+            self.bodyIntroView.snp.updateConstraints{
+                $0.height.equalTo(95)
+            }
+        }
     }
 }
 
@@ -314,6 +319,12 @@ extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINaviga
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
 //            topView.contentMode = .scaleAspectFit
             topView.image = image
+            let imageData:NSData = image.pngData()! as NSData
+            let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+            print(strBase64)
+
+            print(topView.image)
+            
         }
 
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
