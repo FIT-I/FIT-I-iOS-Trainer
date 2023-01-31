@@ -231,6 +231,7 @@ class SignInViewController: UIViewController {
             switch response {
                 case .success(let moyaResponse):
                     do {
+                        print(moyaResponse.statusCode)
                         let responseData = try moyaResponse.map(SignInResponse.self)
                         self.addTokenInRealm(item: responseData.result.accessToken)
                         self.ifSuccessPushHome()

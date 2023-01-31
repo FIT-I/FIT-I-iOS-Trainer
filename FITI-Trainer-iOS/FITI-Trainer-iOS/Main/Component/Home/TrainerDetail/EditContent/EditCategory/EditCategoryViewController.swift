@@ -1,26 +1,19 @@
 //
-//  EditBodyPriceViewController.swift
+//  EditCategoryViewController.swift
 //  FITI-Trainer-iOS
 //
-//  Created by 박윤빈 on 2023/01/12.
+//  Created by 박윤빈 on 2023/01/31.
 //
 
 import UIKit
 import SnapKit
-import Moya
 
-class EditBodyPriceViewController: UIViewController {
-    
-    private let provider = MoyaProvider<EditProfileServices>()
-    
-    //FIXME: 이후 String으로 변환 -
-    
-    var selectedPrice = 0
+class EditCategoryViewController: UIViewController {
     
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
-        label.text = "가격 선택"
+        label.text = "카테고리 선택"
         label.textColor = UIColor.customColor(.blue)
         return label
     }()
@@ -37,7 +30,7 @@ class EditBodyPriceViewController: UIViewController {
     var priceTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
-        label.text = "금액 (1시간 기준)"
+        label.text = "5가지 중 한가지를 선택해주세요."
         label.textColor = UIColor.black
         return label
     }()
@@ -54,7 +47,7 @@ class EditBodyPriceViewController: UIViewController {
     }()
 
     // 왼쪽 버튼 부분
-    var priceStackView = EditBodyPriceView()
+    var priceStackView = EditCategoryView()
     
     // 오른쪽 금액 Label 부분
     
@@ -115,7 +108,6 @@ class EditBodyPriceViewController: UIViewController {
         priceStackView.secondPickBtn.addTarget(self, action: #selector(secondCheckBtnEvent), for: .touchUpInside)
         priceStackView.thirdPickBtn.addTarget(self, action: #selector(thirdCheckBtnEvent), for: .touchUpInside)
         priceStackView.fourthPickBtn.addTarget(self, action: #selector(fourthCheckBtnEvent), for: .touchUpInside)
-        priceStackView.extraPickBtn.addTarget(self, action: #selector(extraCheckBtnEvent), for: .touchUpInside)
         nextBtn.addTarget(self, action: #selector(tapNextBtnEvent), for: .touchUpInside)
     }
     
@@ -124,6 +116,7 @@ class EditBodyPriceViewController: UIViewController {
     }
     
     //MARK: - 버튼 logic -> 버튼이 하나만 눌리도록!
+    
     var checkPosition = -1
     lazy var btnArr: [UIButton] = [
                     priceStackView.freePickBtn,
@@ -131,7 +124,6 @@ class EditBodyPriceViewController: UIViewController {
                     priceStackView.secondPickBtn,
                     priceStackView.thirdPickBtn,
                     priceStackView.fourthPickBtn,
-                    priceStackView.extraPickBtn
                             ]
     
     @objc func freeCheckBtnEvent(){
@@ -142,10 +134,9 @@ class EditBodyPriceViewController: UIViewController {
             priceStackView.freePickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
         }
         checkPosition = 0
-        priceStackView.extraPriceTextField.isEnabled = false
-        priceStackView.extraPriceTextField.text = ""
-        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
         nextBtn.backgroundColor = UIColor.customColor(.blue)
+
+
     }
     
     @objc func firstCheckBtnEvent(){
@@ -156,9 +147,6 @@ class EditBodyPriceViewController: UIViewController {
             priceStackView.firstPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
         }
         checkPosition = 1
-        priceStackView.extraPriceTextField.isEnabled = false
-        priceStackView.extraPriceTextField.text = ""
-        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
         nextBtn.backgroundColor = UIColor.customColor(.blue)
     }
     
@@ -170,9 +158,6 @@ class EditBodyPriceViewController: UIViewController {
             priceStackView.secondPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
         }
         checkPosition = 2
-        priceStackView.extraPriceTextField.isEnabled = false
-        priceStackView.extraPriceTextField.text = ""
-        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
         nextBtn.backgroundColor = UIColor.customColor(.blue)
 
     }
@@ -185,10 +170,8 @@ class EditBodyPriceViewController: UIViewController {
             priceStackView.thirdPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
         }
         checkPosition = 3
-        priceStackView.extraPriceTextField.isEnabled = false
-        priceStackView.extraPriceTextField.text = ""
-        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
         nextBtn.backgroundColor = UIColor.customColor(.blue)
+
     }
     
     @objc func fourthCheckBtnEvent(){
@@ -199,91 +182,16 @@ class EditBodyPriceViewController: UIViewController {
             priceStackView.fourthPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
         }
         checkPosition = 4
-        priceStackView.extraPriceTextField.isEnabled = false
-        priceStackView.extraPriceTextField.text = ""
-        priceStackView.extraPriceTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
         nextBtn.backgroundColor = UIColor.customColor(.blue)
-    }
-    
-    @objc func extraCheckBtnEvent(){
-        if(checkPosition == -1 || checkPosition == 5){
-            priceStackView.extraPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
-        } else{
-            btnArr[checkPosition].setImage(UIImage(named: "emptyBox.svg"), for: .normal)
-            priceStackView.extraPickBtn.setImage(UIImage(named: "check.fill.svg"), for: .normal)
-        }
-        checkPosition = 5
-        priceStackView.extraPriceTextField.isEnabled = true
-        nextBtn.backgroundColor = UIColor.customColor(.blue)
+
     }
     
     @objc func tapNextBtnEvent(){
         if(nextBtn.backgroundColor == UIColor.customColor(.blue)){
-            postServer()
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
-////                self.getTrainerServer()
-//            }
+            navigationController?.popViewController(animated: true)
         }
-    }
-    
-    //FIXME: 이후 String으로 변환 -
-
-    func selectedCost() -> Int {
-
-        switch checkPosition {
-
-        case 0:
-            selectedPrice = 0
-
-        case 1:
-            selectedPrice = 10000
-
-        case 2:
-            selectedPrice = 15000
-
-        case 3:
-            selectedPrice = 20000
-
-        case 4:
-            selectedPrice = 25000
-
-        case 5:
-            selectedPrice = 30000
-
-        default:
-            selectedPrice = HomeViewController.userInfo.cost
-        }
-
-        return selectedPrice
     }
     
 }
 
-//MARK: - Server
-extension EditBodyPriceViewController {
 
-    func postServer(){
-        let param = ChangeInfoRequest.init(TrainerDetailViewController.userInfo.userName, selectedCost(), TrainerDetailViewController.userInfo.intro, TrainerDetailViewController.userInfo.service)
-        provider.request(.changeInfo(param: param)) { response in
-                switch response {
-                case .success(let moyaResponse):
-                    do {
-                        print("success")
-                        let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
-                        
-                        TrainerDetailViewController.userInfo.cost = responseData.result.cost
-                        
-                        print(responseData.message)
-                        print(responseData)
-                        self.navigationController?.popViewController(animated: true)
-                    } catch(let err) {
-
-                        print(err.localizedDescription)
-                    }
-                case .failure(let err):
-
-                    print(err.localizedDescription)
-            }
-        }
-    }
-}

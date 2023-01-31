@@ -8,12 +8,14 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class HomeViewController: UIViewController {
-
-    var didProfileShown : Bool = true
-    private let myPageView = MyPageViewController()
     
+    static var userInfo = UserInfo()
+    private let myPageView = MyPageViewController()
+    let TrainerProvider = MoyaProvider<TrainerServices>()
+    var didProfileShown : Bool = true
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -67,9 +69,9 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    private lazy var ptIcon: UIImageView = {
+    private lazy var categoryIcon: UIImageView = {
         let image = UIImageView()
-        image.image =  UIImage(named: "personalPt.svg")  // 임시
+        image.image =  UIImage(named: "pt.svg")  // 임시
         return image
     }()
     
@@ -82,11 +84,23 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    private lazy var goldIcon: UIImageView = {
+//    private lazy var goldIcon: UIImageView = {
+//        let image = UIImageView()
+//        image.image =  UIImage(named: "gold.svg")
+//        return image
+//    }()
+    
+    private lazy var levelIcon: UIImageView = {
         let image = UIImageView()
-        image.image =  UIImage(named: "Gold.svg")
+        image.image =  UIImage(named: "bronze.svg")
         return image
     }()
+    
+//    private lazy var silverIcon: UIImageView = {
+//        let image = UIImageView()
+//        image.image =  UIImage(named: "silver.svg")
+//        return image
+//    }()
     
     private lazy var yellowstarIcon: UIImageView = {
         let image = UIImageView()
@@ -166,7 +180,7 @@ class HomeViewController: UIViewController {
     }()
     
     private lazy var ptStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [ptIcon,slashLabel,goldIcon])
+        let stackView = UIStackView(arrangedSubviews: [categoryIcon,slashLabel,levelIcon])
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.alignment = .trailing
@@ -220,14 +234,17 @@ class HomeViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         trainerEditViewAddUI()
         trainerEditViewSetUI()
-        self.setDelegate()
+        setServerData()
+        getTrainerServer()
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+        setServerData()
+        getTrainerServer()
+
 //        print(didProfileShown)
 
     }
@@ -309,26 +326,44 @@ class HomeViewController: UIViewController {
             navigationController?.pushViewController(nextVC, animated: true)
     }
     
-    func setDelegate(){
-        self.myPageView.delegate = self
+    
+    func setServerData(){
+        self.nameLabel.text = HomeViewController.userInfo.userName
+        self.emailLabel.text = HomeViewController.userInfo.email
+        self.introTextView.text = HomeViewController.userInfo.intro
+        self.levelIcon.image =  UIImage(named: "\(HomeViewController.userInfo.level).svg")
+        self.schoolLabel.text = HomeViewController.userInfo.school
+        self.gradeLabel.text = "\(HomeViewController.userInfo.grade)"
+        self.categoryIcon.image = UIImage(named: "\(HomeViewController.userInfo.category).svg")
+
+    }
+    
+    func getTrainerServer(){
+        self.TrainerProvider.request(.loadTrainer){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                    TrainerDetailViewController.userInfo.userName = responseData.result.name
+                    TrainerDetailViewController.userInfo.grade = responseData.result.grade
+                    TrainerDetailViewController.userInfo.school = responseData.result.school
+                    TrainerDetailViewController.userInfo.level = responseData.result.levelName
+                    TrainerDetailViewController.userInfo.cost = responseData.result.cost
+                    TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
+                    TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
+
+                    print(responseData)
+
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+            
+        }
     }
 
-}
-
-protocol isProfileShown: AnyObject {
-    func isShown(isProfileShown: Bool)
-}
-
-extension HomeViewController: isProfileShown{
-    func isShown(isProfileShown: Bool) {
-//        if(isProfileShown){
-//            allStackView.isHidden = false
-//            unShownImage.isHidden = true
-//        } else{
-//            allStackView.isHidden = true
-//            unShownImage.isHidden = false
-//
-//        }
-        print(isProfileShown)
-    }
 }

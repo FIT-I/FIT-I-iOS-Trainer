@@ -9,9 +9,13 @@ import Foundation
 import UIKit
 import SnapKit
 import Then
+import Moya
 
 class EditBodyIntroViewController: UIViewController {
     
+    private let provider = MoyaProvider<EditProfileServices>()
+    static var userInfo = UserInfo()
+
     //MARK: - UI Components
     // 상단 제목
     private lazy var introLabel: UILabel = {
@@ -64,6 +68,7 @@ class EditBodyIntroViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = .white
         $0.showsVerticalScrollIndicator = true
+//        $0.setContentOffset(CGPoint(x: <#T##Double#>, y: $0.bounds.size), animated: <#T##Bool#>)
     }
     
     let introView = IntroduceView()
@@ -73,9 +78,13 @@ class EditBodyIntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.topItem?.title = ""
         
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         setIntroLayout()
         setViewLayer()
+        setServerData()
         self.dismissKeyboard()
 
     }
@@ -94,6 +103,7 @@ class EditBodyIntroViewController: UIViewController {
         introView.layer.cornerRadius = 16
         requestButton.snp.makeConstraints { make in
             make.height.equalTo(50)
+            make.top.equalTo(introTextView.snp.bottom).offset(5)
             make.bottom.equalToSuperview().offset(-25)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(15)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-15)
@@ -103,6 +113,7 @@ class EditBodyIntroViewController: UIViewController {
         contentScrollView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
+            
         }
         
         //MARK: - containerViewLayout
@@ -132,7 +143,10 @@ class EditBodyIntroViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-15)
             $0.bottom.equalTo(requestButton.snp.top).offset(-20)
         }
-
+    }
+    
+    func setServerData(){
+        self.introTextView.text = TrainerDetailViewController.userInfo.intro
     }
     
     
@@ -141,7 +155,35 @@ class EditBodyIntroViewController: UIViewController {
     }
 
     @objc func tapOKBtn(sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        postServer()
     }
    
+}
+
+extension EditBodyIntroViewController {
+
+    func postServer(){
+        let param = ChangeInfoRequest.init(TrainerDetailViewController.userInfo.userName, TrainerDetailViewController.userInfo.cost, self.introTextView.text, TrainerDetailViewController.userInfo.service)
+        provider.request(.changeInfo(param: param)) { response in
+                switch response {
+                case .success(let moyaResponse):
+                    do {
+                        print("success")
+                        let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                        
+                        TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
+                        HomeViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
+                        
+                        self.navigationController?.popViewController(animated: true)
+                        
+                    } catch(let err) {
+
+                        print(err.localizedDescription)
+                    }
+                case .failure(let err):
+
+                    print(err.localizedDescription)
+            }
+        }
+    }
 }

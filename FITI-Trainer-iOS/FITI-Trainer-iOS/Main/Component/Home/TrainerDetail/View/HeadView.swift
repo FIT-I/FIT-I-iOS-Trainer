@@ -30,7 +30,7 @@ class HeadView : UIView {
         return label
     }()
     
-    var goldIcon : UIImageView = {
+    var levelIcon : UIImageView = {
         let image = UIImageView()
         image.image =  UIImage(named: "gold.svg")
         return image
@@ -67,7 +67,7 @@ class HeadView : UIView {
     }()
     
     lazy var nameStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [name,goldIcon])
+        let stackView = UIStackView(arrangedSubviews: [name,levelIcon])
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.alignment = .trailing
@@ -90,14 +90,14 @@ class HeadView : UIView {
         return stackView
     }()
     
-    lazy var globalStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [nameStackView,gradeStackView])
-        stackView.axis = .vertical
-        stackView.spacing = 6
-        stackView.alignment = .leading
-
-        return stackView
-    }()
+//    lazy var globalStackView : UIStackView = {
+//        let stackView = UIStackView(arrangedSubviews: [nameStackView,gradeStackView])
+//        stackView.axis = .vertical
+//        stackView.spacing = 6
+//        stackView.alignment = .leading
+//
+//        return stackView
+//    }()
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -118,7 +118,9 @@ class HeadView : UIView {
     
     func setViewHierarchy(){
         self.addSubview(reviewerImage)
-        self.addSubview(globalStackView)
+        self.addSubview(name)
+        self.addSubview(levelIcon)
+        self.addSubview(gradeStackView)
     }
     
     func setConstraints(){
@@ -127,10 +129,20 @@ class HeadView : UIView {
             make.leading.equalToSuperview().offset(30)
             make.height.width.equalTo(70)
         }
-        globalStackView.snp.makeConstraints { make in
+        
+        name.snp.makeConstraints { make in
             make.top.equalTo(reviewerImage.snp.bottom).offset(15)
             make.leading.equalToSuperview().offset(30)
-            make.trailing.bottom.equalToSuperview()
+        }
+        
+        levelIcon.snp.makeConstraints { make in
+            make.bottom.equalTo(name)
+            make.leading.equalTo(name.snp.trailing).offset(10)
+        }
+        
+        gradeStackView.snp.makeConstraints { make in
+            make.top.equalTo(name.snp.bottom).offset(2)
+            make.leading.equalTo(name)
         }
     }
 }

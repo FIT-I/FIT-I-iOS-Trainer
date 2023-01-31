@@ -10,9 +10,9 @@ import SnapKit
 
 class BottomPhotoView: UIView {
     
-//    let editPhotoView = EditPhotoViewController()
+    let editPhotoView = EditPhotoViewController()
     let space : CGFloat = 10
-    var takenImage : [UIImage] = []
+//    var takenImage : [UIImage] = []
     
     // 하단 뷰
     var photoImage : UIImageView = {
@@ -131,7 +131,7 @@ extension BottomPhotoView: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        return editPhotoView.imageArray.count
-        return takenImage.count
+        return EditPhotoViewController.imageArray.count
 
     }
     
@@ -139,10 +139,7 @@ extension BottomPhotoView: UICollectionViewDelegate, UICollectionViewDataSource{
         let cell = editerChoiceCV.dequeueReusableCell(withReuseIdentifier: BookCVC.identifier, for: indexPath) as! BookCVC
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
-//        cell.editerChoiceImageView.image = UIImage(named: editPhotoView.images[indexPath.row])
-//        cell.editerChoiceImageView.image = editPhotoView.imageArray[indexPath.row]
-        cell.editerChoiceImageView.image = takenImage[indexPath.row]
-
+        cell.editerChoiceImageView.image = EditPhotoViewController.imageArray[indexPath.row]
         return cell
     }
 
@@ -150,5 +147,5 @@ extension BottomPhotoView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return space
     }
-    
 }
+

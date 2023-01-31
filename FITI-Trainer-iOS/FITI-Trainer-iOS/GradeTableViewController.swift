@@ -12,6 +12,7 @@ import Moya
 class GradeTableViewController: UIViewController {
     
     let provider = MoyaProvider<MyPageServices>()
+    let TrainerProvider = MoyaProvider<TrainerServices>()
     
     private let gradeImage : UIImageView = {
             let imageView = UIImageView()
@@ -32,6 +33,7 @@ class GradeTableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         getMyPageServer()
+        getTrainerServer()
     }
 
     private func setViewHierarchy() {
@@ -68,13 +70,14 @@ class GradeTableViewController: UIViewController {
             switch response {
             case .success(let moyaResponse):
                 do{
-                    print(moyaResponse.statusCode)
+//                    print(moyaResponse.statusCode)
                     print(moyaResponse.response)
                     let responseData = try moyaResponse.map(MyPageResponse.self)
                     MyPageViewController.MyInfo.userName = responseData.result.userName
                     MyPageViewController.MyInfo.profile = responseData.result.profile
                     MyPageViewController.MyInfo.email = responseData.result.email
                     MyPageViewController.MyInfo.location = responseData.result.location ?? ""
+                    HomeViewController.userInfo.email = responseData.result.email
                     print(responseData)
 
                 } catch(let err) {
@@ -83,6 +86,32 @@ class GradeTableViewController: UIViewController {
             case .failure(let err):
                 print(err.localizedDescription)
             }
+        }
+    }
+    
+    func getTrainerServer(){
+        self.TrainerProvider.request(.loadTrainer){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                    HomeViewController.userInfo.userName = responseData.result.name
+                    HomeViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
+                    HomeViewController.userInfo.grade = responseData.result.grade
+                    HomeViewController.userInfo.school = responseData.result.school
+                    HomeViewController.userInfo.level = responseData.result.levelName
+                    HomeViewController.userInfo.category = responseData.result.category ?? "pt"
+                    print(responseData)
+
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+            
         }
     }
     

@@ -1,25 +1,25 @@
 //
-//  BodyPriceView.swift
+//  CategoryView.swift
 //  FITI-Trainer-iOS
 //
-//  Created by 박윤빈 on 2023/01/12.
+//  Created by 박윤빈 on 2023/01/31.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-class BodyPriceView : UIView {
+class CategoryView : UIView {
     var priceImage : UIImageView = {
         let imgView = UIImageView()
-        imgView.image = UIImage(named: "priceIcon.svg")
+        imgView.image = UIImage(named: "category.svg")
         return imgView
     }()
     
-    var priceLabel : UILabel = {
+    var categoryLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0)
-        label.text = "관리 비용"
+        label.text = "카테고리 선택"
         label.textColor = UIColor.black
         return label
     }()
@@ -39,25 +39,16 @@ class BodyPriceView : UIView {
         return view
     }()
     
-    var timeLabel : UILabel = {
+    var choosedCategoryLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0)
-        label.text = "1시간"
-        label.textColor = UIColor.customColor(.darkGray)
-        return label
-    }()
-    
-    var priceForTimeLabel : UILabel = {
-        let label = UILabel()
-        let editPrice = EditBodyPriceViewController()
-        label.font = UIFont.systemFont(ofSize: 12.0)
-        label.text = "10,000원"
+        label.text = "개인 PT"
         label.textColor = UIColor.customColor(.darkGray)
         return label
     }()
     
     lazy var priceTopStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [priceImage,priceLabel])
+        let stackView = UIStackView(arrangedSubviews: [priceImage,categoryLabel])
         stackView.axis = .horizontal
         stackView.spacing = 8
         stackView.alignment = .trailing
@@ -77,8 +68,7 @@ class BodyPriceView : UIView {
     private func setViewHierarchy() {
         self.addSubview(priceTopStackView)
         self.addSubview(priceLineView)
-        self.addSubview(timeLabel)
-        self.addSubview(priceForTimeLabel)
+        self.addSubview(choosedCategoryLabel)
         self.addSubview(editBodyPriceButton)
     }
     
@@ -96,13 +86,9 @@ class BodyPriceView : UIView {
             make.leading.equalToSuperview().offset(18)
             make.trailing.equalToSuperview().offset(-22)
         }
-        timeLabel.snp.makeConstraints { make in
+        choosedCategoryLabel.snp.makeConstraints { make in
             make.top.equalTo(priceLineView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(20)
-        }
-        priceForTimeLabel.snp.makeConstraints { make in
-            make.top.equalTo(priceLineView.snp.bottom).offset(10)
-            make.trailing.equalToSuperview().offset(-20)
         }
     }
 }

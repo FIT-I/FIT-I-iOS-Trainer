@@ -12,7 +12,7 @@ class ClauseViewController: UIViewController {
 
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Black", size: 25.0)
+        label.font = UIFont(name: "Avenir-Black", size: 20.0)
         label.text = "이용약관"
         label.textColor = UIColor.black
         return label
