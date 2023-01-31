@@ -98,11 +98,11 @@ class GradeTableViewController: UIViewController {
                     print(moyaResponse.response)
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
                     HomeViewController.userInfo.userName = responseData.result.name
-                    HomeViewController.userInfo.intro = responseData.result.intro ?? ""
+                    HomeViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
                     HomeViewController.userInfo.grade = responseData.result.grade
                     HomeViewController.userInfo.school = responseData.result.school
                     HomeViewController.userInfo.level = responseData.result.levelName
-
+                    HomeViewController.userInfo.category = responseData.result.category ?? "pt"
                     print(responseData)
 
                 } catch(let err) {

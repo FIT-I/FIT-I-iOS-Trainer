@@ -69,9 +69,9 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    private lazy var ptIcon: UIImageView = {
+    private lazy var categoryIcon: UIImageView = {
         let image = UIImageView()
-        image.image =  UIImage(named: "personalPt.svg")  // 임시
+        image.image =  UIImage(named: "pt.svg")  // 임시
         return image
     }()
     
@@ -180,7 +180,7 @@ class HomeViewController: UIViewController {
     }()
     
     private lazy var ptStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [ptIcon,slashLabel,levelIcon])
+        let stackView = UIStackView(arrangedSubviews: [categoryIcon,slashLabel,levelIcon])
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.alignment = .trailing
@@ -334,6 +334,7 @@ class HomeViewController: UIViewController {
         self.levelIcon.image =  UIImage(named: "\(HomeViewController.userInfo.level).svg")
         self.schoolLabel.text = HomeViewController.userInfo.school
         self.gradeLabel.text = "\(HomeViewController.userInfo.grade)"
+        self.categoryIcon.image = UIImage(named: "\(HomeViewController.userInfo.category).svg")
 
     }
     

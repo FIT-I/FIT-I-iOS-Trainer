@@ -8,8 +8,13 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class EditAboutServiceViewController: UIViewController {
+    
+    private let provider = MoyaProvider<EditProfileServices>()
+    static var userInfo = UserInfo()
+
     //MARK: - UI Components
     // 상단 제목
     private lazy var introLabel: UILabel = {
@@ -72,11 +77,20 @@ class EditAboutServiceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.topItem?.title = ""
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         
         setIntroLayout()
         setViewLayer()
+        setServerData()
         self.dismissKeyboard()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setServerData()
     }
     
     func setIntroLayout() {
@@ -131,10 +145,6 @@ class EditAboutServiceViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-15)
             $0.bottom.equalTo(requestButton.snp.top).offset(-20)
         }
-        
-        
-        
-        
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
@@ -142,7 +152,39 @@ class EditAboutServiceViewController: UIViewController {
     }
     
     @objc func tapOKBtn(sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        postServer()
     }
     
+}
+
+extension EditAboutServiceViewController{
+    
+    func postServer(){
+        let param = ChangeInfoRequest.init(TrainerDetailViewController.userInfo.userName, TrainerDetailViewController.userInfo.cost, TrainerDetailViewController.userInfo.intro, self.introTextView.text)
+        provider.request(.changeInfo(param: param)) { response in
+                switch response {
+                case .success(let moyaResponse):
+                    do {
+                        print("success")
+                        let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                        
+                        TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 소개글이 없습니다."
+                        HomeViewController.userInfo.service = responseData.result.service ?? "작성된 소개글이 없습니다."
+                       
+                        self.navigationController?.popViewController(animated: true)
+                        
+                    } catch(let err) {
+
+                        print(err.localizedDescription)
+                    }
+                case .failure(let err):
+
+                    print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func setServerData(){
+        self.introTextView.text = TrainerDetailViewController.userInfo.service
+    }
 }

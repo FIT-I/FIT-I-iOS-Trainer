@@ -14,9 +14,10 @@ import Moya
 class TrainerDetailViewController: UIViewController {
     //MoyaTarget과 상호작용하는 MoyaProvider를 생성하기 위해 MoyaProvider인스턴스 생성
     private let profileInfoProvider = MoyaProvider<EditProfileServices>()
+    private let TrainerProvider = MoyaProvider<TrainerServices>()
     static var userInfo = UserInfo()
+    
     //MARK: - UI Components
-    // 상단 뷰
     var topView : UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "blueScreen.svg")
@@ -41,7 +42,6 @@ class TrainerDetailViewController: UIViewController {
         return img
     }()
     
-    // 스크롤 뷰
     private lazy var contentScrollView = UIScrollView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = .white
@@ -70,7 +70,7 @@ class TrainerDetailViewController: UIViewController {
     let bottomPhotoView = BottomPhotoView()
     
     
-    // MARK: - View Life Cycle`
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,13 +83,17 @@ class TrainerDetailViewController: UIViewController {
         setViewLayer()
         setLayout()
         setServerDate()
+        getTrainerServer()
         changeBackAlertEvent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setServerDate()
+        getTrainerServer()
+        bottomPhotoView.editerChoiceCV.reloadData()
     }
     
+    //MARK: - Func
     func setButtonEvent(){
         bodyReviewView.reviewDetailBtn.addTarget(self, action: #selector(moveToReviewTableView), for: .touchUpInside)
         bodyPriceView.editBodyPriceButton.addTarget(self, action: #selector(editBodyPriceBtnEvent), for: .touchUpInside)
@@ -186,9 +190,7 @@ class TrainerDetailViewController: UIViewController {
 //MARK: - Extension
 
 extension TrainerDetailViewController {
-    
-    //MARK: - setLayout
-    
+        
     func setLayout() {
         
         //MARK: addSubViews
@@ -241,58 +243,60 @@ extension TrainerDetailViewController {
             make.leading.equalToSuperview()
         }
         
-        noticeImage.snp.makeConstraints { make in
-            make.top.equalTo(headView.snp.bottom).offset(25)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            make.bottom.equalTo(categoryView.snp.top).offset(-20)
-        }
-        
         categoryView.snp.makeConstraints {
             $0.top.equalTo(noticeImage.snp.bottom).offset(20)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
             $0.height.equalTo(86)
         }
         
+        noticeImage.snp.makeConstraints { make in
+            make.top.equalTo(headView.gradeStackView.snp.bottom).offset(25)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
+            make.bottom.equalTo(categoryView.snp.top).offset(-20)
+        }
+    
         bodyPriceView.snp.makeConstraints {
             $0.top.equalTo(categoryView.snp.bottom).offset(20)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
             $0.height.equalTo(86)
         }
         
         bodyIntroView.snp.makeConstraints {
             $0.top.equalTo(bodyPriceView.snp.bottom).offset(25)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.height.equalTo(160)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
+            $0.bottom.equalTo(bodyIntroView.introTextView).offset(5)
+
         }
         
         bodyIntroAboutService.snp.makeConstraints {
             $0.top.equalTo(bodyIntroView.snp.bottom).offset(25)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.height.equalTo(250)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
+            $0.bottom.equalTo(bodyIntroAboutService.introServiceTextView).offset(5)
         }
         
         bodyReviewView.snp.makeConstraints {
             $0.top.equalTo(bodyIntroAboutService.snp.bottom).offset(25)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
             $0.height.equalTo(350)
         }
         
         bottomPhotoView.snp.makeConstraints {
             $0.top.equalTo(bodyReviewView.snp.bottom).offset(5)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.leading.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
             $0.height.equalTo(200)
             $0.bottom.equalToSuperview()
         }
     }
 }
 
+//MARK: - ServerData
 extension TrainerDetailViewController{
     func setServerDate(){
         self.headView.name.text = TrainerDetailViewController.userInfo.userName
@@ -303,10 +307,28 @@ extension TrainerDetailViewController{
         self.bodyPriceView.priceForTimeLabel.text = "\(TrainerDetailViewController.userInfo.cost)"
         self.bodyIntroView.introTextView.text = TrainerDetailViewController.userInfo.intro
         self.bodyIntroAboutService.introServiceTextView.text = TrainerDetailViewController.userInfo.service
-        if TrainerDetailViewController.userInfo.intro == "" {
-            self.bodyIntroView.snp.updateConstraints{
-                $0.height.equalTo(95)
+    }
+    
+    func getTrainerServer(){
+        self.TrainerProvider.request(.loadTrainer){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                    TrainerDetailViewController.userInfo.cost = responseData.result.cost
+                    EditBodyIntroViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
+                    EditAboutServiceViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
+                    print(responseData)
+
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
             }
+            
         }
     }
 }
@@ -319,10 +341,11 @@ extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINaviga
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
 //            topView.contentMode = .scaleAspectFit
             topView.image = image
+            
+            //MARK: - UIImage to String
             let imageData:NSData = image.pngData()! as NSData
             let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
             print(strBase64)
-
             print(topView.image)
             
         }
@@ -330,9 +353,6 @@ extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINaviga
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
                 picker.dismiss(animated: true, completion: nil)
             }
-
-//        editPhotoButton.setImage(newImage, for: .normal)
-        //self.photoImage.image = newImage // 받아온 이미지를 update
             picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
 
         }
@@ -347,7 +367,6 @@ extension TrainerDetailViewController: UIPopoverPresentationControllerDelegate {
             = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
             popoverPresentationController.permittedArrowDirections = []
         }
-
     }
 }
 

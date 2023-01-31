@@ -139,8 +139,6 @@ extension BottomPhotoView: UICollectionViewDelegate, UICollectionViewDataSource{
         let cell = editerChoiceCV.dequeueReusableCell(withReuseIdentifier: BookCVC.identifier, for: indexPath) as! BookCVC
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
-//        cell.editerChoiceImageView.image = UIImage(named: editPhotoView.images[indexPath.row])
-//        cell.editerChoiceImageView.image = editPhotoView.imageArray[indexPath.row]
         cell.editerChoiceImageView.image = EditPhotoViewController.imageArray[indexPath.row]
         return cell
     }

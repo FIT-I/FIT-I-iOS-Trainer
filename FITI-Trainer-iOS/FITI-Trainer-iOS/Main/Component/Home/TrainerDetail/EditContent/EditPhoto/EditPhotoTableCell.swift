@@ -14,15 +14,36 @@ class EditPhotoTableCell: UICollectionViewCell {
     
     static let identifier = "EditPhotoCell"
     
+    let deleteImgButton : UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "minus.svg"), for: .normal)
+        btn.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.width.equalTo(20)
+        }
+        return btn
+    }()
     let editerChoiceImageView : UIImageView = {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
         img.contentMode = .scaleAspectFit
         return img
     }()
+    let cellView : UIView = {
+        let view = UIView()
+        
+        return view
+    }()
+    
+    
+    lazy var cellStackView : UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [editerChoiceImageView,deleteImgButton])
+        stackView.axis = .horizontal
+        stackView.alignment = .top
+        stackView.spacing = -20
+        return stackView
+    }()
 
-    
-    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
@@ -33,6 +54,7 @@ class EditPhotoTableCell: UICollectionViewCell {
         editerChoiceImageView.contentMode = .scaleToFill
         setLayout()
         editerChoiceImageView.layer.cornerRadius = 12
+//        deleteImgButton.layer.zPosition = 1
         
     }
     
@@ -41,13 +63,22 @@ class EditPhotoTableCell: UICollectionViewCell {
     }
 
     private func setLayout() {
-        contentView.addSubview(editerChoiceImageView)
+//        contentView.addSubview(deleteImgButton)
+//        contentView.addSubview(cellStackView)
+        
         self.backgroundColor = .systemGroupedBackground
-        addSubview(editerChoiceImageView)
+//        addSubview(deleteImgButton)
+        addSubview(cellStackView)
     
-        editerChoiceImageView.snp.makeConstraints { make in
+        cellStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+//        deleteImgButton.snp.makeConstraints { make in
+//            make.top.equalTo(editerChoiceImageView).offset(5)
+//            make.trailing.equalTo(editerChoiceImageView).offset(-5)
+//
+//        }
         
     }
     

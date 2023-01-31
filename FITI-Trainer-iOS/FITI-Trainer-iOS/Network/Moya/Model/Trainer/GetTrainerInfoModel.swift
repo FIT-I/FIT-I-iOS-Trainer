@@ -27,6 +27,7 @@ struct User: Codable {
     var service: String? = nil
     let reviewDto, imageList: [String]
     let matching_state: Bool
+    var category : String? = nil
 }
 
 //MARK: - UserInfo Struct
@@ -41,5 +42,6 @@ struct UserInfo {
     var service = ""
     var school = ""
     var grade : Double = 0
+    var category = ""
 }
 
