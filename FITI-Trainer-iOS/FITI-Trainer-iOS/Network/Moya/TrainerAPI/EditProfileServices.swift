@@ -12,6 +12,7 @@ enum EditProfileServices {
     //param에 들어가는 것: request 할 값
     case changeInfo(param: ChangeInfoRequest)
     case bottomPhoto(param: AddBottomImageRequest)
+    case changeCategory(param: ChangeCategoryRequest)
 }
 
 extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필요한 속성들을 제공! (밑의 path, method 같은 것들)
@@ -28,6 +29,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
             return "/api/trainer/information"
         case .bottomPhoto:
             return "/api/trainer/etcimg"
+        case .changeCategory:
+            return "/api/trainer/category"
         }
     }
     
@@ -37,6 +40,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
             return .put
         case .bottomPhoto:
             return .post
+        case .changeCategory:
+            return . patch
         }
     }
     
@@ -45,6 +50,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
         case .changeInfo(let param):
             return .requestJSONEncodable(param)
         case .bottomPhoto(let param):
+            return .requestJSONEncodable(param)
+        case .changeCategory(param: let param):
             return .requestJSONEncodable(param)
         }
     }

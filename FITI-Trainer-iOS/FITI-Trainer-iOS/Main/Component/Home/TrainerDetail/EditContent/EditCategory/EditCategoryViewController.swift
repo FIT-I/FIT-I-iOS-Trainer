@@ -7,9 +7,14 @@
 
 import UIKit
 import SnapKit
+import Moya
 
 class EditCategoryViewController: UIViewController {
     
+    private let provider = MoyaProvider<EditProfileServices>()
+    private let TrainerProvider = MoyaProvider<TrainerServices>()
+    private var selectedCategory = ""
+
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
@@ -188,10 +193,88 @@ class EditCategoryViewController: UIViewController {
     
     @objc func tapNextBtnEvent(){
         if(nextBtn.backgroundColor == UIColor.customColor(.blue)){
-            navigationController?.popViewController(animated: true)
+            patchServer()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                self.getServer()
+            }
+//            getServer()
         }
     }
     
+    func selectedCost() -> String {
+
+        switch checkPosition {
+
+        case 0:
+            selectedCategory = "pt"
+
+        case 1:
+            selectedCategory = "diet"
+
+        case 2:
+            selectedCategory = "food"
+
+        case 3:
+            selectedCategory = "rehab"
+
+        case 4:
+            selectedCategory = "friend"
+
+        default:
+            selectedCategory = HomeViewController.userInfo.category
+        }
+
+        return selectedCategory
+    }
+    
+}
+
+//MARK: - patch Server
+
+extension EditCategoryViewController{
+    
+    func patchServer(){
+        let param = ChangeCategoryRequest.init(category: selectedCost())
+        provider.request(.changeCategory(param: param)) { response in
+            switch response{
+            case .success(let moyaResponse):
+                do{
+                    print("success")
+                    let responseData = try moyaResponse.map(ChangeCategoryResponse.self)
+                    print(responseData)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+
+            }
+        }
+    }
+    
+    func getServer(){
+        self.TrainerProvider.request(.loadTrainer){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+//                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                    TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
+                    HomeViewController.userInfo.category = responseData.result.category ?? "pt"
+                    print(responseData)
+                    self.navigationController?.popViewController(animated: true)
+
+
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+            
+        }
+    }
 }
 
 

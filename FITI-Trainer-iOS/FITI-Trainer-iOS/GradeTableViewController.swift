@@ -71,7 +71,7 @@ class GradeTableViewController: UIViewController {
             case .success(let moyaResponse):
                 do{
 //                    print(moyaResponse.statusCode)
-                    print(moyaResponse.response)
+//                    print(moyaResponse.response)
                     let responseData = try moyaResponse.map(MyPageResponse.self)
                     MyPageViewController.MyInfo.userName = responseData.result.userName
                     MyPageViewController.MyInfo.profile = responseData.result.profile
@@ -95,7 +95,7 @@ class GradeTableViewController: UIViewController {
             case .success(let moyaResponse):
                 do{
 //                    print(moyaResponse.statusCode)
-                    print(moyaResponse.response)
+//                    print(moyaResponse.response)
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
                     HomeViewController.userInfo.userName = responseData.result.name
                     HomeViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."

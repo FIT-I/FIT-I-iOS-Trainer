@@ -40,6 +40,8 @@
 		058403B929882E16002272B1 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403B829882E16002272B1 /* CategoryView.swift */; };
 		058403BC29882EF7002272B1 /* EditCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403BB29882EF7002272B1 /* EditCategoryViewController.swift */; };
 		058403BE29882F05002272B1 /* EditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058403BD29882F05002272B1 /* EditCategoryView.swift */; };
+		0589C912298A4DDE00C29144 /* ChangeCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C911298A4DDD00C29144 /* ChangeCategoryModel.swift */; };
+		0589C914298A4F5500C29144 /* ChangeCategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C913298A4F5500C29144 /* ChangeCategoryRequest.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -145,6 +147,8 @@
 		058403B829882E16002272B1 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		058403BB29882EF7002272B1 /* EditCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryViewController.swift; sourceTree = "<group>"; };
 		058403BD29882F05002272B1 /* EditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryView.swift; sourceTree = "<group>"; };
+		0589C911298A4DDD00C29144 /* ChangeCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCategoryModel.swift; sourceTree = "<group>"; };
+		0589C913298A4F5500C29144 /* ChangeCategoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCategoryRequest.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -294,6 +298,7 @@
 				0584039829857F15002272B1 /* ChangeProfileRequest.swift */,
 				0584039C29858033002272B1 /* ChangeBackgroundRequest.swift */,
 				058403B62987AB9A002272B1 /* TrainerServices.swift */,
+				0589C913298A4F5500C29144 /* ChangeCategoryRequest.swift */,
 			);
 			path = TrainerAPI;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				0584039E2985805B002272B1 /* ChangeBackgroundModel.swift */,
 				058403B02986CCBB002272B1 /* MyMatchingModel.swift */,
 				058403B22986E73F002272B1 /* GetTrainerInfoModel.swift */,
+				0589C911298A4DDD00C29144 /* ChangeCategoryModel.swift */,
 			);
 			path = Trainer;
 			sourceTree = "<group>";
@@ -795,6 +801,7 @@
 				058403BC29882EF7002272B1 /* EditCategoryViewController.swift in Sources */,
 				059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */,
 				0584037E298293C6002272B1 /* Token.swift in Sources */,
+				0589C914298A4F5500C29144 /* ChangeCategoryRequest.swift in Sources */,
 				059D80802973F3AE0062C41A /* ProfileView.swift in Sources */,
 				059D809C2973F5260062C41A /* UpdateViewController.swift in Sources */,
 				059D80862973F3D70062C41A /* BottomBtnView.swift in Sources */,
@@ -859,6 +866,7 @@
 				059D80A42973F5AF0062C41A /* ClauseViewController.swift in Sources */,
 				05840397298550E4002272B1 /* EditProfileServices.swift in Sources */,
 				058403AB29858B3A002272B1 /* MyPageServices.swift in Sources */,
+				0589C912298A4DDE00C29144 /* ChangeCategoryModel.swift in Sources */,
 				059D80932973F4AF0062C41A /* SettingProfileViewController.swift in Sources */,
 				05A11DEE296F1532008D85A9 /* HeadView.swift in Sources */,
 				05A11DE3296DE5D0008D85A9 /* TrainerDetailViewController.swift in Sources */,

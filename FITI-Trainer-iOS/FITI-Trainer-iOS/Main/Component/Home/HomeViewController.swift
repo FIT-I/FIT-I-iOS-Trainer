@@ -148,7 +148,7 @@ class HomeViewController: UIViewController {
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.font = UIFont.systemFont(ofSize: 12.0)
-        textView.textContainer.maximumNumberOfLines = 3
+        textView.textContainer.maximumNumberOfLines = 7
         textView.textContainer.lineBreakMode = .byTruncatingTail
 
         // 더미 데이터
@@ -278,7 +278,8 @@ class HomeViewController: UIViewController {
         
         boxView.snp.makeConstraints{ make in
             make.top.equalTo(rectView.snp.bottom).offset(25)
-            make.bottom.equalToSuperview().offset(-128)
+//            make.bottom.equalToSuperview().offset(-128)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-35)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             
@@ -353,6 +354,7 @@ class HomeViewController: UIViewController {
                     TrainerDetailViewController.userInfo.cost = responseData.result.cost
                     TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
                     TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
+                    TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
 
                     print(responseData)
 
