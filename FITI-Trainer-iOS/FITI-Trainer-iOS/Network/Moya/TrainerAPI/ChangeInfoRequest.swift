@@ -8,11 +8,11 @@ import Foundation
 
 struct ChangeInfoRequest: Codable {
     var name: String
-    var costHour: Int
+    var costHour: String
     var intro: String
     var serviceDetail: String
     
-    init(_ name: String, _ costHour: Int, _ intro: String, _ serviceDetail: String) {
+    init(_ name: String, _ costHour: String, _ intro: String, _ serviceDetail: String) {
         self.name = name
         self.costHour = costHour
         self.intro = intro

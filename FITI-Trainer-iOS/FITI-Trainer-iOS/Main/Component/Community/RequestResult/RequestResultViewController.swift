@@ -10,6 +10,10 @@ import SnapKit
 
 class RequestResultViewController: UIViewController {
     
+//    static var id = Int()
+    static var specificUser = MatchingUser()
+    var requestSheet = RequestSheet()
+    
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
@@ -32,11 +36,22 @@ class RequestResultViewController: UIViewController {
         let view = RequestSheet()
         view.layer.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.00).cgColor
         view.layer.cornerRadius = 8
-    
+//        view.hourPriceLabel.text = RequestResultViewController.specificUser.pricePerHour
+//        view.totalPriceLabel.text = RequestResultViewController.specificUser.totalPrice
+//        view.meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
+//        view.pickUp.text = RequestResultViewController.specificUser.pickUpType
+//        if(RequestResultViewController.specificUser.pickUpType == "트레이너님이 와주세요."){
+//            view.lineView4.isHidden = false
+//            view.pickUpLocation.isHidden = false
+//            view.userPickUpLocation.isHidden = false
+//            view.userPickUpLocation.text = RequestResultViewController.specificUser.location
+//        } else {
+//            view.lineView4.isHidden = true
+//            view.pickUpLocation.isHidden = true
+//            view.userPickUpLocation.isHidden = true
+//        }
         return view
     }()
-    
-    
     
     private let acceptBtn : UIButton = {
         let btn = UIButton()
@@ -75,7 +90,12 @@ class RequestResultViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         setViewHierarchy()
+        setSeverData()
         setConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setSeverData()
     }
     
     func setViewHierarchy(){
@@ -156,7 +176,24 @@ class RequestResultViewController: UIViewController {
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
+    
+    func setSeverData(){
+        requestSheet.hourPriceLabel.text = RequestResultViewController.specificUser.pricePerHour
+        self.requestSheet.totalPriceLabel.text = RequestResultViewController.specificUser.totalPrice
+        self.requestSheet.meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
+        self.requestSheet.pickUp.text = RequestResultViewController.specificUser.pickUpType
+        if(RequestResultViewController.specificUser.pickUpType == "트레이너님이 와주세요."){
+            self.requestSheet.lineView4.isHidden = false
+            self.requestSheet.pickUpLocation.isHidden = false
+            self.requestSheet.userPickUpLocation.isHidden = false
+            self.requestSheet.userPickUpLocation.text = RequestResultViewController.specificUser.location
+        } else {
+            self.requestSheet.lineView4.isHidden = true
+            self.requestSheet.pickUpLocation.isHidden = true
+            self.requestSheet.userPickUpLocation.isHidden = true
+        }
 
+    }
 
 }
 

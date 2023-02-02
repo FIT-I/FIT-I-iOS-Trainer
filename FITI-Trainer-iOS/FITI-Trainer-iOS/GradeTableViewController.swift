@@ -13,6 +13,7 @@ class GradeTableViewController: UIViewController {
     
     let provider = MoyaProvider<MyPageServices>()
     let TrainerProvider = MoyaProvider<TrainerServices>()
+    let matchingProvider = MoyaProvider<MatchingService>()
     
     private let gradeImage : UIImageView = {
             let imageView = UIImageView()
@@ -22,10 +23,10 @@ class GradeTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.topItem?.title = ""
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
+        self.navigationItem.hidesBackButton = true
+
         pagingTimer()
         setViewHierarchy()
         setConstraints()
@@ -34,6 +35,7 @@ class GradeTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         getMyPageServer()
         getTrainerServer()
+        getMatchingServer()
     }
 
     private func setViewHierarchy() {
@@ -103,6 +105,9 @@ class GradeTableViewController: UIViewController {
                     HomeViewController.userInfo.school = responseData.result.school
                     HomeViewController.userInfo.level = responseData.result.levelName
                     HomeViewController.userInfo.category = responseData.result.category ?? "pt"
+                    HomeViewController.userInfo.matching_state = responseData.result.matching_state
+                    MyPageViewController.didProfileShown = responseData.result.matching_state
+                    
                     print(responseData)
 
                 } catch(let err) {
@@ -112,6 +117,23 @@ class GradeTableViewController: UIViewController {
                 print(err.localizedDescription)
             }
             
+        }
+    }
+    
+    func getMatchingServer(){
+        self.matchingProvider.request(.loadMatchingList){response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(MatchingListResponse.self)
+                    CommunityViewController.matchingList = responseData.result
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+
+            }
         }
     }
     

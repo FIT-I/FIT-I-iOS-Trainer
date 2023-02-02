@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import Moya
 
 struct AddBottomImageRequest: Codable {
-    var ectImage: [String]
+    var ectImage: [String:String]
     
-    init(ectImage: [String]) {
+    init(ectImage: [String:String]) {
         self.ectImage = ectImage
     }
 }

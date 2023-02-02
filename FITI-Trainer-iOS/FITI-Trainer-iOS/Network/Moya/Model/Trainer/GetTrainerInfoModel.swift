@@ -22,7 +22,7 @@ struct User: Codable {
     let levelName: String
     let school: String
     let grade: Double
-    let cost: Int
+    let cost: String
     var intro: String? = nil
     var service: String? = nil
     let reviewDto, imageList: [String]
@@ -34,14 +34,17 @@ struct User: Codable {
 struct UserInfo {
     var userName = ""
     var profile = ""
+    var backGround = ""
+    var imageList : [String] = []
     var email = ""
     var level = ""
-    var cost : Int = 0
+    var cost = ""
     var location = ""
     var intro = ""
     var service = ""
     var school = ""
     var grade : Double = 0
+    var matching_state = true
     var category = ""
 }
 

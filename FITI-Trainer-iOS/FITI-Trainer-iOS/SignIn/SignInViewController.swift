@@ -109,15 +109,18 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-//        navigationController?.navigationBar.isHidden = true
+//        self.navigationController?.navigationBar.isHidden = true
 //        navigationController?.navigationBar.topItem?.title = ""
 //        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
+        self.navigationItem.hidesBackButton = true
+
         signInViewAddUI()
         signInViewSetUI()
         
 //        self.realm.resetDB()
                 
         if checkRealmToken() {
+            print(self.realm.getToken())
             ifSuccessPushHome()
         }
 

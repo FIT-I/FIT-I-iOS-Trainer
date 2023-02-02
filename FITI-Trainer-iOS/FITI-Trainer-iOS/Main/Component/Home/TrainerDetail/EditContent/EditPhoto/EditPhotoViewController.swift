@@ -15,6 +15,7 @@ class EditPhotoViewController: UIViewController {
     //선택한 이미지를 저장할 배열
     var itemProviders: [NSItemProvider] = []
     static var imageArray : [UIImage] = []
+    static var imageStringArray : [String] = []
     let imageProvider = MoyaProvider<EditProfileServices>()
     
 //    var bottomPhotoView = BottomPhotoView()
@@ -113,6 +114,7 @@ class EditPhotoViewController: UIViewController {
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
+//        self.postImageServer()
         navigationController?.popViewController(animated: true)
     }
     
@@ -126,9 +128,24 @@ class EditPhotoViewController: UIViewController {
         self.present(picker, animated: true, completion: nil)
     }
     
-    func postImageServer() {
-       let param = AddBottomImageRequest.init(ectImage: )
-    }
+//    func postImageServer() {
+//        let param = AddBottomImageRequest.init(ectImage: EditPhotoViewController.imageStringArray)
+//        imageProvider.request(.bottomPhoto(param: param)){ response in
+//            switch response{
+//            case .success(let moyaResponse):
+//                do{
+//                    print("success")
+//                    let responseData = try moyaResponse.map(AddBottomImageResponse.self)
+//                    print(responseData)
+//                } catch(let err){
+//                    print(err.localizedDescription)
+//                }
+//            case .failure(let err):
+//                print(err.localizedDescription)
+//
+//            }
+//        }
+//    }
 }
 
 //MARK: - collectionView Extension
@@ -149,6 +166,7 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
         } else{
             let i = indexPath.row
             EditPhotoViewController.imageArray.remove(at: i)
+            EditPhotoViewController.imageStringArray.remove(at: i)
             collectionView.reloadData()
             
                 }
@@ -159,6 +177,7 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
         self.editerPhotoChoiceCV.deleteItems(at: [IndexPath.init(row: sender.tag, section: 0)])
           //이미지 아이템 배열의 데이터 삭제 // delete item at index of item array
         EditPhotoViewController.imageArray.remove(at: sender.tag)
+        EditPhotoViewController.imageStringArray.remove(at: sender.tag)
         }
     
     
@@ -193,7 +212,7 @@ extension EditPhotoViewController: PHPickerViewControllerDelegate{
         
         //PHPicker 닫기
         picker.dismiss(animated: true)
-        
+    
         itemProviders = results.map(\.itemProvider)
         for item in itemProviders {
              if item.canLoadObject(ofClass: UIImage.self) {
@@ -201,11 +220,18 @@ extension EditPhotoViewController: PHPickerViewControllerDelegate{
                      DispatchQueue.main.async {
                          guard let image = image as? UIImage else { return }
                          EditPhotoViewController.imageArray.append(image)
-                         print(EditPhotoViewController.imageArray)
+                         
+                         //받아온 이미지를 string으로 변환 후 저장
+                         let imageData:NSData = image.pngData()! as NSData
+                         let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+//                         print(strBase64)
+                         EditPhotoViewController.imageStringArray.append(strBase64)
+//                         print(EditPhotoViewController.imageArray)
                          self.editerPhotoChoiceCV.reloadData()
                      }
                  }
              }
          }
+        }
     }
-}
+

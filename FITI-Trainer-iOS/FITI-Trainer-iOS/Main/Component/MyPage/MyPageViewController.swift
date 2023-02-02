@@ -14,7 +14,7 @@ class MyPageViewController: UIViewController {
     
     static var MyInfo = UserInfo()
     private let myPageProvider = MoyaProvider<MyPageServices>()
-    var didProfileShown = true
+    static var didProfileShown = true
     
     //MARK: - set UI
     var myPageTitleLabel : UILabel = {
@@ -82,6 +82,11 @@ class MyPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setServerData()
         getMyPageServer()
+        if(MyPageViewController.didProfileShown){
+            self.notiView.showProfileBtn.setImage(UIImage(named: "ON.svg"), for: .normal)
+        } else {
+            self.notiView.showProfileBtn.setImage(UIImage(named: "OFF.svg"), for: .normal)
+        }
     }
     
 //    override func viewWillDisappear(_ animated: Bool) {
@@ -212,6 +217,7 @@ class MyPageViewController: UIViewController {
                     MyPageViewController.MyInfo.profile = responseData.result.profile
                     MyPageViewController.MyInfo.email = responseData.result.email
                     MyPageViewController.MyInfo.location = responseData.result.location ?? ""
+                    
                     print(responseData)
 
                 } catch(let err) {
@@ -224,24 +230,21 @@ class MyPageViewController: UIViewController {
     }
     
     @objc func patchSwitchServer(){
-        
-        didProfileShown = !didProfileShown
         self.myPageProvider.request(.showProfile){ response in
             switch response {
             case .success(let moyaResponse):
                 do{
                     let responseData = try moyaResponse.map(MyMatchingResponse.self)
-                    print(responseData)
-                    if(self.didProfileShown){
+                    if(MyPageViewController.didProfileShown){
                         self.notiView.showProfileBtn.setImage(UIImage(named: "OFF.svg"), for: .normal)
-                    } else{
+                    }else {
                         self.notiView.showProfileBtn.setImage(UIImage(named: "ON.svg"), for: .normal)
                     }
-                    
+                    MyPageViewController.didProfileShown = !MyPageViewController.didProfileShown
+                    print(responseData)
                 } catch(let err){
                     print(err.localizedDescription)
                     self.showFailAlert()
-                    
                 }
             case .failure(let err):
                 print(err.localizedDescription)
@@ -258,7 +261,7 @@ class MyPageViewController: UIViewController {
     func showFailAlert(){
         let alert = UIAlertController(title: " 실패", message: "이메일 또는 비밀번호를 확인해주세요.", preferredStyle: UIAlertController.Style.alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { okAction in
-            self.didProfileShown = !self.didProfileShown
+            MyPageViewController.didProfileShown = !MyPageViewController.didProfileShown
         })
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)

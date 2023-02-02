@@ -41,21 +41,21 @@ class RequestSheet : UIView {
         return label
     }()
     
-    var addServiceLabel : UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15.0)
-        label.text = "추가관리"
-        label.textColor = UIColor.customColor(.blue)
-        return label
-    }()
-    
-    var addPriceLabel : UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15.0)
-        label.text = "10,000원"
-        label.textColor = UIColor.customColor(.blue)
-        return label
-    }()
+//    var addServiceLabel : UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont.systemFont(ofSize: 15.0)
+//        label.text = "추가관리"
+//        label.textColor = UIColor.customColor(.blue)
+//        return label
+//    }()
+//
+//    var addPriceLabel : UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont.systemFont(ofSize: 15.0)
+//        label.text = "10,000원"
+//        label.textColor = UIColor.customColor(.blue)
+//        return label
+//    }()
     
     var totalLabel : UILabel = {
         let label = UILabel()
@@ -106,6 +106,25 @@ class RequestSheet : UIView {
         return label
     }()
     
+    var pickUpLocation : UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15.0)
+        label.text = "매칭 장소"
+        label.textColor = UIColor.customColor(.blue)
+        label.isHidden = true
+        return label
+    }()
+    
+    var userPickUpLocation : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Avenir-Black", size: 15.0)
+        label.text = "서울시~~"
+        label.textColor = UIColor.customColor(.blue)
+        label.isHidden = true
+
+        return label
+    }()
+    
     var lineView0 : UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.customColor(.gray)
@@ -142,6 +161,15 @@ class RequestSheet : UIView {
         return view
     }()
     
+    var lineView4 : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.customColor(.gray)
+        view.snp.makeConstraints { make in
+            make.height.equalTo(1)
+        }
+        return view
+    }()
+    
     lazy var topStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [requsetIcon,titleLabel])
         stackView.axis = .horizontal
@@ -150,24 +178,26 @@ class RequestSheet : UIView {
         return stackView
     }()
     
-    lazy var hourLabelStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [hourLabel,addServiceLabel])
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = 5
-        return stackView
-    }()
-    
-    lazy var hourPriceStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [hourPriceLabel,addPriceLabel])
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = 5
-        return stackView
-    }()
+//    lazy var hourLabelStackView : UIStackView = {
+//        let stackView = UIStackView(arrangedSubviews: [hourLabel,addServiceLabel])
+//        stackView.axis = .vertical
+//        stackView.alignment = .leading
+//        stackView.spacing = 5
+//        return stackView
+//    }()
+//
+//    lazy var hourPriceStackView : UIStackView = {
+//        let stackView = UIStackView(arrangedSubviews: [hourPriceLabel,addPriceLabel])
+//        stackView.axis = .vertical
+//        stackView.alignment = .leading
+//        stackView.spacing = 5
+//        return stackView
+//    }()
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+//        setSeverData()
+
     }
        
     override init(frame: CGRect) {
@@ -175,6 +205,8 @@ class RequestSheet : UIView {
         
         setViewHierarchy()
         setConstraints()
+//        setSeverData()
+
     }
     
     override func layoutSubviews() {
@@ -187,8 +219,8 @@ class RequestSheet : UIView {
         self.addSubview(topStackView)
         self.addSubview(lineView0)
         
-        self.addSubview(hourLabelStackView)
-        self.addSubview(hourPriceStackView)
+        self.addSubview(hourLabel)
+        self.addSubview(hourPriceLabel)
         
         self.addSubview(lineView1)
         self.addSubview(totalLabel)
@@ -201,6 +233,12 @@ class RequestSheet : UIView {
         self.addSubview(lineView3)
         self.addSubview(pickUpLabel)
         self.addSubview(pickUp)
+        
+        self.addSubview(lineView4)
+        self.addSubview(pickUpLocation)
+        self.addSubview(userPickUpLocation)
+        
+        
     }
     
     func setConstraints(){
@@ -214,16 +252,16 @@ class RequestSheet : UIView {
             make.leading.equalToSuperview().offset(18)
             make.trailing.equalToSuperview().offset(-22)
         }
-        hourLabelStackView.snp.makeConstraints { make in
+        hourLabel.snp.makeConstraints { make in
             make.top.equalTo(lineView0.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(18)
         }
-        hourPriceStackView.snp.makeConstraints { make in
+        hourPriceLabel.snp.makeConstraints { make in
             make.top.equalTo(lineView0.snp.bottom).offset(20)
             make.trailing.equalToSuperview().offset(-18)
         }
         lineView1.snp.makeConstraints { make in
-            make.top.equalTo(hourLabelStackView.snp.bottom).offset(20)
+            make.top.equalTo(hourPriceLabel.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(18)
             make.trailing.equalToSuperview().offset(-22)
         }
@@ -262,6 +300,39 @@ class RequestSheet : UIView {
             make.trailing.equalToSuperview().offset(-18)
         }
         
+        lineView4.snp.makeConstraints { make in
+            make.top.equalTo(pickUpLabel.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(18)
+            make.trailing.equalToSuperview().offset(-22)
+        }
+        
+        pickUpLocation.snp.makeConstraints { make in
+            make.top.equalTo(lineView4.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(18)
+        }
+        userPickUpLocation.snp.makeConstraints { make in
+            make.top.equalTo(lineView4.snp.bottom).offset(20)
+            make.trailing.equalToSuperview().offset(-18)
+        }
+        
     }
     
+//    func setSeverData(){
+//        hourPriceLabel.text = RequestResultViewController.specificUser.pricePerHour
+//        totalPriceLabel.text = RequestResultViewController.specificUser.totalPrice
+//        meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
+//        pickUp.text = RequestResultViewController.specificUser.pickUpType
+//        if(RequestResultViewController.specificUser.pickUpType == "트레이너님이 와주세요."){
+//            lineView4.isHidden = false
+//            pickUpLocation.isHidden = false
+//            userPickUpLocation.isHidden = false
+//            userPickUpLocation.text = RequestResultViewController.specificUser.location
+//        } else {
+//            lineView4.isHidden = true
+//            pickUpLocation.isHidden = true
+//            userPickUpLocation.isHidden = true
+//        }
+//
+//    }
+
 }

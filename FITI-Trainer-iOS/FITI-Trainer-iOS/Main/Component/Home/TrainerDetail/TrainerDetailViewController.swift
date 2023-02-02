@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Then
 import Moya
+import Photos
 
 class TrainerDetailViewController: UIViewController {
     //MoyaTarget과 상호작용하는 MoyaProvider를 생성하기 위해 MoyaProvider인스턴스 생성
@@ -17,6 +18,7 @@ class TrainerDetailViewController: UIViewController {
     private let TrainerProvider = MoyaProvider<TrainerServices>()
     static var userInfo = UserInfo()
     private var setCategory = ""
+    private var setBackGround = UIImage(named: "blueScreen.svg")
     
     //MARK: - UI Components
     var topView : UIImageView = {
@@ -33,13 +35,15 @@ class TrainerDetailViewController: UIViewController {
     }()
     
     lazy var imagePicker: UIImagePickerController = {
-            let picker = UIImagePickerController()
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
             return picker
         }()
     
     var noticeImage : UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "notice.svg")
+        
         return img
     }()
     
@@ -80,16 +84,31 @@ class TrainerDetailViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         
+        let options = PHImageRequestOptions()
+        options.isNetworkAccessAllowed = true
+        
         setButtonEvent()
         setViewLayer()
         setLayout()
         setServerDate()
+//        imageDecoding()
         getTrainerServer()
         changeBackAlertEvent()
+        
+//        print("====================================================")
+//        let backImg = UIImage(named: "blueScreen.svg")
+//        let imageData:NSData = backImg!.pngData()! as NSData
+//        let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+//        print(strBase64)
+//        print("====================================================")
+
+        
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setServerDate()
+//        imageDecoding()
         getTrainerServer()
         bottomPhotoView.editerChoiceCV.reloadData()
     }
@@ -321,6 +340,19 @@ extension TrainerDetailViewController {
 
         return setCategory
     }
+    
+//    func imageDecoding() {
+//        switch TrainerDetailViewController.userInfo.backGround {
+//        case "blueScreen":
+//            self.topView.image = setBackGround
+//
+//        default:
+//            let dataDecoded:NSData = NSData(base64Encoded: TrainerDetailViewController.userInfo.backGround, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
+//            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+//            print(decodedimage)
+//            self.topView.image = decodedimage
+//        }
+//    }
 }
 
 //MARK: - ServerData
@@ -347,6 +379,7 @@ extension TrainerDetailViewController{
                     TrainerDetailViewController.userInfo.cost = responseData.result.cost
                     EditBodyIntroViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
                     EditAboutServiceViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
+                    
                     print(responseData)
 
                 } catch(let err) {
@@ -368,14 +401,45 @@ extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINaviga
 
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
 //            topView.contentMode = .scaleAspectFit
-            topView.image = image
+//            topView.image = image
             
-            //MARK: - UIImage to String
+            //MARK: - UIImage to String -> Encoding
+            
+        
+            
             let imageData:NSData = image.pngData()! as NSData
-            let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-            print(strBase64)
-            print(topView.image)
+            let strBase64:String = imageData.base64EncodedString(options: .endLineWithLineFeed)
             
+//            print(strBase64)
+//            print("================================")
+            
+//            let param = ChangeBackgroundRequest(backgroundImage: strBase64)
+//            profileInfoProvider.request(.changeBackground(param: param)) { response in
+//                switch response {
+//                case .success(let moyaResponse):
+//                    do{
+//                        print("success")
+//                        let responseData = try moyaResponse.map(ChangeBackgroundResponse.self)
+//                        print(responseData)
+////                        let responseData = try moyaResponse.map(ChangeBackgroundResponse.self)
+//
+//                    } catch(let err) {
+//
+//                        print(err.localizedDescription)
+//                    }
+//                case .failure(let err):
+//                    print(err.localizedDescription)
+//
+//                }
+//
+//            }
+//            print(strBase64)
+
+            //MARK: - String to UIImage -> Decoding
+            let dataDecoded:NSData = NSData(base64Encoded: strBase64, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
+            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+            print(decodedimage)
+            topView.image = decodedimage
         }
 
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
