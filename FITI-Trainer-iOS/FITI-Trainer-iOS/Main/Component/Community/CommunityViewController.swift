@@ -7,8 +7,13 @@
 
 import UIKit
 import SnapKit
+import Moya
 
 class CommunityViewController: UIViewController {
+    
+    static var matchingList = [MatchingResult]()
+//    static var selectedUserData = MatchingUser()
+    let matchingProvider = MoyaProvider<MatchingService>()
     
     var titleLabel : UILabel = {
         let label = UILabel()
@@ -75,21 +80,28 @@ class CommunityViewController: UIViewController {
 
 extension CommunityViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("cell did touched")
+        let touchedCell = tableView.cellForRow(at: indexPath) as! CommunityTableCell
+        print(touchedCell.id)
+        self.getSpecificUserServer(matchingIdx: touchedCell.id)
         let nextVC = RequestResultViewController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
+//        RequestResultViewController.id = touchedCell.id
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+       
     }
 }
 
 
 extension CommunityViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return CommunityViewController.matchingList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CommunityTableCell.identifier, for: indexPath)
-//        cell.binding()
+        let cell = tableView.dequeueReusableCell(withIdentifier: CommunityTableCell.identifier, for: indexPath) as? CommunityTableCell ?? CommunityTableCell()
+        
+        cell.bindingMatchingList(model: CommunityViewController.matchingList[indexPath.row])
         cell.selectionStyle = .none
         cell.accessoryType = .disclosureIndicator
     
@@ -100,6 +112,38 @@ extension CommunityViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-    
-    
 }
+
+
+extension CommunityViewController{
+    func getSpecificUserServer(matchingIdx:Int){
+        self.matchingProvider.request(.specificUser(matchingIdx)){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do {
+                    print("its me")
+                    print(moyaResponse.statusCode)
+                    let responseData = try moyaResponse.map(SpecificUserResponse.self)
+                    RequestResultViewController.specificUser.pricePerHour = responseData.result.pricePerHour ?? ""
+                    RequestResultViewController.specificUser.totalPrice = responseData.result.totalPrice ?? ""
+                    RequestResultViewController.specificUser.matchingStart = responseData.result.matchingStart ?? ""
+                    RequestResultViewController.specificUser.matchingFinish = responseData.result.matchingFinish ?? ""
+                    RequestResultViewController.specificUser.location = responseData.result.location ?? ""
+                    if(responseData.result.pickUpType == "TRAINER_GO"){
+                        RequestResultViewController.specificUser.pickUpType = "트레이너님이 와주세요."
+                    } else {
+                        RequestResultViewController.specificUser.pickUpType = "제가 매칭상대의 주소로 갈게요."
+                    }
+                    print(responseData)
+                } catch(let err) {
+                    print(err.localizedDescription+"aa")
+                }
+            case .failure(let err):
+                print(err.localizedDescription+"oh")
+
+            }
+            
+        }
+    }
+}
+                                              

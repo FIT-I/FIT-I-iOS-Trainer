@@ -11,6 +11,7 @@ import SnapKit
 
 class CommunityTableCell: UITableViewCell {
     
+    var id = Int()
     static let identifier = "CommunityTableCell"
     
     var reviewerImage : UIImageView = {
@@ -83,7 +84,17 @@ class CommunityTableCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been impl")
     }
-    
-    
-    
+}
+
+extension CommunityTableCell{
+    public func bindingMatchingList(model: MatchingResult){
+        name.text = model.name
+//        date.text = model.orderDate
+        id = model.matchingId
+        if(model.pickUpType == "TRAINER_GO"){
+            pickUpStyle.text = "트레이너님이 와주세요."
+        } else {
+            pickUpStyle.text = "제가 직접 갈게요."
+        }
+    }
 }

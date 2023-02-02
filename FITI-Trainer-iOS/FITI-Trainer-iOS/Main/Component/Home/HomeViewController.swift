@@ -232,6 +232,10 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.topItem?.title = ""
+
         trainerEditViewAddUI()
         trainerEditViewSetUI()
         setServerData()
@@ -319,7 +323,6 @@ class HomeViewController: UIViewController {
             make.centerY.equalTo(boxView).offset(20)
             make.centerX.equalTo(boxView)
         }
-
     }
     
     @objc func touchNextBtnEvent() {
@@ -327,6 +330,14 @@ class HomeViewController: UIViewController {
             navigationController?.pushViewController(nextVC, animated: true)
     }
     
+    //MARK: - String 값을 UIImage로 변환해서 배열에 넣어주기
+    func setBottomImage(){
+        for index in 0...TrainerDetailViewController.userInfo.imageList.count{
+            let dataDecoded:NSData = NSData(base64Encoded: TrainerDetailViewController.userInfo.imageList[index], options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
+            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+            EditPhotoViewController.imageArray.append(decodedimage)
+        }
+    }
     
     func setServerData(){
         self.nameLabel.text = HomeViewController.userInfo.userName
@@ -336,6 +347,7 @@ class HomeViewController: UIViewController {
         self.schoolLabel.text = HomeViewController.userInfo.school
         self.gradeLabel.text = "\(HomeViewController.userInfo.grade)"
         self.categoryIcon.image = UIImage(named: "\(HomeViewController.userInfo.category).svg")
+        
 
     }
     
@@ -355,6 +367,8 @@ class HomeViewController: UIViewController {
                     TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
                     TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
                     TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
+                    TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
+                    TrainerDetailViewController.userInfo.imageList = responseData.result.imageList
 
                     print(responseData)
 

@@ -21,7 +21,7 @@ class NotificationSwitch : UIView {
     
     var showProfileBtn : UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(named: "ON.svg"), for: .normal)
+//        btn.setImage(UIImage(named: "ON.svg"), for: .normal)
         return btn
     }()
     

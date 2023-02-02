@@ -228,34 +228,34 @@ class EditBodyPriceViewController: UIViewController {
     
     //FIXME: 이후 String으로 변환 -
 
-    func selectedCost() -> Int {
-
-        switch checkPosition {
-
-        case 0:
-            selectedPrice = 0
-
-        case 1:
-            selectedPrice = 10000
-
-        case 2:
-            selectedPrice = 15000
-
-        case 3:
-            selectedPrice = 20000
-
-        case 4:
-            selectedPrice = 25000
-
-        case 5:
-            selectedPrice = 30000
-
-        default:
-            selectedPrice = HomeViewController.userInfo.cost
-        }
-
-        return selectedPrice
-    }
+//    func selectedCost() -> String {
+//
+//        switch checkPosition {
+//
+//        case "0":
+//            selectedPrice = 0
+//
+//        case "1":
+//            selectedPrice = 10000
+//
+//        case 2:
+//            selectedPrice = 15000
+//
+//        case 3:
+//            selectedPrice = 20000
+//
+//        case 4:
+//            selectedPrice = 25000
+//
+//        case 5:
+//            selectedPrice = 30000
+//
+//        default:
+//            selectedPrice = HomeViewController.userInfo.cost
+//        }
+//
+//        return selectedPrice
+//    }
     
 }
 
@@ -263,7 +263,7 @@ class EditBodyPriceViewController: UIViewController {
 extension EditBodyPriceViewController {
 
     func postServer(){
-        let param = ChangeInfoRequest.init(TrainerDetailViewController.userInfo.userName, selectedCost(), TrainerDetailViewController.userInfo.intro, TrainerDetailViewController.userInfo.service)
+        let param = ChangeInfoRequest.init(TrainerDetailViewController.userInfo.userName, TrainerDetailViewController.userInfo.cost, TrainerDetailViewController.userInfo.intro, TrainerDetailViewController.userInfo.service)
         provider.request(.changeInfo(param: param)) { response in
                 switch response {
                 case .success(let moyaResponse):
