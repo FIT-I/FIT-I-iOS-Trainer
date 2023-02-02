@@ -15,6 +15,7 @@ class SignInViewController: UIViewController {
     private let provider = MoyaProvider<SignServices>()
     let realm = RealmService()
 
+    //MARK: - UI Component
     private let titleLabel : UILabel = {
         let label = UILabel()
         label.text = "Trainer-Login"
@@ -103,7 +104,8 @@ class SignInViewController: UIViewController {
             return btn
         }()
     
-    
+    //MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -121,6 +123,8 @@ class SignInViewController: UIViewController {
 
         self.dismissKeyboard()
     }
+
+    //MARK: - Func
 
     func signInViewAddUI(){
 

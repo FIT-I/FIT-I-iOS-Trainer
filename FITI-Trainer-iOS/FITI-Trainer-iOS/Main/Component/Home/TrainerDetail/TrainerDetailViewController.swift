@@ -16,6 +16,7 @@ class TrainerDetailViewController: UIViewController {
     private let profileInfoProvider = MoyaProvider<EditProfileServices>()
     private let TrainerProvider = MoyaProvider<TrainerServices>()
     static var userInfo = UserInfo()
+    private var setCategory = ""
     
     //MARK: - UI Components
     var topView : UIImageView = {
@@ -294,6 +295,32 @@ extension TrainerDetailViewController {
             $0.bottom.equalToSuperview()
         }
     }
+    
+    func selectedCost() -> String {
+
+        switch TrainerDetailViewController.userInfo.category {
+
+        case "pt":
+            setCategory = "개인 PT"
+
+        case "diet":
+            setCategory = "다이어트"
+
+        case "food":
+            setCategory = "식단관리"
+
+        case "rehab":
+            setCategory = "재활치료"
+
+        case "friend":
+            setCategory = "운동친구"
+
+        default:
+            setCategory = HomeViewController.userInfo.category
+        }
+
+        return setCategory
+    }
 }
 
 //MARK: - ServerData
@@ -303,7 +330,7 @@ extension TrainerDetailViewController{
         self.headView.levelIcon.image =  UIImage(named: "\(TrainerDetailViewController.userInfo.level).svg")
         self.headView.grade.text = "\(TrainerDetailViewController.userInfo.grade)"
         self.headView.school.text = TrainerDetailViewController.userInfo.school
-        self.categoryView.choosedCategoryLabel.text = "개인 PT"
+        self.categoryView.choosedCategoryLabel.text = selectedCost()
         self.bodyPriceView.priceForTimeLabel.text = "\(TrainerDetailViewController.userInfo.cost)"
         self.bodyIntroView.introTextView.text = TrainerDetailViewController.userInfo.intro
         self.bodyIntroAboutService.introServiceTextView.text = TrainerDetailViewController.userInfo.service
@@ -315,7 +342,7 @@ extension TrainerDetailViewController{
             case .success(let moyaResponse):
                 do{
 //                    print(moyaResponse.statusCode)
-                    print(moyaResponse.response)
+//                    print(moyaResponse.response)
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
                     TrainerDetailViewController.userInfo.cost = responseData.result.cost
                     EditBodyIntroViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
@@ -333,6 +360,7 @@ extension TrainerDetailViewController{
     }
 }
 
+//MARK: - UIImagePicker Delegate
 extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
