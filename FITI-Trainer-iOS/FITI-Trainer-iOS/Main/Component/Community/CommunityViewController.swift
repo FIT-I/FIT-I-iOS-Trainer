@@ -12,7 +12,6 @@ import Moya
 class CommunityViewController: UIViewController {
     
     static var matchingList = [MatchingResult]()
-//    static var selectedUserData = MatchingUser()
     let matchingProvider = MoyaProvider<MatchingService>()
     
     var titleLabel : UILabel = {
@@ -41,7 +40,6 @@ class CommunityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        // Do any additional setup after loading the view.
         
         requestTableView.register(CommunityTableCell.self, forCellReuseIdentifier: CommunityTableCell.identifier)
         requestTableView.delegate = self

@@ -10,7 +10,6 @@ import SnapKit
 
 class RequestResultViewController: UIViewController {
     
-//    static var id = Int()
     static var specificUser = MatchingUser()
     let requestSheet = RequestSheet()
     
@@ -30,29 +29,7 @@ class RequestResultViewController: UIViewController {
         }
         return view
     }()
-    
-    // 매칭 시트
-//    var requestSheetView : UIView = {
-//        let view = RequestSheet()
-//        view.layer.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.00).cgColor
-//        view.layer.cornerRadius = 8
-//        view.hourPriceLabel.text = RequestResultViewController.specificUser.pricePerHour
-//        view.totalPriceLabel.text = RequestResultViewController.specificUser.totalPrice
-//        view.meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
-//        view.pickUp.text = RequestResultViewController.specificUser.pickUpType
-//        if(RequestResultViewController.specificUser.pickUpType == "트레이너님이 와주세요."){
-//            view.lineView4.isHidden = false
-//            view.pickUpLocation.isHidden = false
-//            view.userPickUpLocation.isHidden = false
-//            view.userPickUpLocation.text = RequestResultViewController.specificUser.location
-//        } else {
-//            view.lineView4.isHidden = true
-//            view.pickUpLocation.isHidden = true
-//            view.userPickUpLocation.isHidden = true
-//        }
-//        return view
-//    }()
-    
+
     private let acceptBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = UIColor.customColor(.blue)
@@ -113,7 +90,7 @@ class RequestResultViewController: UIViewController {
     
     func setConstraints(){
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(70)
+            make.top.equalToSuperview().offset(60)
             make.centerX.equalToSuperview()
         }
         progressView.snp.makeConstraints { make in
@@ -125,7 +102,7 @@ class RequestResultViewController: UIViewController {
             make.height.equalTo(50)
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
-            make.bottom.equalToSuperview().offset(-50)
+            make.bottom.equalToSuperview().offset(-30)
         }
         acceptBtn.snp.makeConstraints { make in
             make.bottom.equalTo(rejectBtn.snp.top).offset(-10)
@@ -138,7 +115,7 @@ class RequestResultViewController: UIViewController {
             make.top.equalTo(progressView.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.bottom.equalTo(acceptBtn.snp.top).offset(-100)
+            make.height.equalTo(370)
         }
         
     }
@@ -187,6 +164,7 @@ class RequestResultViewController: UIViewController {
         requestSheet.totalPriceLabel.text = "\(RequestResultViewController.specificUser.totalPrice)"+"원"
         requestSheet.meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
         requestSheet.pickUp.text = RequestResultViewController.specificUser.pickUpType
+        
         if(RequestResultViewController.specificUser.pickUpType == "트레이너님이 와주세요."){
             requestSheet.lineView4.isHidden = false
             requestSheet.pickUpLocation.isHidden = false
