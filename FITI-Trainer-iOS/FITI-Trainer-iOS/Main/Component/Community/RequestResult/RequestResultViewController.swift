@@ -12,7 +12,7 @@ class RequestResultViewController: UIViewController {
     
 //    static var id = Int()
     static var specificUser = MatchingUser()
-    var requestSheet = RequestSheet()
+    let requestSheet = RequestSheet()
     
     var titleLabel : UILabel = {
         let label = UILabel()
@@ -32,10 +32,10 @@ class RequestResultViewController: UIViewController {
     }()
     
     // 매칭 시트
-    var requestSheetView : UIView = {
-        let view = RequestSheet()
-        view.layer.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.00).cgColor
-        view.layer.cornerRadius = 8
+//    var requestSheetView : UIView = {
+//        let view = RequestSheet()
+//        view.layer.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.00).cgColor
+//        view.layer.cornerRadius = 8
 //        view.hourPriceLabel.text = RequestResultViewController.specificUser.pricePerHour
 //        view.totalPriceLabel.text = RequestResultViewController.specificUser.totalPrice
 //        view.meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
@@ -50,8 +50,8 @@ class RequestResultViewController: UIViewController {
 //            view.pickUpLocation.isHidden = true
 //            view.userPickUpLocation.isHidden = true
 //        }
-        return view
-    }()
+//        return view
+//    }()
     
     private let acceptBtn : UIButton = {
         let btn = UIButton()
@@ -89,13 +89,15 @@ class RequestResultViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         
         // Do any additional setup after loading the view.
-        setViewHierarchy()
         setSeverData()
+        setViewHierarchy()
         setConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setSeverData()
+        setViewHierarchy()
+        setConstraints()
     }
     
     func setViewHierarchy(){
@@ -103,7 +105,9 @@ class RequestResultViewController: UIViewController {
         view.addSubview(acceptBtn)
         view.addSubview(rejectBtn)
         view.addSubview(progressView)
-        view.addSubview(requestSheetView)
+        view.addSubview(requestSheet)
+        requestSheet.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.00)
+//        requestSheet.layer.cornerRadius = 8
 
     }
     
@@ -130,12 +134,13 @@ class RequestResultViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-15)
             
         }
-        requestSheetView.snp.makeConstraints { make in
+        requestSheet.snp.makeConstraints { make in
             make.top.equalTo(progressView.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-//            make.bottom.equalTo(nextBtn.snp.top).offset(-100)
+            make.bottom.equalTo(acceptBtn.snp.top).offset(-100)
         }
+        
     }
     
     @objc func acceptEvent(){
@@ -178,19 +183,19 @@ class RequestResultViewController: UIViewController {
     }
     
     func setSeverData(){
-        requestSheet.hourPriceLabel.text = RequestResultViewController.specificUser.pricePerHour
-        self.requestSheet.totalPriceLabel.text = RequestResultViewController.specificUser.totalPrice
-        self.requestSheet.meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
-        self.requestSheet.pickUp.text = RequestResultViewController.specificUser.pickUpType
+        requestSheet.hourPriceLabel.text = "\(RequestResultViewController.specificUser.pricePerHour)"+"원"
+        requestSheet.totalPriceLabel.text = "\(RequestResultViewController.specificUser.totalPrice)"+"원"
+        requestSheet.meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
+        requestSheet.pickUp.text = RequestResultViewController.specificUser.pickUpType
         if(RequestResultViewController.specificUser.pickUpType == "트레이너님이 와주세요."){
-            self.requestSheet.lineView4.isHidden = false
-            self.requestSheet.pickUpLocation.isHidden = false
-            self.requestSheet.userPickUpLocation.isHidden = false
-            self.requestSheet.userPickUpLocation.text = RequestResultViewController.specificUser.location
+            requestSheet.lineView4.isHidden = false
+            requestSheet.pickUpLocation.isHidden = false
+            requestSheet.userPickUpLocation.isHidden = false
+            requestSheet.userPickUpLocation.text = RequestResultViewController.specificUser.location
         } else {
-            self.requestSheet.lineView4.isHidden = true
-            self.requestSheet.pickUpLocation.isHidden = true
-            self.requestSheet.userPickUpLocation.isHidden = true
+            requestSheet.lineView4.isHidden = true
+            requestSheet.pickUpLocation.isHidden = true
+            requestSheet.userPickUpLocation.isHidden = true
         }
 
     }

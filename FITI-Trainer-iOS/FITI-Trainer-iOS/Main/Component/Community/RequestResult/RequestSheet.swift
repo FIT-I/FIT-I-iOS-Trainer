@@ -202,7 +202,7 @@ class RequestSheet : UIView {
        
     override init(frame: CGRect) {
         super .init(frame: .zero)
-        
+//        setSeverData()
         setViewHierarchy()
         setConstraints()
 //        setSeverData()
@@ -319,6 +319,7 @@ class RequestSheet : UIView {
     
 //    func setSeverData(){
 //        hourPriceLabel.text = RequestResultViewController.specificUser.pricePerHour
+//        print(hourPriceLabel.text)
 //        totalPriceLabel.text = RequestResultViewController.specificUser.totalPrice
 //        meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
 //        pickUp.text = RequestResultViewController.specificUser.pickUpType

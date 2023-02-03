@@ -129,6 +129,7 @@ extension CommunityViewController{
                     RequestResultViewController.specificUser.matchingStart = responseData.result.matchingStart ?? ""
                     RequestResultViewController.specificUser.matchingFinish = responseData.result.matchingFinish ?? ""
                     RequestResultViewController.specificUser.location = responseData.result.location ?? ""
+                    RequestResultViewController.specificUser.matchingPeriod = responseData.result.matchingPeriod
                     if(responseData.result.pickUpType == "TRAINER_GO"){
                         RequestResultViewController.specificUser.pickUpType = "트레이너님이 와주세요."
                     } else {
