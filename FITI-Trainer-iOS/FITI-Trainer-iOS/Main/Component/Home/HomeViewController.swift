@@ -15,6 +15,8 @@ class HomeViewController: UIViewController {
     static var userInfo = UserInfo()
     private let myPageView = MyPageViewController()
     let TrainerProvider = MoyaProvider<TrainerServices>()
+    let matchingProvider = MoyaProvider<MatchingService>()
+    
     var didProfileShown : Bool = true
     
     private lazy var titleLabel: UILabel = {
@@ -240,7 +242,7 @@ class HomeViewController: UIViewController {
         trainerEditViewSetUI()
         setServerData()
         getTrainerServer()
-
+        getMatchingServer()
         // Do any additional setup after loading the view.
     }
     
@@ -248,7 +250,7 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         setServerData()
         getTrainerServer()
-
+        getMatchingServer()
 //        print(didProfileShown)
 
     }
@@ -339,6 +341,8 @@ class HomeViewController: UIViewController {
         }
     }
     
+    //MARK: - set Server
+    
     func setServerData(){
         self.nameLabel.text = HomeViewController.userInfo.userName
         self.emailLabel.text = HomeViewController.userInfo.email
@@ -357,7 +361,7 @@ class HomeViewController: UIViewController {
             case .success(let moyaResponse):
                 do{
 //                    print(moyaResponse.statusCode)
-                    print(moyaResponse.response)
+//                    print(moyaResponse.response)
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
                     TrainerDetailViewController.userInfo.userName = responseData.result.name
                     TrainerDetailViewController.userInfo.grade = responseData.result.grade
@@ -370,6 +374,7 @@ class HomeViewController: UIViewController {
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
                     TrainerDetailViewController.userInfo.imageList = responseData.result.imageList
 
+                    print("HomeVC - getTrainerServer=========================================================")
                     print(responseData)
 
                 } catch(let err) {
@@ -379,6 +384,24 @@ class HomeViewController: UIViewController {
                 print(err.localizedDescription)
             }
             
+        }
+    }
+    
+    func getMatchingServer(){
+        self.matchingProvider.request(.loadMatchingList){response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    print("HomeVC - getMatchingServer=========================================================")
+                    let responseData = try moyaResponse.map(MatchingListResponse.self)
+                    CommunityViewController.matchingList = responseData.result
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+
+            }
         }
     }
 

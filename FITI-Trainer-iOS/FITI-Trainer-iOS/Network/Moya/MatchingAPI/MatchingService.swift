@@ -11,9 +11,8 @@ import Moya
 enum MatchingService {
     case loadMatchingList
     case specificUser(_ matchingIdx: Int)
-    case requestAccept(_ matchingIdx: Int)
     case requestReject(_ matchingIdx: Int)
-    case acceptRequest(_ matchingIdx: Int, _ openChatLink:Int)
+    case acceptRequest(_ matchingIdx: Int, _ openChatLink:String)
 }
 
 extension MatchingService: TargetType {
@@ -25,12 +24,13 @@ extension MatchingService: TargetType {
         switch self{
         case .loadMatchingList:
             return "/api/matching/trainer"
+            
         case .specificUser(let matchingIdx):
             return "/api/matching/\(matchingIdx)"
-        case .requestAccept(let matchingIdx):
-            return "/api/matching\(matchingIdx)/accept"
+            
         case .requestReject(let matchingIdx):
-            return "/api/matching\(matchingIdx)/reject"
+            return "/api/matching/\(matchingIdx)/reject"
+            
         case .acceptRequest(let matchingIdx, _):
             return "/api/matching/\(matchingIdx)/accept"
         }
@@ -42,8 +42,6 @@ extension MatchingService: TargetType {
             return .get
         case .specificUser:
             return .get
-        case .requestAccept:
-            return .patch
         case .requestReject:
             return .patch
         case .acceptRequest:
@@ -57,9 +55,7 @@ extension MatchingService: TargetType {
             return .requestPlain
         case .specificUser:
             return .requestPlain
-        case .requestAccept:
-            return .requestPlain
-        case .requestReject:
+        case .requestReject(_):
             return .requestPlain
         case .acceptRequest(_ , let openChatLink):
             return .requestParameters(parameters: ["openChatLink":openChatLink], encoding: URLEncoding.queryString)

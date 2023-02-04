@@ -13,7 +13,6 @@ class GradeTableViewController: UIViewController {
     
     let provider = MoyaProvider<MyPageServices>()
     let TrainerProvider = MoyaProvider<TrainerServices>()
-    let matchingProvider = MoyaProvider<MatchingService>()
     
     private let gradeImage : UIImageView = {
             let imageView = UIImageView()
@@ -35,7 +34,6 @@ class GradeTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         getMyPageServer()
         getTrainerServer()
-        getMatchingServer()
     }
 
     private func setViewHierarchy() {
@@ -81,7 +79,7 @@ class GradeTableViewController: UIViewController {
                     MyPageViewController.MyInfo.location = responseData.result.location ?? ""
                     HomeViewController.userInfo.email = responseData.result.email
                     print(responseData)
-
+                    print("GradeTableViewController - getMyPageServer=========================================================")
                 } catch(let err) {
                     print(err.localizedDescription)
                 }
@@ -109,7 +107,7 @@ class GradeTableViewController: UIViewController {
                     MyPageViewController.didProfileShown = responseData.result.matching_state
                     
                     print(responseData)
-
+                    print("GradeTableViewController - getTrainerServer=========================================================")
                 } catch(let err) {
                     print(err.localizedDescription)
                 }
@@ -118,23 +116,5 @@ class GradeTableViewController: UIViewController {
             }
         }
     }
-    
-    func getMatchingServer(){
-        self.matchingProvider.request(.loadMatchingList){response in
-            switch response {
-            case .success(let moyaResponse):
-                do{
-                    let responseData = try moyaResponse.map(MatchingListResponse.self)
-                    CommunityViewController.matchingList = responseData.result
-                } catch(let err){
-                    print(err.localizedDescription)
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
-
-            }
-        }
-    }
-    
 
 }

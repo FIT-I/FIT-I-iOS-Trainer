@@ -128,8 +128,11 @@ class RequestResultViewController: UIViewController {
         let alert = UIAlertController(title: "매칭 요청", message: "매칭을 수락하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
 
         let accecptAction = UIAlertAction(title: "수락", style: .default, handler: { okAction in
-            self.patchMatcingAccept()
-            self.getMatchingServer()
+//            self.patchMatcingAccept()
+            self.patchAcceptRequest()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                self.getMatchingServer()
+            }
 //            self.navigationController?.popViewController(animated: true)
         })
         
@@ -146,7 +149,9 @@ class RequestResultViewController: UIViewController {
 
         let rejectAction = UIAlertAction(title: "거절", style: .default, handler: { okAction in
             self.patchMatchingReject()
-            self.getMatchingServer()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.getMatchingServer()
+            }
         })
         
         let noAction = UIAlertAction(title: "취소", style: .destructive, handler: { okAction in
@@ -161,7 +166,7 @@ class RequestResultViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    //MARK: - server
+    //MARK: - set Server
     func setSeverData(){
         requestSheet.hourPriceLabel.text = "\(RequestResultViewController.specificUser.pricePerHour)"+"원"
         requestSheet.totalPriceLabel.text = "\(RequestResultViewController.specificUser.totalPrice)"+"원"
@@ -181,14 +186,32 @@ class RequestResultViewController: UIViewController {
 
     }
     
-    func patchMatcingAccept(){
-        self.matchingProvider.request(.requestAccept(RequestResultViewController.id)){ response in
+//    func patchMatcingAccept(){
+//        self.matchingProvider.request(.requestAccept(RequestResultViewController.id)){ response in
+//            switch response {
+//            case .success(let moyaResponse):
+//                do{
+//                    let responseData = try moyaResponse.map(MatchingAcceptResponse.self)
+//                    print(responseData)
+//
+//                } catch(let err){
+//                    print(err.localizedDescription)
+//                }
+//            case .failure(let err):
+//                print(err.localizedDescription)
+//            }
+//        }
+//    }
+    
+    func patchAcceptRequest(){
+        self.matchingProvider.request(.acceptRequest(RequestResultViewController.id, "https://open.kakao.com/o/szgx3A2e")){ response in
             switch response {
             case .success(let moyaResponse):
                 do{
                     let responseData = try moyaResponse.map(MatchingAcceptResponse.self)
-                    
-                } catch(let err){
+                    print("RequestResultVC - patchAcceptRequest=========================================================")
+                    print(responseData)
+                }catch(let err){
                     print(err.localizedDescription)
                 }
             case .failure(let err):
@@ -202,8 +225,10 @@ class RequestResultViewController: UIViewController {
             switch response {
             case .success(let moyaResponse):
                 do{
+                    print(RequestResultViewController.id)
                     let responseData = try moyaResponse.map(MatchingRejectResponse.self)
-                    
+                    print("RequestResultVC - patchMatchingReject=========================================================")
+                    print(responseData)
                 } catch(let err){
                     print(err.localizedDescription)
                 }
@@ -214,13 +239,16 @@ class RequestResultViewController: UIViewController {
     }
     
     func getMatchingServer(){
-        self.matchingProvider.request(.loadMatchingList){response in
+        self.matchingProvider.request(.loadMatchingList){ response in
             switch response {
             case .success(let moyaResponse):
                 do{
                     let responseData = try moyaResponse.map(MatchingListResponse.self)
                     CommunityViewController.matchingList = responseData.result
-                    self.navigationController?.popViewController(animated: true)
+                    print("RequestResultVC - getMatchingServer=========================================================")
+                  
+                        self.navigationController?.popViewController(animated: true)
+                    
                 } catch(let err){
                     print(err.localizedDescription)
                 }
