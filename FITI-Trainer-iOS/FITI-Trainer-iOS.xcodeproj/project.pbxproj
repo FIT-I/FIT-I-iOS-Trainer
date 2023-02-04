@@ -46,6 +46,9 @@
 		0589C91E298BED8C00C29144 /* MatchingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C91D298BED8C00C29144 /* MatchingListModel.swift */; };
 		0589C920298C0B8600C29144 /* SpecificUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C91F298C0B8600C29144 /* SpecificUserModel.swift */; };
 		0589C922298C3CAE00C29144 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C921298C3CAE00C29144 /* LoadingView.swift */; };
+		0589C924298E2F7100C29144 /* MatchingAcceptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C923298E2F7100C29144 /* MatchingAcceptModel.swift */; };
+		0589C926298E2F7B00C29144 /* MatchingRejectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C925298E2F7B00C29144 /* MatchingRejectModel.swift */; };
+		0589C929298E540A00C29144 /* setOpenChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C928298E540A00C29144 /* setOpenChatViewController.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -157,6 +160,9 @@
 		0589C91D298BED8C00C29144 /* MatchingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingListModel.swift; sourceTree = "<group>"; };
 		0589C91F298C0B8600C29144 /* SpecificUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificUserModel.swift; sourceTree = "<group>"; };
 		0589C921298C3CAE00C29144 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		0589C923298E2F7100C29144 /* MatchingAcceptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingAcceptModel.swift; sourceTree = "<group>"; };
+		0589C925298E2F7B00C29144 /* MatchingRejectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingRejectModel.swift; sourceTree = "<group>"; };
+		0589C928298E540A00C29144 /* setOpenChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setOpenChatViewController.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -377,8 +383,18 @@
 			children = (
 				0589C91D298BED8C00C29144 /* MatchingListModel.swift */,
 				0589C91F298C0B8600C29144 /* SpecificUserModel.swift */,
+				0589C923298E2F7100C29144 /* MatchingAcceptModel.swift */,
+				0589C925298E2F7B00C29144 /* MatchingRejectModel.swift */,
 			);
 			path = Matching;
+			sourceTree = "<group>";
+		};
+		0589C927298E53A300C29144 /* OpenChat */ = {
+			isa = PBXGroup;
+			children = (
+				0589C928298E540A00C29144 /* setOpenChatViewController.swift */,
+			);
+			path = OpenChat;
 			sourceTree = "<group>";
 		};
 		059D806B297153E60062C41A /* EditBodyPrice */ = {
@@ -422,6 +438,7 @@
 		059D807E2973F3580062C41A /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
+				0589C927298E53A300C29144 /* OpenChat */,
 				059D80872973F4130062C41A /* Setting */,
 				059D80882973F4180062C41A /* SettingProfile */,
 				059D808B2973F4430062C41A /* Location */,
@@ -855,6 +872,7 @@
 				05A11DF8296F1570008D85A9 /* PreviewReviewTableCell.swift in Sources */,
 				05A11DFA296F157E008D85A9 /* ReviewModel.swift in Sources */,
 				0584039B29857F7F002272B1 /* ChangeProfileModel.swift in Sources */,
+				0589C926298E2F7B00C29144 /* MatchingRejectModel.swift in Sources */,
 				05A11DD2296DB880008D85A9 /* TabBarController.swift in Sources */,
 				05840380298293D8002272B1 /* Profile.swift in Sources */,
 				059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */,
@@ -870,6 +888,7 @@
 				059D80912973F47E0062C41A /* WithdrawViewController.swift in Sources */,
 				0584037929829387002272B1 /* SignUpRequest.swift in Sources */,
 				059D80A7297431A70062C41A /* resetPwViewController.swift in Sources */,
+				0589C924298E2F7100C29144 /* MatchingAcceptModel.swift in Sources */,
 				05A11E0F297025DB008D85A9 /* EditAboutServiceViewController.swift in Sources */,
 				0584037C298293B1002272B1 /* RealmService.swift in Sources */,
 				059D809A2973F4E10062C41A /* SettingUserNameViewController.swift in Sources */,
@@ -893,6 +912,7 @@
 				05A11DF6296F1565008D85A9 /* BodyReviewView.swift in Sources */,
 				05A11DA9296C9ED5008D85A9 /* SceneDelegate.swift in Sources */,
 				05840382298293E8002272B1 /* CustomNotification.swift in Sources */,
+				0589C929298E540A00C29144 /* setOpenChatViewController.swift in Sources */,
 				059D80A42973F5AF0062C41A /* ClauseViewController.swift in Sources */,
 				05840397298550E4002272B1 /* EditProfileServices.swift in Sources */,
 				058403AB29858B3A002272B1 /* MyPageServices.swift in Sources */,

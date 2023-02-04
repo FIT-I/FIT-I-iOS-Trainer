@@ -7,11 +7,15 @@
 
 import UIKit
 import SnapKit
+import Moya
 
 class RequestResultViewController: UIViewController {
     
     static var specificUser = MatchingUser()
+    static var id = 0
+    private let matchingProvider = MoyaProvider<MatchingService>()
     let requestSheet = RequestSheet()
+    
     
     var titleLabel : UILabel = {
         let label = UILabel()
@@ -121,12 +125,12 @@ class RequestResultViewController: UIViewController {
     }
     
     @objc func acceptEvent(){
-        let alert = UIAlertController(title: "매칭 요청", message: "매칭을 수락하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "매칭 요청", message: "매칭을 수락하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
 
         let accecptAction = UIAlertAction(title: "수락", style: .default, handler: { okAction in
-//            let nextVC = CommunityViewController()
-//            self.navigationController?.pushViewController(nextVC, animated: true)
-            self.navigationController?.popViewController(animated: true)
+            self.patchMatcingAccept()
+            self.getMatchingServer()
+//            self.navigationController?.popViewController(animated: true)
         })
         
         let noAction = UIAlertAction(title: "취소", style: .destructive, handler: { okAction in
@@ -141,10 +145,8 @@ class RequestResultViewController: UIViewController {
         let alert = UIAlertController(title: "매칭 요청", message: "매칭을 거절하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
 
         let rejectAction = UIAlertAction(title: "거절", style: .default, handler: { okAction in
-//            let nextVC = CommunityViewController()
-//            self.navigationController?.pushViewController(nextVC, animated: true)
-            self.navigationController?.popViewController(animated: true)
-
+            self.patchMatchingReject()
+            self.getMatchingServer()
         })
         
         let noAction = UIAlertAction(title: "취소", style: .destructive, handler: { okAction in
@@ -159,6 +161,7 @@ class RequestResultViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    //MARK: - server
     func setSeverData(){
         requestSheet.hourPriceLabel.text = "\(RequestResultViewController.specificUser.pricePerHour)"+"원"
         requestSheet.totalPriceLabel.text = "\(RequestResultViewController.specificUser.totalPrice)"+"원"
@@ -176,6 +179,56 @@ class RequestResultViewController: UIViewController {
             requestSheet.userPickUpLocation.isHidden = true
         }
 
+    }
+    
+    func patchMatcingAccept(){
+        self.matchingProvider.request(.requestAccept(RequestResultViewController.id)){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(MatchingAcceptResponse.self)
+                    
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func patchMatchingReject(){
+        self.matchingProvider.request(.requestReject(RequestResultViewController.id)){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(MatchingRejectResponse.self)
+                    
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func getMatchingServer(){
+        self.matchingProvider.request(.loadMatchingList){response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(MatchingListResponse.self)
+                    CommunityViewController.matchingList = responseData.result
+                    self.navigationController?.popViewController(animated: true)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+
+            }
+        }
     }
 
 }

@@ -17,7 +17,7 @@ class CommunityViewController: UIViewController {
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
-        label.text = "보낸 요청 확인"
+        label.text = "받은 요청 확인"
         label.textColor = UIColor.customColor(.blue)
         return label
     }()
@@ -82,7 +82,7 @@ extension CommunityViewController : UITableViewDelegate {
         print(touchedCell.id)
         self.getSpecificUserServer(matchingIdx: touchedCell.id)
         let nextVC = RequestResultViewController()
-//        RequestResultViewController.id = touchedCell.id
+        RequestResultViewController.id = touchedCell.id
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
@@ -131,14 +131,14 @@ extension CommunityViewController{
                     if(responseData.result.pickUpType == "TRAINER_GO"){
                         RequestResultViewController.specificUser.pickUpType = "트레이너님이 와주세요."
                     } else {
-                        RequestResultViewController.specificUser.pickUpType = "제가 매칭상대의 주소로 갈게요."
+                        RequestResultViewController.specificUser.pickUpType = "고객이 직접 갈게요."
                     }
                     print(responseData)
                 } catch(let err) {
-                    print(err.localizedDescription+"aa")
+                    print(err.localizedDescription)
                 }
             case .failure(let err):
-                print(err.localizedDescription+"oh")
+                print(err.localizedDescription)
 
             }
             

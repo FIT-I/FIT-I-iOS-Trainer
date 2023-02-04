@@ -32,7 +32,7 @@ extension MyPageServices: TargetType {
         case .showProfile:
             return "/api/trainer/mymatching"
         case .locationSetting(let location):
-            return "/api/customer/location/\(location)"
+            return "/api/communal/location/\(location)"
 
         }
     }
@@ -67,14 +67,6 @@ extension MyPageServices: TargetType {
 
         }
     }
-//
-//    var headers: [String : String]? {
-//        switch self {
-//        default:
-//            return ["Content-Type":"application/json"]
-//        }
-//    }
-//
     var headers: [String : String]? {
         switch self {
         default:
@@ -84,13 +76,11 @@ extension MyPageServices: TargetType {
                     "Authorization": "Bearer \(token)"]
         }
     }
-
+    
     var authorizationType: Moya.AuthorizationType? {
         switch self {
         default:
             return .bearer
         }
     }
-
-    
 }

@@ -165,7 +165,7 @@ class resetPwViewController: UIViewController {
         }
         
         newPwCheckLabel.snp.makeConstraints { make in
-            make.top.equalTo(newPwTextField.snp.bottom).offset(20)
+            make.top.equalTo(newPwTextField.snp.bottom).offset(30)
             make.leading.equalToSuperview().offset(25)
         }
         

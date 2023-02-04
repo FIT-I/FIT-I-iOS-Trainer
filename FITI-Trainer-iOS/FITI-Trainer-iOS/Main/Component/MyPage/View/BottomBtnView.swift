@@ -20,6 +20,16 @@ class BottomBtnView : UIView {
         return btn
     }()
     
+    var userOpenChatBtn : UIButton = {
+        let btn = UIButton()
+        btn.snp.makeConstraints { make in
+            make.height.equalTo(22)
+        }
+        btn.backgroundColor = .systemBackground
+        btn.setImage(UIImage(named: "rightBtn"), for: .normal)
+        return btn
+    }()
+    
     var userLocationBtn : UIButton = {
         let btn = UIButton()
         btn.snp.makeConstraints { make in
@@ -61,7 +71,7 @@ class BottomBtnView : UIView {
     }()
     
     lazy var globalStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [userLocationBtn,resetPwBtn,updateBtn,noticeBtn,clauseBtn])
+        let stackView = UIStackView(arrangedSubviews: [userOpenChatBtn,userLocationBtn,resetPwBtn,updateBtn,noticeBtn,clauseBtn])
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.alignment = .leading

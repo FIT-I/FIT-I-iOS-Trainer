@@ -116,7 +116,6 @@ class GradeTableViewController: UIViewController {
             case .failure(let err):
                 print(err.localizedDescription)
             }
-            
         }
     }
     
