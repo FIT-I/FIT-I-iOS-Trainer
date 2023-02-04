@@ -8,7 +8,8 @@
 import Foundation
 
 struct MatchingRejectResponse: Codable {
-    let isSuccess: Bool
-    let code: Int
-    let message, result: String
+    var isSuccess: Bool? = nil
+    var code: Int? = nil
+    var message: String? = nil
+    var result: String? = nil
 }

@@ -49,6 +49,10 @@ class CommunityViewController: UIViewController {
         setConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        requestTableView.reloadData()
+    }
+    
     func setViewHierarchy(){
         view.addSubview(titleLabel)
         view.addSubview(progressView)
@@ -75,6 +79,8 @@ class CommunityViewController: UIViewController {
     }
 
 }
+
+//MARK: -  extension: tableView
 
 extension CommunityViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -112,6 +118,7 @@ extension CommunityViewController : UITableViewDataSource {
     }
 }
 
+//MARK: - set Server
 
 extension CommunityViewController{
     func getSpecificUserServer(matchingIdx:Int){
