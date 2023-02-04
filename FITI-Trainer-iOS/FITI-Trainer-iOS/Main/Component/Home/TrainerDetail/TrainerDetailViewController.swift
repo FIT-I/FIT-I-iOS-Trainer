@@ -401,11 +401,10 @@ extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINaviga
 
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
 //            topView.contentMode = .scaleAspectFit
-//            topView.image = image
+            topView.image = image
             
             //MARK: - UIImage to String -> Encoding
             
-        
             
             let imageData:NSData = image.pngData()! as NSData
             let strBase64:String = imageData.base64EncodedString(options: .endLineWithLineFeed)
@@ -414,13 +413,12 @@ extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINaviga
 //            print("================================")
             
 //            let param = ChangeBackgroundRequest(backgroundImage: strBase64)
-//            profileInfoProvider.request(.changeBackground(param: param)) { response in
+//            profileInfoProvider.request(.changeBackground(param: str)) { response in
 //                switch response {
 //                case .success(let moyaResponse):
 //                    do{
 //                        print("success")
 //                        let responseData = try moyaResponse.map(ChangeBackgroundResponse.self)
-//                        print(responseData)
 ////                        let responseData = try moyaResponse.map(ChangeBackgroundResponse.self)
 //
 //                    } catch(let err) {

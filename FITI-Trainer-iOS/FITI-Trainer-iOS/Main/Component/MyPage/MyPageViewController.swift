@@ -169,6 +169,7 @@ class MyPageViewController: UIViewController {
         bottomBtn.noticeBtn.addTarget(self, action: #selector(noticeBtnEvent), for: .touchUpInside)
         bottomBtn.resetPwBtn.addTarget(self, action: #selector(resetPwBtnEvent), for: .touchUpInside)
         bottomBtn.clauseBtn.addTarget(self, action: #selector(clauseBtnEvent), for: .touchUpInside)
+        bottomBtn.userOpenChatBtn.addTarget(self, action: #selector(openChatBtnEvent), for: .touchUpInside)
         midProfileStackView.fixProfileBtn.addTarget(self, action: #selector(settingProfileBtnEvent), for: .touchUpInside)
         notiView.showProfileBtn.addTarget(self, action: #selector(patchSwitchServer), for: .touchUpInside)
     }
@@ -180,6 +181,11 @@ class MyPageViewController: UIViewController {
     
     @objc func updateBtnEvent(){
         let nextVC = UpdateViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func openChatBtnEvent(){
+        let nextVC = setOpenChatViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
     

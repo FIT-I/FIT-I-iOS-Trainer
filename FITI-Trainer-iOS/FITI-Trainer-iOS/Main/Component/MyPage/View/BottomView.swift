@@ -23,6 +23,18 @@ class BottomView : UIView {
         return label
     }()
     
+    var userOpenChat : UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15.0)
+        label.text = "오픈 채팅방"
+        label.snp.makeConstraints { make in
+            make.width.equalTo(88)
+            make.height.equalTo(22)
+        }
+        label.textColor = UIColor.customColor(.blue)
+        return label
+    }()
+    
     var userLocation : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0)
@@ -72,7 +84,7 @@ class BottomView : UIView {
     }()
     
     lazy var globalStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [userLocation,resetPw,update,notice,clause])
+        let stackView = UIStackView(arrangedSubviews: [userOpenChat,userLocation,resetPw,update,notice,clause])
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.alignment = .leading

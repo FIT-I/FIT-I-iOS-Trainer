@@ -41,22 +41,6 @@ class RequestSheet : UIView {
         return label
     }()
     
-//    var addServiceLabel : UILabel = {
-//        let label = UILabel()
-//        label.font = UIFont.systemFont(ofSize: 15.0)
-//        label.text = "추가관리"
-//        label.textColor = UIColor.customColor(.blue)
-//        return label
-//    }()
-//
-//    var addPriceLabel : UILabel = {
-//        let label = UILabel()
-//        label.font = UIFont.systemFont(ofSize: 15.0)
-//        label.text = "10,000원"
-//        label.textColor = UIColor.customColor(.blue)
-//        return label
-//    }()
-    
     var totalLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0)
@@ -178,34 +162,14 @@ class RequestSheet : UIView {
         return stackView
     }()
     
-//    lazy var hourLabelStackView : UIStackView = {
-//        let stackView = UIStackView(arrangedSubviews: [hourLabel,addServiceLabel])
-//        stackView.axis = .vertical
-//        stackView.alignment = .leading
-//        stackView.spacing = 5
-//        return stackView
-//    }()
-//
-//    lazy var hourPriceStackView : UIStackView = {
-//        let stackView = UIStackView(arrangedSubviews: [hourPriceLabel,addPriceLabel])
-//        stackView.axis = .vertical
-//        stackView.alignment = .leading
-//        stackView.spacing = 5
-//        return stackView
-//    }()
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-//        setSeverData()
-
     }
        
     override init(frame: CGRect) {
         super .init(frame: .zero)
-        
         setViewHierarchy()
         setConstraints()
-//        setSeverData()
 
     }
     
@@ -316,23 +280,6 @@ class RequestSheet : UIView {
         }
         
     }
-    
-//    func setSeverData(){
-//        hourPriceLabel.text = RequestResultViewController.specificUser.pricePerHour
-//        totalPriceLabel.text = RequestResultViewController.specificUser.totalPrice
-//        meetingDate.text = "\(RequestResultViewController.specificUser.matchingStart)"+"~"+"\(RequestResultViewController.specificUser.matchingFinish) "+"총 \(RequestResultViewController.specificUser.matchingPeriod ?? 0)일"
-//        pickUp.text = RequestResultViewController.specificUser.pickUpType
-//        if(RequestResultViewController.specificUser.pickUpType == "트레이너님이 와주세요."){
-//            lineView4.isHidden = false
-//            pickUpLocation.isHidden = false
-//            userPickUpLocation.isHidden = false
-//            userPickUpLocation.text = RequestResultViewController.specificUser.location
-//        } else {
-//            lineView4.isHidden = true
-//            pickUpLocation.isHidden = true
-//            userPickUpLocation.isHidden = true
-//        }
-//
-//    }
+
 
 }

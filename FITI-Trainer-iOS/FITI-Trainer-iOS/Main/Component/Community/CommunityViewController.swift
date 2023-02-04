@@ -12,13 +12,12 @@ import Moya
 class CommunityViewController: UIViewController {
     
     static var matchingList = [MatchingResult]()
-//    static var selectedUserData = MatchingUser()
     let matchingProvider = MoyaProvider<MatchingService>()
     
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
-        label.text = "보낸 요청 확인"
+        label.text = "받은 요청 확인"
         label.textColor = UIColor.customColor(.blue)
         return label
     }()
@@ -41,7 +40,6 @@ class CommunityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        // Do any additional setup after loading the view.
         
         requestTableView.register(CommunityTableCell.self, forCellReuseIdentifier: CommunityTableCell.identifier)
         requestTableView.delegate = self
@@ -84,7 +82,7 @@ extension CommunityViewController : UITableViewDelegate {
         print(touchedCell.id)
         self.getSpecificUserServer(matchingIdx: touchedCell.id)
         let nextVC = RequestResultViewController()
-//        RequestResultViewController.id = touchedCell.id
+        RequestResultViewController.id = touchedCell.id
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
@@ -129,17 +127,18 @@ extension CommunityViewController{
                     RequestResultViewController.specificUser.matchingStart = responseData.result.matchingStart ?? ""
                     RequestResultViewController.specificUser.matchingFinish = responseData.result.matchingFinish ?? ""
                     RequestResultViewController.specificUser.location = responseData.result.location ?? ""
+                    RequestResultViewController.specificUser.matchingPeriod = responseData.result.matchingPeriod
                     if(responseData.result.pickUpType == "TRAINER_GO"){
                         RequestResultViewController.specificUser.pickUpType = "트레이너님이 와주세요."
                     } else {
-                        RequestResultViewController.specificUser.pickUpType = "제가 매칭상대의 주소로 갈게요."
+                        RequestResultViewController.specificUser.pickUpType = "고객이 직접 갈게요."
                     }
                     print(responseData)
                 } catch(let err) {
-                    print(err.localizedDescription+"aa")
+                    print(err.localizedDescription)
                 }
             case .failure(let err):
-                print(err.localizedDescription+"oh")
+                print(err.localizedDescription)
 
             }
             

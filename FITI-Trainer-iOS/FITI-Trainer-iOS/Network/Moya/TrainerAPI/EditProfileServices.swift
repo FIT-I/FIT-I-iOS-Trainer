@@ -59,7 +59,11 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
         case .changeCategory(param: let param):
             return .requestJSONEncodable(param)
 //        case .changeBackground(param: let param):
-//            return .uploadMultipart(<#T##[MultipartFormData]#>)
+//            let imageData = UIImageJPEGRepresentation(param, 1.0)
+//             let memberIdData = "\(user_id)".data(using: String.Encoding.utf8) ?? Data()
+//             var formData: [Moya.MultipartFormData] = [Moya.MultipartFormData(provider: .data(imageData!), name: "cover_image", fileName: "asdas.png", mimeType: "image/jpeg")]
+//             formData.append(Moya.MultipartFormData(provider: .data(memberIdData), name: "user_id"))
+//             return .uploadMultipart(formData)
         }
     }
     
