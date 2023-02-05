@@ -167,6 +167,7 @@ class RequestResultViewController: UIViewController {
     }
     
     //MARK: - set Server
+    
     func setSeverData(){
         requestSheet.hourPriceLabel.text = "\(RequestResultViewController.specificUser.pricePerHour)"+"원"
         requestSheet.totalPriceLabel.text = "\(RequestResultViewController.specificUser.totalPrice)"+"원"
@@ -185,23 +186,6 @@ class RequestResultViewController: UIViewController {
         }
 
     }
-    
-//    func patchMatcingAccept(){
-//        self.matchingProvider.request(.requestAccept(RequestResultViewController.id)){ response in
-//            switch response {
-//            case .success(let moyaResponse):
-//                do{
-//                    let responseData = try moyaResponse.map(MatchingAcceptResponse.self)
-//                    print(responseData)
-//
-//                } catch(let err){
-//                    print(err.localizedDescription)
-//                }
-//            case .failure(let err):
-//                print(err.localizedDescription)
-//            }
-//        }
-//    }
     
     func patchAcceptRequest(){
         self.matchingProvider.request(.acceptRequest(RequestResultViewController.id, "https://open.kakao.com/o/szgx3A2e")){ response in

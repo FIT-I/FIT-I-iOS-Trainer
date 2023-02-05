@@ -243,6 +243,7 @@ class HomeViewController: UIViewController {
         setServerData()
         getTrainerServer()
         getMatchingServer()
+        getMatchingSuccessServer()
         // Do any additional setup after loading the view.
     }
     
@@ -251,6 +252,7 @@ class HomeViewController: UIViewController {
         setServerData()
         getTrainerServer()
         getMatchingServer()
+        getMatchingSuccessServer()
 //        print(didProfileShown)
 
     }
@@ -351,8 +353,6 @@ class HomeViewController: UIViewController {
         self.schoolLabel.text = HomeViewController.userInfo.school
         self.gradeLabel.text = "\(HomeViewController.userInfo.grade)"
         self.categoryIcon.image = UIImage(named: "\(HomeViewController.userInfo.category).svg")
-        
-
     }
     
     func getTrainerServer(){
@@ -383,7 +383,6 @@ class HomeViewController: UIViewController {
             case .failure(let err):
                 print(err.localizedDescription)
             }
-            
         }
     }
     
@@ -400,9 +399,25 @@ class HomeViewController: UIViewController {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-
             }
         }
     }
-
+    
+    func getMatchingSuccessServer(){
+        self.matchingProvider.request(.MatchingSuccessList){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    print("HomeVC - getMatchingSuccessServer=========================================================")
+                    let responseData = try moyaResponse.map(MatchingSuccessResponse.self)
+                    ChatViewController.matchingSuccessList = responseData.result
+                    print(responseData)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

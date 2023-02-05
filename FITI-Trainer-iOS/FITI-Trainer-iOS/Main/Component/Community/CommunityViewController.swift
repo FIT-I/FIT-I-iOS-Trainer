@@ -135,6 +135,7 @@ extension CommunityViewController{
                     RequestResultViewController.specificUser.matchingFinish = responseData.result.matchingFinish ?? ""
                     RequestResultViewController.specificUser.location = responseData.result.location ?? ""
                     RequestResultViewController.specificUser.matchingPeriod = responseData.result.matchingPeriod
+                    RequestResultViewController.specificUser.name = responseData.result.name ?? "사용자 이름이 없습니다."
                     if(responseData.result.pickUpType == "TRAINER_GO"){
                         RequestResultViewController.specificUser.pickUpType = "트레이너님이 와주세요."
                     } else {
