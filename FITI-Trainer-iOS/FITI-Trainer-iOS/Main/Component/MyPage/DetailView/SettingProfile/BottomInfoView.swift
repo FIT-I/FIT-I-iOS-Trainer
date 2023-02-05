@@ -19,16 +19,16 @@ class BottomInfoView : UIView {
     }()
     var emailLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15.0)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.text = "이메일 주소"
         label.textColor = UIColor.customColor(.blue)
         return label
     }()
     var userEmail : UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15.0)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.text = "skydh@naver.com"
-        label.textColor = UIColor.black
+        label.textColor = UIColor.customColor(.blue)
         return label
     }()
     

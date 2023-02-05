@@ -49,6 +49,10 @@
 		0589C924298E2F7100C29144 /* MatchingAcceptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C923298E2F7100C29144 /* MatchingAcceptModel.swift */; };
 		0589C926298E2F7B00C29144 /* MatchingRejectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C925298E2F7B00C29144 /* MatchingRejectModel.swift */; };
 		0589C929298E540A00C29144 /* setOpenChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C928298E540A00C29144 /* setOpenChatViewController.swift */; };
+		0589C92D298EDD8800C29144 /* ChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C92C298EDD8800C29144 /* ChatTableCell.swift */; };
+		0589C931298FA8A200C29144 /* MatchingSuccessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C930298FA8A200C29144 /* MatchingSuccessModel.swift */; };
+		0589C934298FCC7600C29144 /* MatchingResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C933298FCC7600C29144 /* MatchingResultViewController.swift */; };
+		0589C936298FCC9A00C29144 /* MatchingResultSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C935298FCC9A00C29144 /* MatchingResultSheet.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -163,6 +167,10 @@
 		0589C923298E2F7100C29144 /* MatchingAcceptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingAcceptModel.swift; sourceTree = "<group>"; };
 		0589C925298E2F7B00C29144 /* MatchingRejectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingRejectModel.swift; sourceTree = "<group>"; };
 		0589C928298E540A00C29144 /* setOpenChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setOpenChatViewController.swift; sourceTree = "<group>"; };
+		0589C92C298EDD8800C29144 /* ChatTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableCell.swift; sourceTree = "<group>"; };
+		0589C930298FA8A200C29144 /* MatchingSuccessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingSuccessModel.swift; sourceTree = "<group>"; };
+		0589C933298FCC7600C29144 /* MatchingResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingResultViewController.swift; sourceTree = "<group>"; };
+		0589C935298FCC9A00C29144 /* MatchingResultSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingResultSheet.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -385,6 +393,7 @@
 				0589C91F298C0B8600C29144 /* SpecificUserModel.swift */,
 				0589C923298E2F7100C29144 /* MatchingAcceptModel.swift */,
 				0589C925298E2F7B00C29144 /* MatchingRejectModel.swift */,
+				0589C930298FA8A200C29144 /* MatchingSuccessModel.swift */,
 			);
 			path = Matching;
 			sourceTree = "<group>";
@@ -395,6 +404,15 @@
 				0589C928298E540A00C29144 /* setOpenChatViewController.swift */,
 			);
 			path = OpenChat;
+			sourceTree = "<group>";
+		};
+		0589C932298FCC4300C29144 /* MatchingResult */ = {
+			isa = PBXGroup;
+			children = (
+				0589C933298FCC7600C29144 /* MatchingResultViewController.swift */,
+				0589C935298FCC9A00C29144 /* MatchingResultSheet.swift */,
+			);
+			path = MatchingResult;
 			sourceTree = "<group>";
 		};
 		059D806B297153E60062C41A /* EditBodyPrice */ = {
@@ -668,6 +686,8 @@
 			isa = PBXGroup;
 			children = (
 				05A11DDE296DBA96008D85A9 /* ChatViewController.swift */,
+				0589C92C298EDD8800C29144 /* ChatTableCell.swift */,
+				0589C932298FCC4300C29144 /* MatchingResult */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -851,10 +871,12 @@
 				059D809C2973F5260062C41A /* UpdateViewController.swift in Sources */,
 				059D80862973F3D70062C41A /* BottomBtnView.swift in Sources */,
 				05A11E06296F1B99008D85A9 /* ReviewTableCell.swift in Sources */,
+				0589C931298FA8A200C29144 /* MatchingSuccessModel.swift in Sources */,
 				05A11DC1296C9F99008D85A9 /* UIStackView+.swift in Sources */,
 				0584039129853CD5002272B1 /* ChangeInfoModel.swift in Sources */,
 				058403752982935E002272B1 /* SignServices.swift in Sources */,
 				059D80BC2976AB340062C41A /* IntroduceView.swift in Sources */,
+				0589C936298FCC9A00C29144 /* MatchingResultSheet.swift in Sources */,
 				0584037729829379002272B1 /* SignInRequest.swift in Sources */,
 				9181B6E329829980001D9427 /* BaseURL.swift in Sources */,
 				0589C91E298BED8C00C29144 /* MatchingListModel.swift in Sources */,
@@ -929,6 +951,7 @@
 				05A11DE5296DEBF8008D85A9 /* PriceStackView.swift in Sources */,
 				0584038A298296DE002272B1 /* SignUpModel.swift in Sources */,
 				05A11DD0296DB5EF008D85A9 /* SignInViewController.swift in Sources */,
+				0589C92D298EDD8800C29144 /* ChatTableCell.swift in Sources */,
 				05A11DF0296F1541008D85A9 /* BodyPriceView.swift in Sources */,
 				059D80842973F3C90062C41A /* BottomView.swift in Sources */,
 				059D809E2973F5660062C41A /* SearchViewController.swift in Sources */,
@@ -939,6 +962,7 @@
 				059D80B42975A0930062C41A /* NoticeLabelView.swift in Sources */,
 				05A11E03296F17A0008D85A9 /* UIView+.swift in Sources */,
 				05A11DC5296C9FBB008D85A9 /* PolicyViewController.swift in Sources */,
+				0589C934298FCC7600C29144 /* MatchingResultViewController.swift in Sources */,
 				059D80A22973F5970062C41A /* NoticeViewController.swift in Sources */,
 				05A11DF2296F1550008D85A9 /* BodyIntroView.swift in Sources */,
 				059D80B92975B5CE0062C41A /* RequestSheet.swift in Sources */,

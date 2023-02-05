@@ -13,6 +13,7 @@ enum MatchingService {
     case specificUser(_ matchingIdx: Int)
     case requestReject(_ matchingIdx: Int)
     case acceptRequest(_ matchingIdx: Int, _ openChatLink:String)
+    case MatchingSuccessList
 }
 
 extension MatchingService: TargetType {
@@ -24,15 +25,14 @@ extension MatchingService: TargetType {
         switch self{
         case .loadMatchingList:
             return "/api/matching/trainer"
-            
         case .specificUser(let matchingIdx):
             return "/api/matching/\(matchingIdx)"
-            
         case .requestReject(let matchingIdx):
             return "/api/matching/\(matchingIdx)/reject"
-            
         case .acceptRequest(let matchingIdx, _):
             return "/api/matching/\(matchingIdx)/accept"
+        case .MatchingSuccessList:
+            return "/api/chat/entered"
         }
     }
     
@@ -46,6 +46,8 @@ extension MatchingService: TargetType {
             return .patch
         case .acceptRequest:
             return .patch
+        case .MatchingSuccessList:
+            return .get
         }
     }
     
@@ -59,6 +61,8 @@ extension MatchingService: TargetType {
             return .requestPlain
         case .acceptRequest(_ , let openChatLink):
             return .requestParameters(parameters: ["openChatLink":openChatLink], encoding: URLEncoding.queryString)
+        case .MatchingSuccessList:
+            return .requestPlain
         }
     }
     

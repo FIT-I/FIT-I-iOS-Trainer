@@ -20,7 +20,6 @@ class CommunityTableCell: UITableViewCell {
         imgView.snp.makeConstraints { make in
             make.height.equalTo(25.71)
             make.width.equalTo(15)
-
         }
         return imgView
     }()
