@@ -7,8 +7,11 @@
 
 import UIKit
 import SnapKit
+import Moya
 
 class SettingProfileViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    let profileInfoProvider = MoyaProvider<EditProfileServices>()
 
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
@@ -90,10 +93,9 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        self.patchProfileImage(image: topStackView.settingUserProfile.image!)
+        self.navigationController?.popViewController(animated: true)
     }
-    
-    
     
     @objc func tappedProfile(_ gesture: UITapGestureRecognizer) {
             self.present(profileAlertController, animated: true, completion: nil)
@@ -147,6 +149,29 @@ extension SettingProfileViewController: UIPopoverPresentationControllerDelegate 
             popoverPresentationController.permittedArrowDirections = []
         }
 
+    }
+}
+
+extension SettingProfileViewController{
+    func patchProfileImage(image: UIImage){
+        let parameters = image
+        profileInfoProvider.request(.uploadProfile(param: parameters)) { response in
+            switch response{
+            case .success(let moyaResponse):
+                do{
+                    print("TrainerDetailVC - patchProfileImage ==============================================================")
+//                    let responseData = try moyaResponse.map(ChangeProfileResponse.self)
+                    let image = try JSONDecoder().decode(ChangeProfileResponse.self, from: moyaResponse.data)
+                    print(image)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+
+            }
+            
+        }
     }
 }
 

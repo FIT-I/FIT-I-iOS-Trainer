@@ -33,6 +33,8 @@ class MatchingResultViewController: UIViewController {
         return view
     }()
 
+    //MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -54,6 +56,7 @@ class MatchingResultViewController: UIViewController {
         setConstraints()
     }
     
+    //MARK: - Function
     func setViewHierarchy(){
         view.addSubview(titleLabel)
         view.addSubview(progressView)

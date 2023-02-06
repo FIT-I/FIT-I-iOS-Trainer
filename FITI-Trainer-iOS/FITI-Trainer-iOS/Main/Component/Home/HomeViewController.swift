@@ -372,7 +372,7 @@ class HomeViewController: UIViewController {
                     TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
                     TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
-                    TrainerDetailViewController.userInfo.imageList = responseData.result.imageList
+                    TrainerDetailViewController.userInfo.imageList = responseData.result.imageList ?? [String]()
 
                     print("HomeVC - getTrainerServer=========================================================")
                     print(responseData)

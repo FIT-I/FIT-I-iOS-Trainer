@@ -13,9 +13,9 @@ class setOpenChatViewController: UIViewController {
 
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Black", size: 25.0)
+        label.font = UIFont(name: "Avenir-Black", size: 20.0)
         label.text = "오픈 채팅방 링크 첨부"
-        label.textColor = UIColor.black
+        label.textColor = UIColor.customColor(.blue)
         return label
     }()
     
