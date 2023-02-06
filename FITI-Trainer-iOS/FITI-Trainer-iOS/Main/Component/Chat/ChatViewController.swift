@@ -39,6 +39,7 @@ class ChatViewController: UIViewController {
         return tableview
     }()
     
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -55,6 +56,7 @@ class ChatViewController: UIViewController {
         finishMatchingTableView.reloadData()
     }
     
+    //MARK: - Function
     func setViewHierarchy(){
         view.addSubview(titleLabel)
         view.addSubview(progressView)
@@ -83,7 +85,7 @@ class ChatViewController: UIViewController {
     }
 }
 
-//MARK: - FIXME:  extension: tableView (community view에서 딸려서 온 내용 제거하기)
+//MARK: - TableView Extension
 
 extension ChatViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

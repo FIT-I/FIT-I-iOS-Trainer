@@ -25,9 +25,19 @@ struct User: Codable {
     let cost: String
     var intro: String? = nil
     var service: String? = nil
-    let reviewDto, imageList: [String]
+    var reviewDto: [ReviewTable]? = nil
+    var imageList: [String]? = nil
     let matching_state: Bool
     var category : String? = nil
+}
+
+
+struct ReviewTable: Codable {
+    let name: String
+    var profile: String? = nil
+    let grade: Double
+    let createdAt: String
+    var contents: String? = nil
 }
 
 //MARK: - UserInfo Struct
