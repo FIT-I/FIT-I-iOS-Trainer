@@ -19,12 +19,15 @@ struct MatchingSuccessResult: Codable {
     var openChatLink: String? = nil
     let trainerId: Int
     let trainerName: String
-    let trainerGrade: Int
+    let trainerGrade: Double
     let trainerSchool: String
     let customerId: Int
+    let customerName : String
     let pickUp: String
     var customerLocation: String? = nil
     let createdAt: String
     let matchingId: Int
-    let trainerProfile: String
+    var trainerProfile: String? = nil
+    var trainerLocation: String? = nil
+    var customerProfile: String? = nil
 }

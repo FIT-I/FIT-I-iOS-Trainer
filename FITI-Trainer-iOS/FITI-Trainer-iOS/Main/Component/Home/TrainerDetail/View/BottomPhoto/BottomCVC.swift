@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class BookCVC: UICollectionViewCell {
+class BottomCVC: UICollectionViewCell {
     
     static let identifier = "CustomCollectionCell"
     

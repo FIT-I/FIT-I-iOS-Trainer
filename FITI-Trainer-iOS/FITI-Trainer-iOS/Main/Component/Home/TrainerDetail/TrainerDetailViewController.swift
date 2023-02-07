@@ -94,7 +94,7 @@ class TrainerDetailViewController: UIViewController {
 //        imageDecoding()
         getTrainerServer()
         changeBackAlertEvent()
-        
+        changeProfileAlertEvent()
 //        print("====================================================")
 //        let backImg = UIImage(named: "blueScreen.svg")
 //        let imageData:NSData = backImg!.pngData()! as NSData
@@ -108,7 +108,6 @@ class TrainerDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setServerDate()
-//        imageDecoding()
         getTrainerServer()
         bottomPhotoView.editerChoiceCV.reloadData()
     }
@@ -121,6 +120,7 @@ class TrainerDetailViewController: UIViewController {
         bodyIntroView.editBodyIntroButton.addTarget(self, action: #selector(editBodyIntroBtnEvent), for: .touchUpInside)
         bodyIntroAboutService.editAboutServiceButton.addTarget(self, action: #selector(editAboutServiceBtnEvent), for: .touchUpInside)
         bottomPhotoView.editPhotoButton.addTarget(self, action: #selector(editPhotoBtnEvent), for: .touchUpInside)
+        headView.reviewerImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tappedProfile)))
     }
     
     func setViewLayer(){
@@ -178,7 +178,8 @@ class TrainerDetailViewController: UIViewController {
                 self.openBackAlbum() // 아래에서 설명 예정.
             }
             let normalImgAlertAction = UIAlertAction(title: "기본 이미지로 변경", style: .default) {(action) in
-                self.changeBackNormal() // 아래에서 설명 예정.
+                self.changeBackNormal()
+                self.patchBackgroundImage(image: UIImage(named: "blueScreen.svg")!)
             }
             let cancelAlertAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
             self.backAlertController.addAction(photoLibraryAlertAction)
@@ -196,21 +197,61 @@ class TrainerDetailViewController: UIViewController {
         present(self.imagePicker, animated: true, completion: nil)
     }
     
+    func openProfileAlbum() {
+        // headView의 image에 대한 delegate는 headView의 image 선언부에 존재한다.
+        headView.imagePicker.allowsEditing = true
+        present(headView.imagePicker, animated: true, completion: nil)
+    }
+
+    @objc func tappedProfileTest(tapGestureRecognizer: UITapGestureRecognizer) {
+        print("akjfak;jfkasjflkasdklfjasdk;fjas;kldfaklsdfjklasdflkjasdf;jkasdfkjas;kdfjaskdfjjalskdf")
+
+     }
+
+    func changeProfileNormal() {
+        headView.reviewerImage.image = UIImage(named: "reviewerIcon.svg")
+
+    }
+
+    let profileAlertController = UIAlertController(title: "프로필 이미지 변경", message: "사진 앨범에서 선택 또는 기본 이미지", preferredStyle: .actionSheet)
+
+    func changeProfileAlertEvent() {
+            let photoLibraryAlertAction = UIAlertAction(title: "앨범에서 선택", style: .default) {
+                (action) in
+                self.openProfileAlbum() // 아래에서 설명 예정.
+            }
+            let normalImgAlertAction = UIAlertAction(title: "기본 이미지로 변경", style: .default) {(action) in
+                self.changeProfileNormal() // 아래에서 설명 예정.
+            }
+            let cancelAlertAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            self.profileAlertController.addAction(photoLibraryAlertAction)
+            self.profileAlertController.addAction(normalImgAlertAction)
+            self.profileAlertController.addAction(cancelAlertAction)
+            guard let alertControllerPopoverPresentationController
+                    = profileAlertController.popoverPresentationController
+            else {return}
+            prepareForPopoverPresentation(alertControllerPopoverPresentationController)
+    }
+    
     func changeBackNormal() {
         topView.image = UIImage(named: "blueScreen.svg")
     }
     
-    
-    @objc func tappedEditBtn(_ gesture: UITapGestureRecognizer) {
+    @objc func tappedEditBtn() {
             self.present(backAlertController, animated: true, completion: nil)
     }
+
+    @objc func tappedProfile(_ sender: UITapGestureRecognizer) {
+        print("klsjfakl;sfj;asdl")
+             self.present(profileAlertController, animated: true, completion: nil)
+     }
     
 }
 
 //MARK: - Extension
 
 extension TrainerDetailViewController {
-        
+    
     func setLayout() {
         
         //MARK: addSubViews
@@ -340,19 +381,6 @@ extension TrainerDetailViewController {
 
         return setCategory
     }
-    
-//    func imageDecoding() {
-//        switch TrainerDetailViewController.userInfo.backGround {
-//        case "blueScreen":
-//            self.topView.image = setBackGround
-//
-//        default:
-//            let dataDecoded:NSData = NSData(base64Encoded: TrainerDetailViewController.userInfo.backGround, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
-//            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
-//            print(decodedimage)
-//            self.topView.image = decodedimage
-//        }
-//    }
 }
 
 //MARK: - ServerData
@@ -391,6 +419,24 @@ extension TrainerDetailViewController{
             
         }
     }
+    
+    func patchBackgroundImage(image: UIImage){
+        profileInfoProvider.request(.uploadBackground(param: image)) { response in
+            switch response{
+            case .success(let moyaResponse):
+                do{
+                    print("TrainerDetailVC - patchBackgroundImage ==============================================================")
+                    let image = try JSONDecoder().decode(ChangeProfileResponse.self, from: moyaResponse.data)
+                        print(image)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                    print(err.localizedDescription)
+                
+            }
+        }
+    }
 }
 
 //MARK: - UIImagePicker Delegate
@@ -402,42 +448,7 @@ extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINaviga
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
 //            topView.contentMode = .scaleAspectFit
             topView.image = image
-            
-            //MARK: - UIImage to String -> Encoding
-            
-            
-            let imageData:NSData = image.pngData()! as NSData
-            let strBase64:String = imageData.base64EncodedString(options: .endLineWithLineFeed)
-            
-//            print(strBase64)
-//            print("================================")
-            
-//            let param = ChangeBackgroundRequest(backgroundImage: strBase64)
-//            profileInfoProvider.request(.changeBackground(param: str)) { response in
-//                switch response {
-//                case .success(let moyaResponse):
-//                    do{
-//                        print("success")
-//                        let responseData = try moyaResponse.map(ChangeBackgroundResponse.self)
-////                        let responseData = try moyaResponse.map(ChangeBackgroundResponse.self)
-//
-//                    } catch(let err) {
-//
-//                        print(err.localizedDescription)
-//                    }
-//                case .failure(let err):
-//                    print(err.localizedDescription)
-//
-//                }
-//
-//            }
-//            print(strBase64)
-
-            //MARK: - String to UIImage -> Decoding
-            let dataDecoded:NSData = NSData(base64Encoded: strBase64, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
-            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
-            print(decodedimage)
-            topView.image = decodedimage
+            patchBackgroundImage(image: image)
         }
 
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

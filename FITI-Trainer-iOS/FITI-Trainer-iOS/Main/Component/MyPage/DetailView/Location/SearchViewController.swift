@@ -16,6 +16,7 @@ class SearchViewController: UIViewController {
     private var searchCompleter = MKLocalSearchCompleter() /// 검색을 도와주는 변수
     private var searchResults = [MKLocalSearchCompletion]() /// 검색 결과를 담는 변수
     private let myPageProvider = MoyaProvider<MyPageServices>()
+    private let matchingProvider = MoyaProvider<MatchingService>()
     
     let topView = UIView().then {
         $0.backgroundColor = .systemBackground
@@ -166,45 +167,6 @@ class SearchViewController: UIViewController {
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
-    
-    func petchLocationSetting(location:String){
-        self.myPageProvider.request(.locationSetting(location)){ response in
-            switch response {
-            case .success(let response):
-                do {
-                    let responseData = try response.map(patchLocationResponse.self)
-                    print(responseData.isSuccess)
-                    print(responseData.message)
-                }catch(let err) {
-                    print(err.localizedDescription)
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
-        }
-    }
-    
-    func getMyPageServer(){
-        self.myPageProvider.request(.myPage){ response in
-            switch response {
-                case .success(let moyaResponse):
-                    do {
-                        let responseData = try moyaResponse.map(MyPageResponse.self)
-                        MyPageViewController.MyInfo.userName = responseData.result.userName
-                        MyPageViewController.MyInfo.profile = responseData.result.profile
-                        MyPageViewController.MyInfo.email = responseData.result.email
-                        MyPageViewController.MyInfo.location = responseData.result.location ?? ""
-                        print(responseData)
-                    } catch(let err) {
-                        print(err.localizedDescription)
-                    }
-                case .failure(let err):
-                    print(err.localizedDescription)
-            }
-        }
-    }
-
-    
 }
 
 
@@ -238,6 +200,7 @@ extension SearchViewController: UITableViewDelegate {
                 self.petchLocationSetting(location: location)
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                     self.getMyPageServer()
+                    self.getMatchingSuccessServer()
                 }
                 self.dismiss(animated: true)
             })
@@ -294,3 +257,63 @@ extension SearchViewController: MKLocalSearchCompleterDelegate {
     }
 }
 
+//MARK: - set Server
+
+extension SearchViewController{
+    
+    func petchLocationSetting(location:String){
+        self.myPageProvider.request(.locationSetting(location)){ response in
+            switch response {
+            case .success(let response):
+                do {
+                    let responseData = try response.map(patchLocationResponse.self)
+                    print(responseData.isSuccess)
+                    print(responseData.message)
+                }catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func getMyPageServer(){
+        self.myPageProvider.request(.myPage){ response in
+            switch response {
+                case .success(let moyaResponse):
+                    do {
+                        let responseData = try moyaResponse.map(MyPageResponse.self)
+                        MyPageViewController.MyInfo.userName = responseData.result.userName
+                        MyPageViewController.MyInfo.profile = responseData.result.profile
+                        MyPageViewController.MyInfo.email = responseData.result.email
+                        MyPageViewController.MyInfo.location = responseData.result.location ?? ""
+                        print(responseData)
+                    } catch(let err) {
+                        print(err.localizedDescription)
+                    }
+                case .failure(let err):
+                    print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func getMatchingSuccessServer(){
+        self.matchingProvider.request(.MatchingSuccessList){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    print("SearchViewController - getMatchingSuccessServer=========================================================")
+                    let responseData = try moyaResponse.map(MatchingSuccessResponse.self)
+                    ChatViewController.matchingSuccessList = responseData.result
+                    print(responseData)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+
+}

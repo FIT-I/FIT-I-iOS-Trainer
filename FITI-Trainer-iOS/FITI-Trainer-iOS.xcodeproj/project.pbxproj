@@ -115,7 +115,7 @@
 		05A11DF8296F1570008D85A9 /* PreviewReviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DF7296F1570008D85A9 /* PreviewReviewTableCell.swift */; };
 		05A11DFA296F157E008D85A9 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DF9296F157E008D85A9 /* ReviewModel.swift */; };
 		05A11DFC296F1589008D85A9 /* BottomPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DFB296F1589008D85A9 /* BottomPhotoView.swift */; };
-		05A11DFE296F1596008D85A9 /* BookCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DFD296F1596008D85A9 /* BookCVC.swift */; };
+		05A11DFE296F1596008D85A9 /* BottomCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11DFD296F1596008D85A9 /* BottomCVC.swift */; };
 		05A11E01296F172F008D85A9 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 05A11E00296F172F008D85A9 /* Then */; };
 		05A11E03296F17A0008D85A9 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11E02296F17A0008D85A9 /* UIView+.swift */; };
 		05A11E06296F1B99008D85A9 /* ReviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11E05296F1B99008D85A9 /* ReviewTableCell.swift */; };
@@ -232,7 +232,7 @@
 		05A11DF7296F1570008D85A9 /* PreviewReviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewReviewTableCell.swift; sourceTree = "<group>"; };
 		05A11DF9296F157E008D85A9 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		05A11DFB296F1589008D85A9 /* BottomPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPhotoView.swift; sourceTree = "<group>"; };
-		05A11DFD296F1596008D85A9 /* BookCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCVC.swift; sourceTree = "<group>"; };
+		05A11DFD296F1596008D85A9 /* BottomCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCVC.swift; sourceTree = "<group>"; };
 		05A11E02296F17A0008D85A9 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		05A11E05296F1B99008D85A9 /* ReviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableCell.swift; sourceTree = "<group>"; };
 		05A11E07296F1BB6008D85A9 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 		059D80752972B7820062C41A /* BottomPhoto */ = {
 			isa = PBXGroup;
 			children = (
-				05A11DFD296F1596008D85A9 /* BookCVC.swift */,
+				05A11DFD296F1596008D85A9 /* BottomCVC.swift */,
 				05A11DFB296F1589008D85A9 /* BottomPhotoView.swift */,
 			);
 			path = BottomPhoto;
@@ -947,7 +947,7 @@
 				059D80A02973F56F0062C41A /* SearchTVC.swift in Sources */,
 				05A11DDB296DBA6E008D85A9 /* CommunityViewController.swift in Sources */,
 				058403B32986E73F002272B1 /* GetTrainerInfoModel.swift in Sources */,
-				05A11DFE296F1596008D85A9 /* BookCVC.swift in Sources */,
+				05A11DFE296F1596008D85A9 /* BottomCVC.swift in Sources */,
 				05A11DE5296DEBF8008D85A9 /* PriceStackView.swift in Sources */,
 				0584038A298296DE002272B1 /* SignUpModel.swift in Sources */,
 				05A11DD0296DB5EF008D85A9 /* SignInViewController.swift in Sources */,

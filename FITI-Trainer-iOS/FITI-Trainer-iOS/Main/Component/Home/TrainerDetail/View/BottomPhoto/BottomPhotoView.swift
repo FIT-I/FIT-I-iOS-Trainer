@@ -76,7 +76,7 @@ class BottomPhotoView: UIView {
         setViewHierarchy()
         setLayout()
         editerChoiceCV.backgroundColor = .clear
-        editerChoiceCV.register(BookCVC.self, forCellWithReuseIdentifier: BookCVC.identifier)
+        editerChoiceCV.register(BottomCVC.self, forCellWithReuseIdentifier: BottomCVC.identifier)
         editerChoiceCV.delegate = self
         editerChoiceCV.dataSource = self
         editerChoiceCV.showsHorizontalScrollIndicator = false
@@ -136,7 +136,7 @@ extension BottomPhotoView: UICollectionViewDelegate, UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = editerChoiceCV.dequeueReusableCell(withReuseIdentifier: BookCVC.identifier, for: indexPath) as! BookCVC
+        let cell = editerChoiceCV.dequeueReusableCell(withReuseIdentifier: BottomCVC.identifier, for: indexPath) as! BottomCVC
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         cell.editerChoiceImageView.image = EditPhotoViewController.imageArray[indexPath.row]

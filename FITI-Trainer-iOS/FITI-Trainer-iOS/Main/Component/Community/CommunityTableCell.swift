@@ -16,7 +16,7 @@ class CommunityTableCell: UITableViewCell {
     
     var reviewerImage : UIImageView = {
         let imgView = UIImageView()
-        imgView.image = UIImage(named: "profile.svg")
+        imgView.image = UIImage(named: "customerProfile1.svg")
         imgView.snp.makeConstraints { make in
             make.height.equalTo(25.71)
             make.width.equalTo(15)
@@ -90,6 +90,7 @@ extension CommunityTableCell{
         name.text = model.name
 //        date.text = model.orderDate
         id = model.matchingId
+        reviewerImage.image = UIImage(named: "\(model.profile).svg")
         if(model.pickUpType == "TRAINER_GO"){
             pickUpStyle.text = "트레이너님이 와주세요."
         } else {

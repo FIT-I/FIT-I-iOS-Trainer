@@ -73,7 +73,6 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
         }
         topStackView.snp.makeConstraints { make in
             make.top.equalTo(myPageTitleLabel.snp.bottom).offset(30)
-//            make.width.equalTo(100)
             make.centerX.equalToSuperview()
         }
         progressView.snp.makeConstraints { make in

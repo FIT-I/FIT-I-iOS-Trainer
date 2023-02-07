@@ -72,11 +72,6 @@ class TopStackView : UIView {
             make.width.equalTo(60)
         }
     }
-    
-    @objc func pencilBtnEvent(){
-        
-    }
-    
 }
 
 extension TopStackView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

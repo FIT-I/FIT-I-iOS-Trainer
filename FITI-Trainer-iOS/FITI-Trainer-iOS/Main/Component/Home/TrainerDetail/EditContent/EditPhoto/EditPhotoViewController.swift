@@ -16,7 +16,7 @@ class EditPhotoViewController: UIViewController {
     var itemProviders: [NSItemProvider] = []
     static var imageArray : [UIImage] = []
     static var imageStringArray : [String] = []
-    let imageProvider = MoyaProvider<EditProfileServices>()
+    let ectImageProvider = MoyaProvider<EditProfileServices>()
     
 //    var bottomPhotoView = BottomPhotoView()
 
@@ -115,6 +115,7 @@ class EditPhotoViewController: UIViewController {
     
     @objc func backTapped(sender: UIBarButtonItem) {
 //        self.postImageServer()
+        self.postEctImageServer(imageArray: EditPhotoViewController.imageArray)
         navigationController?.popViewController(animated: true)
     }
     
@@ -232,6 +233,26 @@ extension EditPhotoViewController: PHPickerViewControllerDelegate{
                  }
              }
          }
+    }
+}
+
+//MARK: - set Server
+extension EditPhotoViewController{
+    func postEctImageServer(imageArray: [UIImage]){
+        ectImageProvider.request(.uploadEctImage(param: imageArray)) { response in
+            switch response{
+            case .success(let moyaResponse):
+                do{
+                    print("EditPhotoVC - postEctImageServer ==============================================================")
+                    let image = try JSONDecoder().decode(AddBottomImageResponse.self, from: moyaResponse.data)
+                    print(image)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+            
         }
     }
-
+}

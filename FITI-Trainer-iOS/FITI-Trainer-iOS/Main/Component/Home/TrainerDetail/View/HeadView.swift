@@ -17,6 +17,7 @@ class HeadView : UIView {
         imgView.image = UIImage(named: "reviewerIcon.svg")
         imgView.layer.cornerRadius = 20
         imgView.clipsToBounds = true
+        imgView.isUserInteractionEnabled = true
 //        imgView.contentMode = .scaleAspectFill
 //        imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
@@ -25,14 +26,12 @@ class HeadView : UIView {
     var name : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 15.0)
-        label.text = "김동현"
         label.textColor = UIColor.black
         return label
     }()
     
     var levelIcon : UIImageView = {
         let image = UIImageView()
-        image.image =  UIImage(named: "gold.svg")
         return image
     }()
     
@@ -45,7 +44,6 @@ class HeadView : UIView {
     var grade : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10.0)
-        label.text = "4.3"
         label.textColor = UIColor.customColor(.darkGray)
         return label
     }()
@@ -61,7 +59,6 @@ class HeadView : UIView {
     var school : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10.0)
-        label.text = "숭실대"
         label.textColor = UIColor.customColor(.darkGray)
         return label
     }()
@@ -90,6 +87,12 @@ class HeadView : UIView {
         return stackView
     }()
     
+    lazy var imagePicker: UIImagePickerController = {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            return picker
+        }()
+    
 //    lazy var globalStackView : UIStackView = {
 //        let stackView = UIStackView(arrangedSubviews: [nameStackView,gradeStackView])
 //        stackView.axis = .vertical
@@ -105,16 +108,17 @@ class HeadView : UIView {
        
     override init(frame: CGRect) {
         super .init(frame: .zero)
-        ifImageViewTouched()
+        self.backgroundColor = .red
+//        ifImageViewTouched()
         setViewHierarchy()
         setConstraints()
     }
     
-    func ifImageViewTouched(){
-           //클릭 가능하도록 설정
-           self.reviewerImage.isUserInteractionEnabled = true
-           //제쳐스 추가
-       }
+//    func ifImageViewTouched(){
+//           //클릭 가능하도록 설정
+//        self.reviewerImage.isUserInteractionEnabled = true
+//           //제쳐스 추가
+//       }
     
     func setViewHierarchy(){
         self.addSubview(reviewerImage)
@@ -145,4 +149,24 @@ class HeadView : UIView {
             make.leading.equalTo(name)
         }
     }
+}
+
+extension HeadView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+//            var newImage: UIImage? = nil // update 할 이미지
+            
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            reviewerImage.image = image
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+                picker.dismiss(animated: true, completion: nil)
+            }
+
+//        editPhotoButton.setImage(newImage, for: .normal)
+        //self.photoImage.image = newImage // 받아온 이미지를 update
+            picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
+        
+        }
 }
