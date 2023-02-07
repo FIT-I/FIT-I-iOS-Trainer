@@ -123,7 +123,7 @@
 		05A11E0B29702548008D85A9 /* EditBodyPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11E0A29702548008D85A9 /* EditBodyPriceViewController.swift */; };
 		05A11E0D29702583008D85A9 /* EditBodyIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11E0C29702583008D85A9 /* EditBodyIntroViewController.swift */; };
 		05A11E0F297025DB008D85A9 /* EditAboutServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A11E0E297025DB008D85A9 /* EditAboutServiceViewController.swift */; };
-		9181B6E329829980001D9427 /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9181B6E229829980001D9427 /* BaseURL.swift */; };
+		C2CF5C3E29913E48005F2FA9 /* TrainerReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CF5C3D29913E48005F2FA9 /* TrainerReviewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -239,7 +239,7 @@
 		05A11E0A29702548008D85A9 /* EditBodyPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceViewController.swift; sourceTree = "<group>"; };
 		05A11E0C29702583008D85A9 /* EditBodyIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyIntroViewController.swift; sourceTree = "<group>"; };
 		05A11E0E297025DB008D85A9 /* EditAboutServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAboutServiceViewController.swift; sourceTree = "<group>"; };
-		9181B6E229829980001D9427 /* BaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
+		C2CF5C3D29913E48005F2FA9 /* TrainerReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerReviewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,7 +270,6 @@
 		058403702982931A002272B1 /* Moya */ = {
 			isa = PBXGroup;
 			children = (
-				9181B6E229829980001D9427 /* BaseURL.swift */,
 				05840388298296D4002272B1 /* Model */,
 				0584037A2982939C002272B1 /* LocalDB */,
 				058403732982933C002272B1 /* SignInAPI */,
@@ -346,6 +345,7 @@
 				058403B02986CCBB002272B1 /* MyMatchingModel.swift */,
 				058403B22986E73F002272B1 /* GetTrainerInfoModel.swift */,
 				0589C911298A4DDD00C29144 /* ChangeCategoryModel.swift */,
+				C2CF5C3D29913E48005F2FA9 /* TrainerReviewModel.swift */,
 			);
 			path = Trainer;
 			sourceTree = "<group>";
@@ -878,7 +878,6 @@
 				059D80BC2976AB340062C41A /* IntroduceView.swift in Sources */,
 				0589C936298FCC9A00C29144 /* MatchingResultSheet.swift in Sources */,
 				0584037729829379002272B1 /* SignInRequest.swift in Sources */,
-				9181B6E329829980001D9427 /* BaseURL.swift in Sources */,
 				0589C91E298BED8C00C29144 /* MatchingListModel.swift in Sources */,
 				059D80952973F4B90062C41A /* TopStackView.swift in Sources */,
 				059D80B22975A05E0062C41A /* NoticeBtnView.swift in Sources */,
@@ -960,6 +959,7 @@
 				05A11DE7296EBB68008D85A9 /* UIViewController+.swift in Sources */,
 				0589C922298C3CAE00C29144 /* LoadingView.swift in Sources */,
 				059D80B42975A0930062C41A /* NoticeLabelView.swift in Sources */,
+				C2CF5C3E29913E48005F2FA9 /* TrainerReviewModel.swift in Sources */,
 				05A11E03296F17A0008D85A9 /* UIView+.swift in Sources */,
 				05A11DC5296C9FBB008D85A9 /* PolicyViewController.swift in Sources */,
 				0589C934298FCC7600C29144 /* MatchingResultViewController.swift in Sources */,

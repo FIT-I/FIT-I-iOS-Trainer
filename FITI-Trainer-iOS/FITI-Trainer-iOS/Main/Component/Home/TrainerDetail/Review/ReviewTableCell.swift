@@ -125,9 +125,38 @@ class ReviewTableCell: UITableViewCell {
     
 }
 
-//
-//extension ReviewTabelCell {
-//    public func binding(){
-//        //
-//    }
-//}
+ // MARK: - Extension
+
+extension ReviewTableCell {
+    public func reviewTableBinding(model: ReviewDto) {
+
+        name.text = model.name
+        date.text = model.createdAt
+        grade.text = String(model.grade)
+        reviewTextView.text = model.contents
+        
+        switch model.profile {
+        case "profile1":
+            reviewerImage.image = UIImage(named:"profile1")
+            return
+        case "profile2":
+            reviewerImage.image = UIImage(named:"profile2")
+            return
+        case "profile3":
+            reviewerImage.image = UIImage(named:"profile3")
+            return
+        case "profile4":
+            reviewerImage.image = UIImage(named:"profile4")
+            return
+        case "profile5":
+            reviewerImage.image = UIImage(named:"profile5")
+            return
+        case "profile6":
+            reviewerImage.image = UIImage(named:"profile6")
+            return
+        default:
+            reviewerImage.image = UIImage(named:"profile1")
+            return
+        }
+    }
+}

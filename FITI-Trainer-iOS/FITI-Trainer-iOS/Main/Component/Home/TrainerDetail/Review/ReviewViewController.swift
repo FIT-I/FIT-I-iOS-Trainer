@@ -10,6 +10,8 @@ import SnapKit
 
 class ReviewViewController: UIViewController {
     
+    var reviewData = [ReviewDto]()
+    
     private let titleLabel : UILabel = {
         let lb = UILabel()
         lb.text = "리뷰 전체보기"
@@ -38,11 +40,16 @@ class ReviewViewController: UIViewController {
         reviewTableView.register(ReviewTableCell.self, forCellReuseIdentifier: ReviewTableCell.identifier)
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
+        reviewTableView.separatorStyle = .none
         
         
         setViewHierarchy()
         setConstraints()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        reviewTableView.reloadData()
+        setReviewData()
     }
     
     func setViewHierarchy(){
@@ -66,9 +73,17 @@ class ReviewViewController: UIViewController {
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
-
+    
+    func setReviewData(){
+        self.reviewData = TrainerDetailViewController.reviewTrainer.reviewDto ?? [ReviewDto]()
+        print(reviewData)
+    }
 
 }
+
+    
+
+// MARK: - Extension
 
 
 extension ReviewViewController : UITableViewDelegate {
@@ -78,21 +93,34 @@ extension ReviewViewController : UITableViewDelegate {
 }
 
 
-extension ReviewViewController : UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ReviewTableCell.identifier, for: indexPath)
-//        cell.binding()
-        cell.selectionStyle = .none
-    
-        return cell
-        
-    }
+//extension ReviewViewController : UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 10
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: ReviewTableCell.identifier, for: indexPath)
+////        cell.binding()
+//        cell.selectionStyle = .none
+//
+//        return cell
+//
+//    }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return 80
 //    }
+//}
+
+
+extension ReviewViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.reviewData.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ReviewTableCell.identifier, for: indexPath) as? ReviewTableCell ?? ReviewTableCell()
+        cell.reviewTableBinding(model: reviewData[indexPath.row])
+        cell.selectionStyle = .none
+        return cell
+    }
 }

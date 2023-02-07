@@ -16,7 +16,11 @@ class PreviewReviewTableCell: UITableViewCell {
     
     var reviewerImage : UIImageView = {
         let imgView = UIImageView()
-        imgView.image = UIImage(named: "reviewerIcon.svg")
+        //imgView.image = UIImage(named: "reviewerIcon.svg")
+        imgView.snp.makeConstraints { make in
+            make.width.equalTo(20)
+            make.height.equalTo(30)
+        }
         return imgView
     }()
 
@@ -24,7 +28,7 @@ class PreviewReviewTableCell: UITableViewCell {
     var name : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12.0)
-        label.text = "홍준혁"
+     //   label.text = "홍준혁"
         label.textColor = UIColor.black
         return label
     }()
@@ -32,7 +36,7 @@ class PreviewReviewTableCell: UITableViewCell {
     var date : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10.0)
-        label.text = "2022.12.2"
+    //    label.text = "2022.12.2"
         label.textColor = UIColor.customColor(.darkGray)
         return label
     }()
@@ -49,7 +53,7 @@ class PreviewReviewTableCell: UITableViewCell {
     var grade : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10.0)
-        label.text = "4.3"
+     //   label.text = "4.3"
         label.textColor = UIColor.customColor(.darkGray)
         return label
     }()
@@ -102,7 +106,7 @@ class PreviewReviewTableCell: UITableViewCell {
             make.height.equalTo(50)
         }
         // 더미 데이터
-        textView.text = "친절한 지도 감사합니다:)"
+     //   textView.text = "친절한 지도 감사합니다:)"
         return textView
     }()
     
@@ -117,9 +121,7 @@ class PreviewReviewTableCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubview(self.globalStackView)
-
         self.backgroundColor = UIColor.customColor(.boxGray)
-        
         globalStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.bottom.equalToSuperview()
@@ -140,10 +142,33 @@ class PreviewReviewTableCell: UITableViewCell {
 
 
 extension PreviewReviewTableCell {
-    func dataBind(model: ReviewModel) {
-        reviewerImage.image = model.image
+    func dataBind(model: ReviewDto) {
         name.text = model.name
-        date.text = model.date
-        reviewTextView.text = model.content
+        date.text = model.createdAt
+        grade.text = String(model.grade)
+        reviewTextView.text = model.contents
+        switch model.profile {
+        case "profile1":
+            reviewerImage.image = UIImage(named:"profile1")
+            return
+        case "profile2":
+            reviewerImage.image = UIImage(named:"profile2")
+            return
+        case "profile3":
+            reviewerImage.image = UIImage(named:"profile3")
+            return
+        case "profile4":
+            reviewerImage.image = UIImage(named:"profile4")
+            return
+        case "profile5":
+            reviewerImage.image = UIImage(named:"profile5")
+            return
+        case "profile6":
+            reviewerImage.image = UIImage(named:"profile6")
+            return
+        default:
+            reviewerImage.image = UIImage(named:"profile1")
+            return
+        }
     }
 }

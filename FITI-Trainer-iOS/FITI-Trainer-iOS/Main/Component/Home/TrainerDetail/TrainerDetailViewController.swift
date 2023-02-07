@@ -20,6 +20,10 @@ class TrainerDetailViewController: UIViewController {
     private var setCategory = ""
     private var setBackGround = UIImage(named: "blueScreen.svg")
     
+    //MARK: - FIX ME
+   // static var reviewTrainer = Trainer()
+    static var reviewTrainer = Trainer()
+    
     //MARK: - UI Components
     var topView : UIImageView = {
         let imgView = UIImageView()
@@ -111,6 +115,8 @@ class TrainerDetailViewController: UIViewController {
 //        imageDecoding()
         getTrainerServer()
         bottomPhotoView.editerChoiceCV.reloadData()
+        resizePreviewReviewView()
+        bodyReviewView.reviewTableView.reloadData()
     }
     
     //MARK: - Func
@@ -203,6 +209,40 @@ class TrainerDetailViewController: UIViewController {
     
     @objc func tappedEditBtn(_ gesture: UITapGestureRecognizer) {
             self.present(backAlertController, animated: true, completion: nil)
+    }
+    
+    
+    //MARK: - Review Size
+    
+    func resizePreviewReviewView(){
+        let reviewNum = TrainerDetailViewController.reviewTrainer.reviewDto?.count
+        switch reviewNum {
+        case 0:
+            bodyReviewView.snp.remakeConstraints {
+                $0.top.equalTo(bodyIntroAboutService.snp.bottom).offset(25)
+                $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+                $0.height.equalTo(100)
+            }
+            bodyReviewView.reviewDetailBtn.layer.isHidden = true
+            return
+        case 1:
+            bodyReviewView.snp.remakeConstraints {
+                $0.top.equalTo(bodyIntroAboutService.snp.bottom).offset(25)
+                $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+                $0.height.equalTo(170)
+            }
+        case 2:
+            bodyReviewView.snp.remakeConstraints {
+                $0.top.equalTo(bodyIntroAboutService.snp.bottom).offset(25)
+                $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+                $0.height.equalTo(260)
+            }
+        default:
+            return
+        }
     }
     
 }
@@ -366,6 +406,9 @@ extension TrainerDetailViewController{
         self.bodyPriceView.priceForTimeLabel.text = "\(TrainerDetailViewController.userInfo.cost)"
         self.bodyIntroView.introTextView.text = TrainerDetailViewController.userInfo.intro
         self.bodyIntroAboutService.introServiceTextView.text = TrainerDetailViewController.userInfo.service
+        
+        self.bodyReviewView.reviewLabel.text = String(TrainerDetailViewController.reviewTrainer.reviewDto?.count ?? 0)
+        self.bodyReviewView.gradeLabel.text = String(TrainerDetailViewController.reviewTrainer.grade) + "점"
     }
     
     func getTrainerServer(){
