@@ -13,9 +13,12 @@ import Moya
 class HomeViewController: UIViewController {
     
     static var userInfo = UserInfo()
+    static var isActive = true
     private let myPageView = MyPageViewController()
     let TrainerProvider = MoyaProvider<TrainerServices>()
     let matchingProvider = MoyaProvider<MatchingService>()
+    let provider = MoyaProvider<MyPageServices>()
+
     
     var didProfileShown : Bool = true
     
@@ -241,9 +244,9 @@ class HomeViewController: UIViewController {
         trainerEditViewAddUI()
         trainerEditViewSetUI()
         setServerData()
-        getTrainerServer()
         getMatchingServer()
         getMatchingSuccessServer()
+        getMyPageServer()
         // Do any additional setup after loading the view.
     }
     
@@ -253,6 +256,7 @@ class HomeViewController: UIViewController {
         getTrainerServer()
         getMatchingServer()
         getMatchingSuccessServer()
+        getMyPageServer()
 //        print(didProfileShown)
 
     }
@@ -330,17 +334,10 @@ class HomeViewController: UIViewController {
     }
     
     @objc func touchNextBtnEvent() {
-            let nextVC = TrainerDetailViewController()
-            navigationController?.pushViewController(nextVC, animated: true)
-    }
-    
-    //MARK: - String 값을 UIImage로 변환해서 배열에 넣어주기
-    func setBottomImage(){
-        for index in 0...TrainerDetailViewController.userInfo.imageList.count{
-            let dataDecoded:NSData = NSData(base64Encoded: TrainerDetailViewController.userInfo.imageList[index], options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
-            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
-            EditPhotoViewController.imageArray.append(decodedimage)
-        }
+            LoadingView.showLoading()
+            getTrainerServer()
+        let nextVC = TrainerDetailViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
     }
     
     //MARK: - set Server
@@ -363,6 +360,7 @@ class HomeViewController: UIViewController {
 //                    print(moyaResponse.statusCode)
 //                    print(moyaResponse.response)
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                    TrainerDetailViewController.userInfo.matching_state = responseData.result.matching_state
                     TrainerDetailViewController.userInfo.userName = responseData.result.name
                     TrainerDetailViewController.userInfo.grade = responseData.result.grade
                     TrainerDetailViewController.userInfo.school = responseData.result.school
@@ -372,11 +370,22 @@ class HomeViewController: UIViewController {
                     TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
                     TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
+                    EditPhotoViewController.imageArray.removeAll()
                     TrainerDetailViewController.userInfo.imageList = responseData.result.imageList ?? [String]()
+                    TrainerDetailViewController.userInfo.profile = responseData.result.profile
+                    TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? ""
+                    for index in 0..<TrainerDetailViewController.userInfo.imageList.count{
+                        let serverImage = UIImageView()
+                        let imageURL = URL(string: TrainerDetailViewController.userInfo.imageList[index])
+                        serverImage.kf.setImage(with: imageURL)
+                        EditPhotoViewController.imageArray.append(serverImage.image ?? UIImage())
 
+                    }
+                    let nextVC = TrainerDetailViewController()
+                    
                     print("HomeVC - getTrainerServer=========================================================")
                     print(responseData)
-
+                    LoadingView.hideLoading()
                 } catch(let err) {
                     print(err.localizedDescription)
                 }
@@ -420,4 +429,31 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    
+    func getMyPageServer(){
+        self.provider.request(.myPage){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+//                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(MyPageResponse.self)
+                    MyPageViewController.MyInfo.userName = responseData.result.userName
+                    MyPageViewController.MyInfo.profile = responseData.result.profile
+                    MyPageViewController.MyInfo.email = responseData.result.email
+                    MyPageViewController.MyInfo.location = responseData.result.location ?? ""
+                    MyPageViewController.MyInfo.profile = responseData.result.profile
+                    HomeViewController.userInfo.email = responseData.result.email
+                    print(responseData)
+                    print("GradeTableViewController - getMyPageServer=========================================================")
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
+
+

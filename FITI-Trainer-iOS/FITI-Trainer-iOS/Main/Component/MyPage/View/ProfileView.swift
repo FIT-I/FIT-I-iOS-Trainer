@@ -14,6 +14,8 @@ class ProfileView : UIView {
     var reviewerImage : UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "reviewerIcon.svg")
+        imgView.clipsToBounds = true
+        imgView.layer.cornerRadius = 10
         imgView.snp.makeConstraints { make in
             make.height.width.equalTo(45)
         }

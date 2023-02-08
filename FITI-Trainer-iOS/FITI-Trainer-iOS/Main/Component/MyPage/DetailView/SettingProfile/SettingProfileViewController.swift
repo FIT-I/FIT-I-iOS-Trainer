@@ -12,6 +12,7 @@ import Moya
 class SettingProfileViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     let profileInfoProvider = MoyaProvider<EditProfileServices>()
+    private let myPageProvider = MoyaProvider<MyPageServices>()
 
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
@@ -73,7 +74,6 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
         }
         topStackView.snp.makeConstraints { make in
             make.top.equalTo(myPageTitleLabel.snp.bottom).offset(30)
-//            make.width.equalTo(100)
             make.centerX.equalToSuperview()
         }
         progressView.snp.makeConstraints { make in
@@ -93,8 +93,9 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
+        LoadingView.showLoading()
         self.patchProfileImage(image: topStackView.settingUserProfile.image!)
-        self.navigationController?.popViewController(animated: true)
+        print("backTapped! <<<<<<<<")
     }
     
     @objc func tappedProfile(_ gesture: UITapGestureRecognizer) {
@@ -131,13 +132,6 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
         topStackView.imagePicker.allowsEditing = true
         present(topStackView.imagePicker, animated: true, completion: nil)
     }
-    
-    private func setServerData(){
-        topStackView.userName.text = MyPageViewController.MyInfo.userName
-        bottomInfoView.userEmail.text = MyPageViewController.MyInfo.email
-        bottomInfoView.userLocation.text = MyPageViewController.MyInfo.location
-    }
-
 }
 extension SettingProfileViewController: UIPopoverPresentationControllerDelegate {
     func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
@@ -163,6 +157,9 @@ extension SettingProfileViewController{
 //                    let responseData = try moyaResponse.map(ChangeProfileResponse.self)
                     let image = try JSONDecoder().decode(ChangeProfileResponse.self, from: moyaResponse.data)
                     print(image)
+//                    LoadingView.hideLoading()
+                    self.getMyPageServer()
+                    
                 } catch(let err){
                     print(err.localizedDescription)
                 }
@@ -171,6 +168,39 @@ extension SettingProfileViewController{
 
             }
             
+        }
+    }
+    
+    private func setServerData(){
+        topStackView.userName.text = MyPageViewController.MyInfo.userName
+        bottomInfoView.userEmail.text = MyPageViewController.MyInfo.email
+        bottomInfoView.userLocation.text = MyPageViewController.MyInfo.location
+        if(MyPageViewController.MyInfo.profile == "trainerProfile"){
+            self.topStackView.settingUserProfile.image = UIImage(named: "reviewerIcon.svg")
+        } else{
+            let profileURL = URL(string: MyPageViewController.MyInfo.profile)
+            self.topStackView.settingUserProfile.kf.setImage(with: profileURL)
+        }
+    }
+    
+    func getMyPageServer(){
+        self.myPageProvider.request(.myPage){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+//                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(MyPageResponse.self)
+                    MyPageViewController.MyInfo.profile = responseData.result.profile
+                    print(responseData)
+                    LoadingView.hideLoading()
+                    self.navigationController?.popViewController(animated: true)
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
         }
     }
 }

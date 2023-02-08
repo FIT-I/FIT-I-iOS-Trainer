@@ -11,7 +11,6 @@ import Moya
 
 class GradeTableViewController: UIViewController {
     
-    let provider = MoyaProvider<MyPageServices>()
     let TrainerProvider = MoyaProvider<TrainerServices>()
     
     private let gradeImage : UIImageView = {
@@ -32,7 +31,6 @@ class GradeTableViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getMyPageServer()
         getTrainerServer()
     }
 
@@ -63,30 +61,6 @@ class GradeTableViewController: UIViewController {
     func pagingMove() {
         let nextVC = TabBarController()
         navigationController?.pushViewController(nextVC, animated: true)
-    }
-    
-    func getMyPageServer(){
-        self.provider.request(.myPage){ response in
-            switch response {
-            case .success(let moyaResponse):
-                do{
-//                    print(moyaResponse.statusCode)
-//                    print(moyaResponse.response)
-                    let responseData = try moyaResponse.map(MyPageResponse.self)
-                    MyPageViewController.MyInfo.userName = responseData.result.userName
-                    MyPageViewController.MyInfo.profile = responseData.result.profile
-                    MyPageViewController.MyInfo.email = responseData.result.email
-                    MyPageViewController.MyInfo.location = responseData.result.location ?? ""
-                    HomeViewController.userInfo.email = responseData.result.email
-                    print(responseData)
-                    print("GradeTableViewController - getMyPageServer=========================================================")
-                } catch(let err) {
-                    print(err.localizedDescription)
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
-        }
     }
     
     func getTrainerServer(){

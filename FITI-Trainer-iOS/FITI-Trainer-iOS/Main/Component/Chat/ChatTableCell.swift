@@ -17,7 +17,7 @@ class ChatTableCell: UITableViewCell {
     
     private lazy var reviewerImage : UIImageView = {
         let imgView = UIImageView()
-        imgView.image = UIImage(named: "profile.svg")
+        imgView.image = UIImage(named: "customerProfile1.svg")
         imgView.snp.makeConstraints { make in
             make.height.equalTo(34)
             make.width.equalTo(20)
@@ -96,7 +96,6 @@ class ChatTableCell: UITableViewCell {
             make.top.equalTo(name)
             make.trailing.equalToSuperview().offset(-10)
         }
-
     }
     
     required init?(coder: NSCoder) {
@@ -106,20 +105,16 @@ class ChatTableCell: UITableViewCell {
 
 extension ChatTableCell{
     public func bindingMatchingSuccess(model: MatchingSuccessResult){
-        name.text = model.trainerName
-//        date.text = model.orderDate
+        name.text = model.customerName
         date.text = model.createdAt.substring(from: 0, to: 9)
         id = model.matchingId
         pickUp.text = model.pickUp
-        location.text = model.customerLocation ?? "제가 갈게요"
         
-
-        //MARK: - 트레이너 위치 받아오는 api 추가되면,
-//        if(model.customerLocation == "고객이 갈게요"){
-//            location.text = model.trainerLocation ?? "설정된 위치가 없습니다."
-//        } else{
-//            location.text = model.customerLocation ?? "설정된 위치가 없습니다."
-//        }
+        if(model.pickUp == "트레이너가 갈게요"){
+            location.text = model.customerLocation ?? "설정된 위치가 없습니다."
+        } else{
+            location.text = model.trainerLocation ?? "설정된 위치가 없습니다."
+        }
 
     }
 }

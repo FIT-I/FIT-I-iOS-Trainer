@@ -11,12 +11,17 @@ import Moya
 
 //typealias profileImage = (profileImage: UIImage, description: String)
 typealias parameter = (UIImage)
+typealias parameters = ([UIImage])
 
 enum EditProfileServices {
     //param에 들어가는 것: request 할 값
     case changeInfo(param: ChangeInfoRequest)
     case changeCategory(param: ChangeCategoryRequest)
     case uploadProfile(param: parameter)
+    case uploadBackground(param: parameter)
+    case uploadEctImage(param: parameters)
+    case deleteEctImage(_ etcImgIdx:Int)
+
 }
 
 extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필요한 속성들을 제공! (밑의 path, method 같은 것들)
@@ -31,14 +36,16 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
         switch self {
         case .changeInfo:
             return "/api/trainer/information"
-//        case .bottomPhoto:
-//            return "/api/trainer/etcimg"
         case .changeCategory:
             return "/api/trainer/category"
-//        case .changeBackground:
-//            return "/api/trainer/bgimg"
         case .uploadProfile:
             return "/api/trainer/profile"
+        case .uploadBackground:
+            return "/api/trainer/bgimg"
+        case .uploadEctImage:
+            return "/api/trainer/etcimg"
+        case .deleteEctImage(let etcImgIdx):
+            return "/api/trainer/etcimg/\(etcImgIdx)"
         }
     }
     
@@ -50,6 +57,12 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
             return . patch
         case .uploadProfile:
             return .patch
+        case .uploadBackground:
+            return .patch
+        case .uploadEctImage:
+            return .post
+        case .deleteEctImage(_):
+            return .delete
         }
     }
     
@@ -60,12 +73,31 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
         case .changeCategory(param: let param):
             return .requestJSONEncodable(param)
             
+        /*
+        name: key값, fileName: 서버에 업로드할 파일 이름, mimeType: 파일 형식
+        이미지 말고도, 다른 데이터를 보낼 필요가 있을 때 multipart type으로 post해줌. 데이터 별로 쪼개서(multipart) key - value형태로(formData) 만든 후, 그걸 하나로 합쳐서(append) 전송
+        */
+            
         case .uploadProfile(let param):
             let imageData = param.jpegData(compressionQuality: 1.0) ?? Data()
             let formData: [Moya.MultipartFormData] = [Moya.MultipartFormData(provider: .data(imageData), name: "profileImage", fileName: "userImage.jpeg", mimeType: "image/jpeg")]
-            //name: key값, fileName: 서버에 업로드할 파일 이름, mimeType: 파일 형식
-            //이미지 말고도, 다른 데이터를 보낼 필요가 있을 때 multipart type으로 post해줌. 데이터 별로 쪼개서(multipart) key - value형태로(formData) 만든 후, 그걸 하나로 합쳐서 전송(append 해줌)
             return .uploadMultipart(formData)
+            
+        case .uploadBackground(let param):
+            let imageData = param.jpegData(compressionQuality: 1.0) ?? Data()
+            let formData: [Moya.MultipartFormData] = [Moya.MultipartFormData(provider: .data(imageData), name: "backgroundImage", fileName: "userImage.jpeg", mimeType: "image/jpeg")]
+            return .uploadMultipart(formData)
+            
+        case .uploadEctImage(param: let param):
+            var formData: [Moya.MultipartFormData] = []
+            for index in 0...param.count-1{
+                let imageData = param[index].jpegData(compressionQuality: 1.0) ?? Data()
+                formData.append(Moya.MultipartFormData(provider: .data(imageData), name: "ectImage", fileName: "userImage.jpeg", mimeType: "image/jpeg"))
+            }
+            return .uploadMultipart(formData)
+            
+        case .deleteEctImage:
+            return .requestPlain
         }
     }
     
