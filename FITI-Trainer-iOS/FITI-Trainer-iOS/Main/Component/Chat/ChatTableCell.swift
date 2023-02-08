@@ -96,7 +96,6 @@ class ChatTableCell: UITableViewCell {
             make.top.equalTo(name)
             make.trailing.equalToSuperview().offset(-10)
         }
-
     }
     
     required init?(coder: NSCoder) {
@@ -106,8 +105,7 @@ class ChatTableCell: UITableViewCell {
 
 extension ChatTableCell{
     public func bindingMatchingSuccess(model: MatchingSuccessResult){
-        name.text = model.trainerName
-//        date.text = model.orderDate
+        name.text = model.customerName
         date.text = model.createdAt.substring(from: 0, to: 9)
         id = model.matchingId
         pickUp.text = model.pickUp

@@ -262,6 +262,9 @@ class MyPageViewController: UIViewController {
     func setServerData(){
         midProfileStackView.name.text = MyPageViewController.MyInfo.userName
         midProfileStackView.userId.text = MyPageViewController.MyInfo.email
+        let profileURL = URL(string: MyPageViewController.MyInfo.profile)
+        self.midProfileStackView.reviewerImage.kf.setImage(with: profileURL)
+        
     }
     
     func showFailAlert(){

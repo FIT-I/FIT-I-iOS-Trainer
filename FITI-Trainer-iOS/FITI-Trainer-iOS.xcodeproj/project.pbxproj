@@ -53,6 +53,7 @@
 		0589C931298FA8A200C29144 /* MatchingSuccessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C930298FA8A200C29144 /* MatchingSuccessModel.swift */; };
 		0589C934298FCC7600C29144 /* MatchingResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C933298FCC7600C29144 /* MatchingResultViewController.swift */; };
 		0589C936298FCC9A00C29144 /* MatchingResultSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C935298FCC9A00C29144 /* MatchingResultSheet.swift */; };
+		0589C93929937EE900C29144 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0589C93829937EE900C29144 /* Kingfisher */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -249,6 +250,7 @@
 			files = (
 				05840387298294BF002272B1 /* RealmSwift in Frameworks */,
 				05A11DCA296CA07F008D85A9 /* SnapKit in Frameworks */,
+				0589C93929937EE900C29144 /* Kingfisher in Frameworks */,
 				059D80742972B18B0062C41A /* BSImagePicker in Frameworks */,
 				059D80D1298121BC0062C41A /* Moya in Frameworks */,
 				05A11E01296F172F008D85A9 /* Then in Frameworks */,
@@ -801,6 +803,7 @@
 				059D80D0298121BC0062C41A /* Moya */,
 				05840384298294BF002272B1 /* Realm */,
 				05840386298294BF002272B1 /* RealmSwift */,
+				0589C93829937EE900C29144 /* Kingfisher */,
 			);
 			productName = "FITI-Trainer-iOS";
 			productReference = 05A11DA3296C9ED5008D85A9 /* FITI-Trainer-iOS.app */;
@@ -836,6 +839,7 @@
 				059D80722972B18B0062C41A /* XCRemoteSwiftPackageReference "BSImagePicker" */,
 				059D80CF298121BC0062C41A /* XCRemoteSwiftPackageReference "Moya" */,
 				05840383298294BF002272B1 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				0589C93729937EE900C29144 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 05A11DA4296C9ED5008D85A9 /* Products */;
 			projectDirPath = "";
@@ -1189,6 +1193,14 @@
 				kind = branch;
 			};
 		};
+		0589C93729937EE900C29144 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		059D80722972B18B0062C41A /* XCRemoteSwiftPackageReference "BSImagePicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mikaoj/BSImagePicker.git";
@@ -1233,6 +1245,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 05840383298294BF002272B1 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		0589C93829937EE900C29144 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0589C93729937EE900C29144 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		059D80732972B18B0062C41A /* BSImagePicker */ = {
 			isa = XCSwiftPackageProductDependency;

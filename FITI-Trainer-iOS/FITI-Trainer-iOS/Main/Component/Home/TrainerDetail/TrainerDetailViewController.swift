@@ -11,6 +11,7 @@ import SnapKit
 import Then
 import Moya
 import Photos
+import Kingfisher
 
 class TrainerDetailViewController: UIViewController {
     //MoyaTarget과 상호작용하는 MoyaProvider를 생성하기 위해 MoyaProvider인스턴스 생성
@@ -95,6 +96,7 @@ class TrainerDetailViewController: UIViewController {
         getTrainerServer()
         changeBackAlertEvent()
         changeProfileAlertEvent()
+        bottomPhotoView.editerChoiceCV.reloadData()
 //        print("====================================================")
 //        let backImg = UIImage(named: "blueScreen.svg")
 //        let imageData:NSData = backImg!.pngData()! as NSData
@@ -383,9 +385,42 @@ extension TrainerDetailViewController {
     }
 }
 
+//MARK: - UIImagePicker Delegate
+extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+//            var newImage: UIImage? = nil // update 할 이미지
+
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+//            topView.contentMode = .scaleAspectFit
+            topView.image = image
+            patchBackgroundImage(image: image)
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+                picker.dismiss(animated: true, completion: nil)
+            }
+            picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
+
+        }
+}
+
+extension TrainerDetailViewController: UIPopoverPresentationControllerDelegate {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+        if let popoverPresentationController =
+      self.backAlertController.popoverPresentationController {
+            popoverPresentationController.sourceView = self.view
+            popoverPresentationController.sourceRect
+            = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverPresentationController.permittedArrowDirections = []
+        }
+    }
+}
+
 //MARK: - ServerData
 extension TrainerDetailViewController{
     func setServerDate(){
+//        EditPhotoViewController.imageArray.removeAll()
         self.headView.name.text = TrainerDetailViewController.userInfo.userName
         self.headView.levelIcon.image =  UIImage(named: "\(TrainerDetailViewController.userInfo.level).svg")
         self.headView.grade.text = "\(TrainerDetailViewController.userInfo.grade)"
@@ -394,6 +429,23 @@ extension TrainerDetailViewController{
         self.bodyPriceView.priceForTimeLabel.text = "\(TrainerDetailViewController.userInfo.cost)"
         self.bodyIntroView.introTextView.text = TrainerDetailViewController.userInfo.intro
         self.bodyIntroAboutService.introServiceTextView.text = TrainerDetailViewController.userInfo.service
+        let profileURL = URL(string: TrainerDetailViewController.userInfo.profile)
+        self.headView.reviewerImage.kf.setImage(with: profileURL)
+        if(TrainerDetailViewController.userInfo.backGround == ""){
+            self.topView.image = UIImage(named: "blueScreen.svg")!
+        } else{
+            let backgroundURL = URL(string: TrainerDetailViewController.userInfo.backGround)
+            self.topView.kf.setImage(with: backgroundURL)
+        }
+//        for index in 0..<TrainerDetailViewController.userInfo.imageList.count{
+//            let serverImage = UIImageView()
+//            let imageURL = URL(string: TrainerDetailViewController.userInfo.imageList[index])
+//            serverImage.kf.setImage(with: imageURL)
+//            EditPhotoViewController.imageArray.append(serverImage.image ?? UIImage())
+//
+//        }
+        
+        
     }
     
     func getTrainerServer(){
@@ -438,36 +490,3 @@ extension TrainerDetailViewController{
         }
     }
 }
-
-//MARK: - UIImagePicker Delegate
-extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
-//            var newImage: UIImage? = nil // update 할 이미지
-
-        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
-//            topView.contentMode = .scaleAspectFit
-            topView.image = image
-            patchBackgroundImage(image: image)
-        }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-                picker.dismiss(animated: true, completion: nil)
-            }
-            picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
-
-        }
-}
-
-extension TrainerDetailViewController: UIPopoverPresentationControllerDelegate {
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        if let popoverPresentationController =
-      self.backAlertController.popoverPresentationController {
-            popoverPresentationController.sourceView = self.view
-            popoverPresentationController.sourceRect
-            = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            popoverPresentationController.permittedArrowDirections = []
-        }
-    }
-}
-

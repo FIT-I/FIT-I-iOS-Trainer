@@ -40,20 +40,14 @@ class BottomCVC: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    func dataBind(image : UIImage) {
-//        editerChoiceImageView.image = image
-//    }
+
     
     private func setLayout() {
         contentView.addSubview(editerChoiceImageView)
-        
-        
         self.backgroundColor = .systemGroupedBackground
-        
         addSubview(editerChoiceImageView)
-                
+
         editerChoiceImageView.snp.makeConstraints { make in
-//            make.top.bottom.leading.trailing.equalToSuperview()
             make.edges.equalToSuperview()
         }
         

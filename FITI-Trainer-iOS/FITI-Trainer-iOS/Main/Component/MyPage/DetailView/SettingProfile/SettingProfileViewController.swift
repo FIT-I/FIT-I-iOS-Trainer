@@ -130,13 +130,6 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
         topStackView.imagePicker.allowsEditing = true
         present(topStackView.imagePicker, animated: true, completion: nil)
     }
-    
-    private func setServerData(){
-        topStackView.userName.text = MyPageViewController.MyInfo.userName
-        bottomInfoView.userEmail.text = MyPageViewController.MyInfo.email
-        bottomInfoView.userLocation.text = MyPageViewController.MyInfo.location
-    }
-
 }
 extension SettingProfileViewController: UIPopoverPresentationControllerDelegate {
     func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
@@ -171,6 +164,14 @@ extension SettingProfileViewController{
             }
             
         }
+    }
+    
+    private func setServerData(){
+        topStackView.userName.text = MyPageViewController.MyInfo.userName
+        bottomInfoView.userEmail.text = MyPageViewController.MyInfo.email
+        bottomInfoView.userLocation.text = MyPageViewController.MyInfo.location
+        let profileURL = URL(string: MyPageViewController.MyInfo.profile)
+        self.topStackView.settingUserProfile.kf.setImage(with: profileURL)
     }
 }
 
