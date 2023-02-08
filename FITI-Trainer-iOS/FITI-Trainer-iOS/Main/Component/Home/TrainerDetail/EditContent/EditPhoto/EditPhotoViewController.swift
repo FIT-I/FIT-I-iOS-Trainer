@@ -144,9 +144,10 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
             selectImagePicker()
         } else{
             let i = indexPath.row
-            EditPhotoViewController.imageArray.remove(at: i)
-            collectionView.reloadData()
             
+            EditPhotoViewController.imageArray.remove(at: i)
+            self.deleteEctImage(etcImgIdx: indexPath.row)
+            collectionView.reloadData()
                 }
     }
     
@@ -222,7 +223,23 @@ extension EditPhotoViewController{
             case .failure(let err):
                 print(err.localizedDescription)
             }
-            
+        }
+    }
+    
+    func deleteEctImage(etcImgIdx: Int){
+        self.ectImageProvider.request(.deleteEctImage(etcImgIdx)) { response in
+            switch response{
+            case .success(let moyaResponse):
+                do{
+                    print("EditPhotoVC - deleteEctImage ==============================================================")
+                    let responseData = try moyaResponse.map(DeleteEctImageResponse.self)
+                    print(responseData)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
         }
     }
 }

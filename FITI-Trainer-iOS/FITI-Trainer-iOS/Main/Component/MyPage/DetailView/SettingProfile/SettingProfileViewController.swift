@@ -12,6 +12,7 @@ import Moya
 class SettingProfileViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     let profileInfoProvider = MoyaProvider<EditProfileServices>()
+    private let myPageProvider = MoyaProvider<MyPageServices>()
 
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
@@ -92,8 +93,9 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
+        LoadingView.showLoading()
         self.patchProfileImage(image: topStackView.settingUserProfile.image!)
-        self.navigationController?.popViewController(animated: true)
+        print("backTapped! <<<<<<<<")
     }
     
     @objc func tappedProfile(_ gesture: UITapGestureRecognizer) {
@@ -155,6 +157,9 @@ extension SettingProfileViewController{
 //                    let responseData = try moyaResponse.map(ChangeProfileResponse.self)
                     let image = try JSONDecoder().decode(ChangeProfileResponse.self, from: moyaResponse.data)
                     print(image)
+//                    LoadingView.hideLoading()
+                    self.getMyPageServer()
+                    
                 } catch(let err){
                     print(err.localizedDescription)
                 }
@@ -170,8 +175,33 @@ extension SettingProfileViewController{
         topStackView.userName.text = MyPageViewController.MyInfo.userName
         bottomInfoView.userEmail.text = MyPageViewController.MyInfo.email
         bottomInfoView.userLocation.text = MyPageViewController.MyInfo.location
-        let profileURL = URL(string: MyPageViewController.MyInfo.profile)
-        self.topStackView.settingUserProfile.kf.setImage(with: profileURL)
+        if(MyPageViewController.MyInfo.profile == "trainerProfile"){
+            self.topStackView.settingUserProfile.image = UIImage(named: "reviewerIcon.svg")
+        } else{
+            let profileURL = URL(string: MyPageViewController.MyInfo.profile)
+            self.topStackView.settingUserProfile.kf.setImage(with: profileURL)
+        }
+    }
+    
+    func getMyPageServer(){
+        self.myPageProvider.request(.myPage){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+//                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(MyPageResponse.self)
+                    MyPageViewController.MyInfo.profile = responseData.result.profile
+                    print(responseData)
+                    LoadingView.hideLoading()
+                    self.navigationController?.popViewController(animated: true)
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
 }
 

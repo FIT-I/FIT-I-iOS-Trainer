@@ -429,8 +429,14 @@ extension TrainerDetailViewController{
         self.bodyPriceView.priceForTimeLabel.text = "\(TrainerDetailViewController.userInfo.cost)"
         self.bodyIntroView.introTextView.text = TrainerDetailViewController.userInfo.intro
         self.bodyIntroAboutService.introServiceTextView.text = TrainerDetailViewController.userInfo.service
-        let profileURL = URL(string: TrainerDetailViewController.userInfo.profile)
-        self.headView.reviewerImage.kf.setImage(with: profileURL)
+        
+        if(TrainerDetailViewController.userInfo.profile == "trainerProfile"){
+            self.headView.reviewerImage.image = UIImage(named: "reviewerIcon.svg")
+        } else{
+            let profileURL = URL(string: TrainerDetailViewController.userInfo.profile)
+            self.headView.reviewerImage.kf.setImage(with: profileURL)
+        }
+        
         if(TrainerDetailViewController.userInfo.backGround == ""){
             self.topView.image = UIImage(named: "blueScreen.svg")!
         } else{

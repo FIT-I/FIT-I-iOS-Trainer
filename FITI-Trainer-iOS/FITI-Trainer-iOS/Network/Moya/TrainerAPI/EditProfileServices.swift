@@ -20,6 +20,7 @@ enum EditProfileServices {
     case uploadProfile(param: parameter)
     case uploadBackground(param: parameter)
     case uploadEctImage(param: parameters)
+    case deleteEctImage(_ etcImgIdx:Int)
 
 }
 
@@ -43,6 +44,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
             return "/api/trainer/bgimg"
         case .uploadEctImage:
             return "/api/trainer/etcimg"
+        case .deleteEctImage(let etcImgIdx):
+            return "/api/trainer/etcimg/\(etcImgIdx)"
         }
     }
     
@@ -58,6 +61,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
             return .patch
         case .uploadEctImage:
             return .post
+        case .deleteEctImage(_):
+            return .delete
         }
     }
     
@@ -90,6 +95,9 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
                 formData.append(Moya.MultipartFormData(provider: .data(imageData), name: "ectImage", fileName: "userImage.jpeg", mimeType: "image/jpeg"))
             }
             return .uploadMultipart(formData)
+            
+        case .deleteEctImage:
+            return .requestPlain
         }
     }
     
