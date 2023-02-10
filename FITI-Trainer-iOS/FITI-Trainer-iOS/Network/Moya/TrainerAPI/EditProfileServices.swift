@@ -21,6 +21,7 @@ enum EditProfileServices {
     case uploadBackground(param: parameter)
     case uploadEctImage(param: parameters)
     case deleteEctImage(_ etcImgIdx:Int)
+    case deleteProfileImage
 
 }
 
@@ -46,6 +47,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
             return "/api/trainer/etcimg"
         case .deleteEctImage(let etcImgIdx):
             return "/api/trainer/etcimg/\(etcImgIdx)"
+        case .deleteProfileImage:
+            return "/api/trainer/profile"
         }
     }
     
@@ -62,6 +65,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
         case .uploadEctImage:
             return .post
         case .deleteEctImage(_):
+            return .delete
+        case .deleteProfileImage:
             return .delete
         }
     }
@@ -97,6 +102,8 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
             return .uploadMultipart(formData)
             
         case .deleteEctImage:
+            return .requestPlain
+        case .deleteProfileImage:
             return .requestPlain
         }
     }

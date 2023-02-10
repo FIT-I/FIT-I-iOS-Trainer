@@ -371,7 +371,13 @@ class HomeViewController: UIViewController {
                     TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
                     EditPhotoViewController.imageArray.removeAll()
-                    TrainerDetailViewController.userInfo.imageList = responseData.result.imageList ?? [String]()
+                    TrainerDetailViewController.userInfo.imageList.removeAll()
+                    for index in 0..<(responseData.result.imageList?.count ?? 0){
+                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
+                    }
+                    for index in 0..<(responseData.result.imageList?.count ?? 0){
+                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
+                    }
                     TrainerDetailViewController.userInfo.profile = responseData.result.profile
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? ""
                     for index in 0..<TrainerDetailViewController.userInfo.imageList.count{

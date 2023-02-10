@@ -46,6 +46,20 @@ class BottomInfoView : UIView {
         return label
     }()
     
+    var openChatLabel : UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12.0)
+        label.text = "채팅방 링크"
+        label.textColor = UIColor.customColor(.blue)
+        return label
+    }()
+    var openChatLink : UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12.0)
+        label.textColor = UIColor.customColor(.blue)
+        return label
+    }()
+    
     lazy var emailStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [emailLabel,userEmail])
         stackView.axis = .vertical
@@ -62,8 +76,16 @@ class BottomInfoView : UIView {
         return stackView
     }()
     
+    lazy var opneChatStackView : UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [openChatLabel,openChatLink])
+        stackView.axis = .vertical
+        stackView.spacing = 7
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
     lazy var globalStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [title,emailStackView,locationStackView])
+        let stackView = UIStackView(arrangedSubviews: [title,emailStackView,locationStackView,opneChatStackView])
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.alignment = .leading

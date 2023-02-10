@@ -95,7 +95,6 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
     @objc func backTapped(sender: UIBarButtonItem) {
         LoadingView.showLoading()
         self.patchProfileImage(image: topStackView.settingUserProfile.image!)
-        print("backTapped! <<<<<<<<")
     }
     
     @objc func tappedProfile(_ gesture: UITapGestureRecognizer) {
@@ -104,6 +103,7 @@ class SettingProfileViewController: UIViewController, UIImagePickerControllerDel
     
     func changeProfileNormal() {
         topStackView.settingUserProfile.image = UIImage(named: "reviewerIcon.svg")
+//        deleteProfileImage()
         
     }
     
@@ -195,6 +195,7 @@ extension SettingProfileViewController{
                     print(responseData)
                     LoadingView.hideLoading()
                     self.navigationController?.popViewController(animated: true)
+
                 } catch(let err) {
                     print(err.localizedDescription)
                 }
@@ -203,5 +204,23 @@ extension SettingProfileViewController{
             }
         }
     }
+    
+//    func deleteProfileImage(){
+//        profileInfoProvider.request(.deleteProfileImage) { response in
+//                switch response {
+//                case .success(let moyaResponse):
+//                    do{
+//                        let responseData = try moyaResponse.map(DeleteProfileImageResponse.self)
+//                        print("TrainerDetailVC - deleteProfileImage ==============================================================")
+//                        self.getMyPageServer()
+//                        print(responseData)
+//                    } catch(let err) {
+//                        print(err.localizedDescription)
+//                    }
+//                case .failure(let err):
+//                    print(err.localizedDescription)
+//                }
+//        }
+//    }
 }
 

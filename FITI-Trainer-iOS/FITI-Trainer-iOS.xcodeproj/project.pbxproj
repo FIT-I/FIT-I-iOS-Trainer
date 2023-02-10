@@ -55,6 +55,8 @@
 		0589C936298FCC9A00C29144 /* MatchingResultSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C935298FCC9A00C29144 /* MatchingResultSheet.swift */; };
 		0589C93929937EE900C29144 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0589C93829937EE900C29144 /* Kingfisher */; };
 		0589C93B2993B94700C29144 /* DeleteEctImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C93A2993B94700C29144 /* DeleteEctImageModel.swift */; };
+		0589C93D2993C98500C29144 /* DeleteProfileImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C93C2993C98500C29144 /* DeleteProfileImageModel.swift */; };
+		0589C93F2994128300C29144 /* OpenChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C93E2994128300C29144 /* OpenChatModel.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -174,6 +176,8 @@
 		0589C933298FCC7600C29144 /* MatchingResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingResultViewController.swift; sourceTree = "<group>"; };
 		0589C935298FCC9A00C29144 /* MatchingResultSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingResultSheet.swift; sourceTree = "<group>"; };
 		0589C93A2993B94700C29144 /* DeleteEctImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteEctImageModel.swift; sourceTree = "<group>"; };
+		0589C93C2993C98500C29144 /* DeleteProfileImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileImageModel.swift; sourceTree = "<group>"; };
+		0589C93E2994128300C29144 /* OpenChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenChatModel.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -351,6 +355,7 @@
 				058403B22986E73F002272B1 /* GetTrainerInfoModel.swift */,
 				0589C911298A4DDD00C29144 /* ChangeCategoryModel.swift */,
 				0589C93A2993B94700C29144 /* DeleteEctImageModel.swift */,
+				0589C93C2993C98500C29144 /* DeleteProfileImageModel.swift */,
 			);
 			path = Trainer;
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 				058403A629858AA9002272B1 /* NoticeModel.swift */,
 				058403A829858B07002272B1 /* PolicyModel.swift */,
 				058403B42986F21F002272B1 /* patchLocationModel.swift */,
+				0589C93E2994128300C29144 /* OpenChatModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -908,6 +914,7 @@
 				059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */,
 				0584039D29858033002272B1 /* ChangeBackgroundRequest.swift in Sources */,
 				05A11E0B29702548008D85A9 /* EditBodyPriceViewController.swift in Sources */,
+				0589C93D2993C98500C29144 /* DeleteProfileImageModel.swift in Sources */,
 				058403A929858B07002272B1 /* PolicyModel.swift in Sources */,
 				058403B52986F21F002272B1 /* patchLocationModel.swift in Sources */,
 				0584039F2985805B002272B1 /* ChangeBackgroundModel.swift in Sources */,
@@ -966,6 +973,7 @@
 				05A11E0D29702583008D85A9 /* EditBodyIntroViewController.swift in Sources */,
 				059D80AE2975570E0062C41A /* UpdateNoticeViewController.swift in Sources */,
 				05A11DE7296EBB68008D85A9 /* UIViewController+.swift in Sources */,
+				0589C93F2994128300C29144 /* OpenChatModel.swift in Sources */,
 				0589C922298C3CAE00C29144 /* LoadingView.swift in Sources */,
 				059D80B42975A0930062C41A /* NoticeLabelView.swift in Sources */,
 				05A11E03296F17A0008D85A9 /* UIView+.swift in Sources */,
