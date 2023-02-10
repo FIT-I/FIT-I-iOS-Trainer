@@ -31,6 +31,13 @@ class CommunityViewController: UIViewController {
         return view
     }()
     
+    private var noRequestImage : UIImageView = {
+        let imgView = UIImageView()
+        imgView.image = UIImage(named: "noRequest.svg")
+        imgView.isHidden = true
+        return imgView
+    }()
+    
     // 받은 요청을 보여주는 테이블 뷰
     let requestTableView : UITableView = {
         let tableview = UITableView()
@@ -47,6 +54,13 @@ class CommunityViewController: UIViewController {
         
         setViewHierarchy()
         setConstraints()
+        
+        if(CommunityViewController.matchingList.count == 0){
+            noRequestImage.isHidden = false
+            titleLabel.isHidden = true
+            progressView.isHidden = true
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +71,7 @@ class CommunityViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(progressView)
         view.addSubview(requestTableView)
+        view.addSubview(noRequestImage)
     }
     
     func setConstraints(){
@@ -76,8 +91,12 @@ class CommunityViewController: UIViewController {
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        noRequestImage.snp.makeConstraints { make in
+            make.height.equalTo(233)
+            make.width.equalTo(173)
+            make.centerX.centerY.equalToSuperview()
+        }
     }
-
 }
 
 //MARK: -  extension: tableView
