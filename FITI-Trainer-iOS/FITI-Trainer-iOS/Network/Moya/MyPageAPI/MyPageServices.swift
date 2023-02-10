@@ -14,6 +14,7 @@ enum MyPageServices {
     case policy
     case showProfile
     case locationSetting(_ location:String)
+    case addOpenChat(_ openChatLink:String)
 }
 
 extension MyPageServices: TargetType {
@@ -34,6 +35,8 @@ extension MyPageServices: TargetType {
         case .locationSetting(let location):
             return "/api/communal/location/\(location)"
 
+        case .addOpenChat(let openChatLink):
+            return "/api/trainer/chat/\(openChatLink)"
         }
     }
     
@@ -48,6 +51,8 @@ extension MyPageServices: TargetType {
         case .showProfile:
             return .patch
         case .locationSetting(_):
+            return .patch
+        case .addOpenChat(_):
             return .patch
         }
     }
@@ -64,7 +69,8 @@ extension MyPageServices: TargetType {
             return .requestPlain
         case .locationSetting:
             return .requestPlain
-
+        case .addOpenChat(_):
+            return .requestPlain
         }
     }
     var headers: [String : String]? {

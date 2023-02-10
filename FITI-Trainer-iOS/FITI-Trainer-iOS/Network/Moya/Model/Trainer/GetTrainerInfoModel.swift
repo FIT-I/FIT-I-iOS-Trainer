@@ -26,9 +26,10 @@ struct User: Codable {
     var intro: String? = nil
     var service: String? = nil
     var reviewDto: [ReviewTable]? = nil
-    var imageList: [String]? = nil
+    var imageList: [EctImageArray]? = nil
     let matching_state: Bool
     var category : String? = nil
+    var openChatLink : String? = nil
 }
 
 
@@ -39,6 +40,12 @@ struct ReviewTable: Codable {
     let createdAt: String
     var contents: String? = nil
 }
+
+struct EctImageArray: Codable {
+    var etcImgIdx : Int
+    var etcImgLink : String? = nil
+}
+
 
 //MARK: - UserInfo Struct
 struct UserInfo {
@@ -56,5 +63,6 @@ struct UserInfo {
     var grade : Double = 0
     var matching_state = true
     var category = ""
+    var imageListIdx : [Int] = []
 }
 

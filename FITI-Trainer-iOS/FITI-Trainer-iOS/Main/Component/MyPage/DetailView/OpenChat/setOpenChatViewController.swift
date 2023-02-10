@@ -8,9 +8,12 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class setOpenChatViewController: UIViewController {
 
+    private let myPageProvider = MoyaProvider<MyPageServices>()
+    
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
@@ -64,7 +67,6 @@ class setOpenChatViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
  
-        
         setViewHierarchy()
         setConstraints()
         
@@ -103,7 +105,6 @@ class setOpenChatViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-15)
             make.height.equalTo(60)
         }
-        
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
@@ -112,7 +113,10 @@ class setOpenChatViewController: UIViewController {
     
     @objc func touchNextBtnEvent(sender: UIBarButtonItem) {
         if(setOpenChatBtn.backgroundColor == UIColor.customColor(.blue)){
-            navigationController?.popViewController(animated: true)
+            LoadingView.showLoading()
+            let component = URL(string: setOpenChatTextField.text ?? "") ?? URL(fileURLWithPath: "")
+            let openChatURL = component.absoluteString
+            patchOpenChat(openChatLink: openChatURL)
         }
     }
 
@@ -127,4 +131,52 @@ class setOpenChatViewController: UIViewController {
     }
 }
 
+extension setOpenChatViewController{
+    func patchOpenChat(openChatLink: String){
+//        let openChatLink = openChatURL.absoluteString
+        myPageProvider.request(.addOpenChat(openChatLink)) { response in
+            switch response {
+            case .success(let moyaResponse):
+                do {
+                    print("success")
+                    let responseData = try moyaResponse.map(OpenChatResponse.self)
+                    print(responseData)
+                    self.getMyPageServer()
+                    LoadingView.hideLoading()
+                    self.navigationController?.popViewController(animated: true)
+                } catch(let err) {
+
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func getMyPageServer(){
+        self.myPageProvider.request(.myPage){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+//                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(MyPageResponse.self)
+                    MyPageViewController.MyInfo.userName = responseData.result.userName
+                    MyPageViewController.MyInfo.profile = responseData.result.profile
+                    MyPageViewController.MyInfo.email = responseData.result.email
+                    MyPageViewController.MyInfo.location = responseData.result.location ?? ""
+                    
+                    print(responseData)
+
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+}
 
