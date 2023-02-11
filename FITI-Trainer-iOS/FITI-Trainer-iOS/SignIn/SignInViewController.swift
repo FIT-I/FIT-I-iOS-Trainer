@@ -304,17 +304,14 @@ class SignInViewController: UIViewController {
                     TrainerDetailViewController.userInfo.cost = responseData.result.cost
                     TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
                     TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
+                    TrainerDetailViewController.userInfo.reviewDto = responseData.result.reviewDto
+                    BodyReviewView.previewReviewData = responseData.result.reviewDto ?? [ReviewDto]()
                     TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
                     EditPhotoViewController.imageArray.removeAll()
                     TrainerDetailViewController.userInfo.imageList.removeAll()
                     TrainerDetailViewController.userInfo.profile = responseData.result.profile
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? ""
-                    
-//                    for index in 0..<(responseData.result.imageList?.count ?? 0){
-//                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
-//                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
-//                    }
                     for index in 0..<(responseData.result.imageList?.count ?? 0){
                         let serverImage = UIImageView()
                         let imageURL = URL(string: responseData.result.imageList?[index].etcImgLink ?? "")

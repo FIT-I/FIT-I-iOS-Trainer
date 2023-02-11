@@ -14,6 +14,10 @@ class ReviewTableCell: UITableViewCell {
     var reviewerImage : UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "reviewerIcon.svg")
+        imgView.snp.makeConstraints { make in
+            make.width.equalTo(20)
+            make.height.equalTo(30)
+        }
         return imgView
     }()
 
@@ -125,9 +129,13 @@ class ReviewTableCell: UITableViewCell {
     
 }
 
-//
-//extension ReviewTabelCell {
-//    public func binding(){
-//        //
-//    }
-//}
+extension ReviewTableCell {
+    public func reviewTableBnding(model:ReviewDto){
+        name.text = model.name
+        date.text = model.createdAt
+        grade.text = String(model.grade)
+        reviewTextView.text = model.contents
+        reviewerImage.image = UIImage(named: "\(model.profile ?? "").svg")
+    }
+}
+

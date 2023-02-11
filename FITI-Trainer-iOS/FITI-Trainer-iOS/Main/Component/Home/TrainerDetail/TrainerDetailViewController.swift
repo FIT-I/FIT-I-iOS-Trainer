@@ -20,6 +20,7 @@ class TrainerDetailViewController: UIViewController {
     static var userInfo = UserInfo()
     private var setCategory = ""
     private var setBackGround = UIImage(named: "blueScreen.svg")
+
     
     //MARK: - UI Components
     var topView : UIImageView = {

@@ -12,11 +12,11 @@ struct GetTrainerInfoResponse: Codable {
     let isSuccess: Bool
     let code: Int
     let message: String
-    let result: User
+    let result: Trainer
 }
 
 // MARK: - Result
-struct User: Codable {
+struct Trainer: Codable {
     let name, profile: String
     var background: String? = nil
     let levelName: String
@@ -25,7 +25,7 @@ struct User: Codable {
     let cost: String
     var intro: String? = nil
     var service: String? = nil
-    var reviewDto: [ReviewTable]? = nil
+    var reviewDto: [ReviewDto]? = nil
     var imageList: [EctImageArray]? = nil
     let matching_state: Bool
     var category : String? = nil
@@ -33,7 +33,7 @@ struct User: Codable {
 }
 
 
-struct ReviewTable: Codable {
+struct ReviewDto: Codable {
     let name: String
     var profile: String? = nil
     let grade: Double
@@ -59,6 +59,7 @@ struct UserInfo {
     var location = ""
     var intro = ""
     var service = ""
+    var reviewDto: [ReviewDto]? = nil
     var school = ""
     var grade : Double = 0
     var matching_state = true
