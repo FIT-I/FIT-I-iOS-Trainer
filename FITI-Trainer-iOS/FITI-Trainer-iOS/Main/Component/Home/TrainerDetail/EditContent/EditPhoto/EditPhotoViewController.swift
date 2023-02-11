@@ -15,6 +15,7 @@ class EditPhotoViewController: UIViewController {
     //선택한 이미지를 저장할 배열
     var itemProviders: [NSItemProvider] = []
     static var imageArray : [UIImage] = []
+    var addImage : [UIImage] = []
     let ectImageProvider = MoyaProvider<EditProfileServices>()
     
 //    var bottomPhotoView = BottomPhotoView()
@@ -113,6 +114,9 @@ class EditPhotoViewController: UIViewController {
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
+        if(addImage.count != 0){
+            self.postEctImageServer(imageArray: addImage)
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -123,6 +127,7 @@ class EditPhotoViewController: UIViewController {
         
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
+        addImage.removeAll()
         self.present(picker, animated: true, completion: nil)
     }
 }
@@ -176,12 +181,9 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
 //            cell.editerChoiceImageView.image = UIImage(named: images[indexPath.row])
             cell.deleteImgButton.isHidden = false
             cell.editerChoiceImageView.image = EditPhotoViewController.imageArray[indexPath.row]
-
             return cell
         }
-        
     }
-    
 }
 
 //MARK: - PHPicker Extension
@@ -198,12 +200,12 @@ extension EditPhotoViewController: PHPickerViewControllerDelegate{
                      DispatchQueue.main.async {
                          guard let image = image as? UIImage else { return }
                          EditPhotoViewController.imageArray.append(image)
+                         self.addImage.append(image)
                          self.editerPhotoChoiceCV.reloadData()
                      }
                  }
              }
          }
-        self.postEctImageServer(imageArray: EditPhotoViewController.imageArray)
     }
 }
 
@@ -216,6 +218,7 @@ extension EditPhotoViewController{
                 do{
                     print("EditPhotoVC - postEctImageServer ==============================================================")
                     let image = try JSONDecoder().decode(AddBottomImageResponse.self, from: moyaResponse.data)
+                    print(moyaResponse)
                     print(image)
                 } catch(let err){
                     print(err.localizedDescription)

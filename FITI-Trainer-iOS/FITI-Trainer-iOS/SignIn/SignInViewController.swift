@@ -13,6 +13,7 @@ import Moya
 class SignInViewController: UIViewController {
     
     private let provider = MoyaProvider<SignServices>()
+    let TrainerProvider = MoyaProvider<TrainerServices>()
     let realm = RealmService()
 
     //MARK: - UI Component
@@ -272,6 +273,7 @@ class SignInViewController: UIViewController {
     }
     
     private func ifSuccessPushHome(){
+        self.getTrainerServer()
         let nextVC = GradeTableViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -284,5 +286,54 @@ class SignInViewController: UIViewController {
         })
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func getTrainerServer(){
+        self.TrainerProvider.request(.loadTrainer){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+//                    print(moyaResponse.statusCode)
+//                    print(moyaResponse.response)
+                    let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                    TrainerDetailViewController.userInfo.matching_state = responseData.result.matching_state
+                    TrainerDetailViewController.userInfo.userName = responseData.result.name
+                    TrainerDetailViewController.userInfo.grade = responseData.result.grade
+                    TrainerDetailViewController.userInfo.school = responseData.result.school
+                    TrainerDetailViewController.userInfo.level = responseData.result.levelName
+                    TrainerDetailViewController.userInfo.cost = responseData.result.cost
+                    TrainerDetailViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
+                    TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
+                    TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
+                    TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
+                    EditPhotoViewController.imageArray.removeAll()
+                    TrainerDetailViewController.userInfo.imageList.removeAll()
+                    TrainerDetailViewController.userInfo.profile = responseData.result.profile
+                    TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? ""
+                    
+//                    for index in 0..<(responseData.result.imageList?.count ?? 0){
+//                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
+//                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
+//                    }
+                    for index in 0..<(responseData.result.imageList?.count ?? 0){
+                        let serverImage = UIImageView()
+                        let imageURL = URL(string: responseData.result.imageList?[index].etcImgLink ?? "")
+                        serverImage.kf.setImage(with: imageURL)
+                        EditPhotoViewController.imageArray.append(serverImage.image ?? UIImage())
+                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
+                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
+                    }
+                    MyPageViewController.MyInfo.openChatLink = responseData.result.openChatLink ?? ""
+                    RequestResultViewController.specificUser.openChat = responseData.result.openChatLink ?? ""
+                    print("HomeVC - getTrainerServer=========================================================")
+//                    print(responseData)
+ 
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
 }

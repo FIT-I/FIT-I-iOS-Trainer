@@ -10,6 +10,6 @@ import Foundation
 struct AddBottomImageResponse: Codable {
     let isSuccess: Bool
     let code: Int
-    let message: String
-    let result: String
+    var message: String? = nil
+    var result: String? = nil
 }

@@ -54,17 +54,12 @@ class CommunityViewController: UIViewController {
         
         setViewHierarchy()
         setConstraints()
-        
-        if(CommunityViewController.matchingList.count == 0){
-            noRequestImage.isHidden = false
-            titleLabel.isHidden = true
-            progressView.isHidden = true
-            
-        }
+        isRequestExist()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         requestTableView.reloadData()
+        isRequestExist()
     }
     
     func setViewHierarchy(){
@@ -95,6 +90,18 @@ class CommunityViewController: UIViewController {
             make.height.equalTo(233)
             make.width.equalTo(173)
             make.centerX.centerY.equalToSuperview()
+        }
+    }
+    
+    func isRequestExist(){
+        if(CommunityViewController.matchingList.count == 0){
+            noRequestImage.isHidden = false
+            titleLabel.isHidden = true
+            progressView.isHidden = true
+        } else{
+            noRequestImage.isHidden = true
+            titleLabel.isHidden = false
+            progressView.isHidden = false
         }
     }
 }

@@ -64,5 +64,6 @@ struct UserInfo {
     var matching_state = true
     var category = ""
     var imageListIdx : [Int] = []
+    var openChatLink = ""
 }
 

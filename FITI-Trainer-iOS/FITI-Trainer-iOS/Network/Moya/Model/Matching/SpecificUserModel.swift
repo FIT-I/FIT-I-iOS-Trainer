@@ -42,4 +42,5 @@ struct MatchingUser {
     var profile = ""
     var pickUpType = ""
     var location = ""
+    var openChat = ""
 }

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 import Moya
+import Kingfisher
 
 class HomeViewController: UIViewController {
     
@@ -18,7 +19,6 @@ class HomeViewController: UIViewController {
     let TrainerProvider = MoyaProvider<TrainerServices>()
     let matchingProvider = MoyaProvider<MatchingService>()
     let provider = MoyaProvider<MyPageServices>()
-
     
     var didProfileShown : Bool = true
     
@@ -58,11 +58,8 @@ class HomeViewController: UIViewController {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "김동현"
         label.textColor = UIColor.customColor(.blue)
-        //label.font = UIFont(name: "Noto Sans", size: 24.0)
         label.font = UIFont(name: "Avenir-Black", size: 25.0)
-        //label.font = UIFont.boldSystemFont(ofSize: 25.0)
         return label
     }()
     
@@ -89,23 +86,11 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-//    private lazy var goldIcon: UIImageView = {
-//        let image = UIImageView()
-//        image.image =  UIImage(named: "gold.svg")
-//        return image
-//    }()
-    
     private lazy var levelIcon: UIImageView = {
         let image = UIImageView()
         image.image =  UIImage(named: "bronze.svg")
         return image
     }()
-    
-//    private lazy var silverIcon: UIImageView = {
-//        let image = UIImageView()
-//        image.image =  UIImage(named: "silver.svg")
-//        return image
-//    }()
     
     private lazy var yellowstarIcon: UIImageView = {
         let image = UIImageView()
@@ -155,9 +140,6 @@ class HomeViewController: UIViewController {
         textView.font = UIFont.systemFont(ofSize: 12.0)
         textView.textContainer.maximumNumberOfLines = 7
         textView.textContainer.lineBreakMode = .byTruncatingTail
-
-        // 더미 데이터
-        textView.text = "Pt 센터 경력 3년. 스포애니 상도점에서 대표 트레이너로 근무한 경험이 있습니다. 가르치는 것은 자신있습니다. 가르치는 것은 자신있습니다. 가르치는 것은 자신있습니다. 가르치는 것은 자신있습니다. "
         return textView
     }()
     
@@ -236,6 +218,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("=================================viewDidLoad=================================")
         self.view.backgroundColor = UIColor.white
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = .black
@@ -244,6 +227,7 @@ class HomeViewController: UIViewController {
         trainerEditViewAddUI()
         trainerEditViewSetUI()
         setServerData()
+        getTrainerServer()
         getMatchingServer()
         getMatchingSuccessServer()
         getMyPageServer()
@@ -252,6 +236,7 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("=================================viewWillAppear=================================")
         setServerData()
         getTrainerServer()
         getMatchingServer()
@@ -334,10 +319,9 @@ class HomeViewController: UIViewController {
     }
     
     @objc func touchNextBtnEvent() {
-            LoadingView.showLoading()
-            getTrainerServer()
         let nextVC = TrainerDetailViewController()
-        navigationController?.pushViewController(nextVC, animated: true)
+        self.navigationController?.pushViewController(nextVC, animated: true)
+        
     }
     
     //MARK: - set Server
@@ -372,26 +356,26 @@ class HomeViewController: UIViewController {
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
                     EditPhotoViewController.imageArray.removeAll()
                     TrainerDetailViewController.userInfo.imageList.removeAll()
-                    for index in 0..<(responseData.result.imageList?.count ?? 0){
-                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
-                    }
-                    for index in 0..<(responseData.result.imageList?.count ?? 0){
-                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
-                    }
                     TrainerDetailViewController.userInfo.profile = responseData.result.profile
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? ""
-                    for index in 0..<TrainerDetailViewController.userInfo.imageList.count{
+                    
+//                    for index in 0..<(responseData.result.imageList?.count ?? 0){
+//                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
+//                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
+//                    }
+                    for index in 0..<(responseData.result.imageList?.count ?? 0){
                         let serverImage = UIImageView()
-                        let imageURL = URL(string: TrainerDetailViewController.userInfo.imageList[index])
+                        let imageURL = URL(string: responseData.result.imageList?[index].etcImgLink ?? "")
                         serverImage.kf.setImage(with: imageURL)
                         EditPhotoViewController.imageArray.append(serverImage.image ?? UIImage())
-
+                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
+                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
                     }
-                    let nextVC = TrainerDetailViewController()
-                    
+                    MyPageViewController.MyInfo.openChatLink = responseData.result.openChatLink ?? ""
+                    RequestResultViewController.specificUser.openChat = responseData.result.openChatLink ?? ""
                     print("HomeVC - getTrainerServer=========================================================")
-                    print(responseData)
-                    LoadingView.hideLoading()
+//                    print(responseData)
+ 
                 } catch(let err) {
                     print(err.localizedDescription)
                 }

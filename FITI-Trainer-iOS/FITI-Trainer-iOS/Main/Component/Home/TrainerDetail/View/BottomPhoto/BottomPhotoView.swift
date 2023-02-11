@@ -127,12 +127,10 @@ class BottomPhotoView: UIView {
 //MARK: - collectionView Extension
 
 extension BottomPhotoView: UICollectionViewDelegate, UICollectionViewDataSource{
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        return editPhotoView.imageArray.count
         return EditPhotoViewController.imageArray.count
-
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

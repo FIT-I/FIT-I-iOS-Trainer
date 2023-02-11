@@ -18,8 +18,8 @@ class CommunityTableCell: UITableViewCell {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "customerProfile1.svg")
         imgView.snp.makeConstraints { make in
-            make.height.equalTo(25.71)
-            make.width.equalTo(15)
+            make.height.equalTo(34)
+            make.width.equalTo(20)
         }
         return imgView
     }()
