@@ -20,6 +20,7 @@ class TrainerDetailViewController: UIViewController {
     static var userInfo = UserInfo()
     private var setCategory = ""
     private var setBackGround = UIImage(named: "blueScreen.svg")
+
     
     //MARK: - UI Components
     var topView : UIImageView = {
@@ -448,7 +449,6 @@ extension TrainerDetailViewController{
 //            let imageURL = URL(string: TrainerDetailViewController.userInfo.imageList[index])
 //            serverImage.kf.setImage(with: imageURL)
 //            EditPhotoViewController.imageArray.append(serverImage.image ?? UIImage())
-//
 //        }
         
         
@@ -466,7 +466,7 @@ extension TrainerDetailViewController{
                     EditBodyIntroViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
                     EditAboutServiceViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
                     
-                    print(responseData)
+//                    print(responseData)
 
                 } catch(let err) {
                     print(err.localizedDescription)

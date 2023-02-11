@@ -10,6 +10,8 @@ import SnapKit
 
 class ReviewViewController: UIViewController {
     
+    var reviewData = [ReviewDto]()
+    
     private let titleLabel : UILabel = {
         let lb = UILabel()
         lb.text = "리뷰 전체보기"
@@ -45,6 +47,11 @@ class ReviewViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        reviewTableView.reloadData()
+        setReviewData()
+    }
+    
     func setViewHierarchy(){
         view.addSubview(titleLabel)
         view.addSubview(reviewTableView)
@@ -67,6 +74,10 @@ class ReviewViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
+    func setReviewData(){
+        self.reviewData = TrainerDetailViewController.userInfo.reviewDto ?? [ReviewDto]()
+        print(reviewData)
+    }
 
 }
 
@@ -76,23 +87,15 @@ extension ReviewViewController : UITableViewDelegate {
         print("cell did touched")
     }
 }
-
-
 extension ReviewViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.reviewData.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ReviewTableCell.identifier, for: indexPath)
-//        cell.binding()
+        let cell = tableView.dequeueReusableCell(withIdentifier: ReviewTableCell.identifier, for: indexPath) as? ReviewTableCell ?? ReviewTableCell()
+        cell.reviewTableBnding(model: reviewData[indexPath.row])
         cell.selectionStyle = .none
-    
         return cell
-        
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 80
-//    }
 }
+

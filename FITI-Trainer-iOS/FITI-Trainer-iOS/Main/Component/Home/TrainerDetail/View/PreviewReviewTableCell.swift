@@ -17,6 +17,10 @@ class PreviewReviewTableCell: UITableViewCell {
     var reviewerImage : UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "reviewerIcon.svg")
+        imgView.snp.makeConstraints { make in
+            make.width.equalTo(20)
+            make.height.equalTo(30)
+        }
         return imgView
     }()
 
@@ -138,12 +142,22 @@ class PreviewReviewTableCell: UITableViewCell {
     
 }
 
+//
+//extension PreviewReviewTableCell {
+//    func dataBind(model: ReviewModel) {
+//        reviewerImage.image = model.image
+//        name.text = model.name
+//        date.text = model.date
+//        reviewTextView.text = model.content
+//    }
+//}
 
 extension PreviewReviewTableCell {
-    func dataBind(model: ReviewModel) {
-        reviewerImage.image = model.image
+    func dataBind(model: ReviewDto) {
         name.text = model.name
-        date.text = model.date
-        reviewTextView.text = model.content
+        date.text = model.createdAt
+        grade.text = String(model.grade)
+        reviewTextView.text = model.contents
+        reviewerImage.image = UIImage(named: "\(model.profile ?? "").svg")
     }
 }

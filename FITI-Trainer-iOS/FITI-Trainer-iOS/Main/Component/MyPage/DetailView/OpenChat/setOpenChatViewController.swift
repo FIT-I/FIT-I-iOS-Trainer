@@ -13,7 +13,8 @@ import Moya
 class setOpenChatViewController: UIViewController {
 
     private let myPageProvider = MoyaProvider<MyPageServices>()
-    
+    private let TrainerProvider = MoyaProvider<TrainerServices>()
+
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
@@ -141,6 +142,7 @@ extension setOpenChatViewController{
                     print("success")
                     let responseData = try moyaResponse.map(OpenChatResponse.self)
                     print(responseData)
+                    self.getTrainerServer()
                     self.getMyPageServer()
                     LoadingView.hideLoading()
                     self.navigationController?.popViewController(animated: true)
@@ -170,6 +172,29 @@ extension setOpenChatViewController{
                     
                     print(responseData)
 
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func getTrainerServer(){
+        self.TrainerProvider.request(.loadTrainer){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+
+                    MyPageViewController.MyInfo.openChatLink = responseData.result.openChatLink ?? ""
+                    let nextVC = TrainerDetailViewController()
+                    RequestResultViewController.specificUser.openChat = responseData.result.openChatLink ?? ""
+                    
+                    print("MyPageVC - getTrainerServer=========================================================")
+                    print(responseData)
+                    LoadingView.hideLoading()
                 } catch(let err) {
                     print(err.localizedDescription)
                 }

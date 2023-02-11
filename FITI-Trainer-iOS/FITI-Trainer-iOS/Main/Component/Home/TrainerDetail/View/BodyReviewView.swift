@@ -10,8 +10,12 @@ import UIKit
 import SnapKit
 
 class BodyReviewView : UIView {
-    // 후기 뷰
-    var reviewView : UIView = {
+    
+    //MARK: - Properties
+    static var previewReviewData = [ReviewDto]()
+    
+    //MARK: - UI Components
+    private lazy var reviewView : UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.customColor(.boxGray)
         view.layer.borderColor = UIColor.customColor(.boxGray).cgColor
@@ -20,13 +24,13 @@ class BodyReviewView : UIView {
         return view
     }()
     
-    var reviewImage : UIImageView = {
+    private lazy var reviewImage : UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "reviewIcon.svg")
         return imgView
     }()
     
-    var reviewLabel : UILabel = {
+    private lazy var reviewLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0)
         label.text = "후기 5건"
@@ -34,7 +38,15 @@ class BodyReviewView : UIView {
         return label
     }()
     
-    var reviewGradeLabel : UILabel = {
+    private lazy var emptyReviewLabel : UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15.0)
+        label.text = "작성된 후기가 없습니다."
+        label.textColor = UIColor.customColor(.darkGray)
+        return label
+    }()
+    
+    private lazy var reviewGradeLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0)
         label.text = "평균 4.3"
@@ -42,7 +54,7 @@ class BodyReviewView : UIView {
         return label
     }()
     
-    var bodyReviewLineView : UIView = {
+    private lazy var bodyReviewLineView : UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.customColor(.gray)
         view.snp.makeConstraints { make in
@@ -51,7 +63,7 @@ class BodyReviewView : UIView {
         return view
     }()
     
-    var reviewDetailBtn : UIButton = {
+    lazy var reviewDetailBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = UIColor.systemBackground
         btn.setImage(UIImage(named: "rightBtn"), for: .normal)
@@ -119,40 +131,44 @@ class BodyReviewView : UIView {
             make.height.equalTo(270)
         }
     }
+    
+    func setEmptyLable(isEmpty:Int){
+        if isEmpty != 0 {
+            self.emptyReviewLabel.isHidden = true
+        }else {
+            self.emptyReviewLabel.isHidden = false
+        }
+    }
+
 }
 
+// MARK: - Extension
 
 extension BodyReviewView {
-    //MARK: - register
-    
     private func register() {
         reviewTableView.register(PreviewReviewTableCell.self,
                                  forCellReuseIdentifier: PreviewReviewTableCell.identifier
         )
     }
-    
-    
 }
-
-//MARK: - ReviewTableView Delegate
+extension BodyReviewView : UITableViewDelegate {}
 extension BodyReviewView : UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviewDummy.count
+        self.setEmptyLable(isEmpty: TrainerDetailViewController.userInfo.reviewDto?.count ?? 0)
+        let cellNum = TrainerDetailViewController.userInfo.reviewDto?.count ?? 0
+        switch cellNum {
+        case 0...3:
+            return cellNum
+        default:
+            return 3
+        }
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: PreviewReviewTableCell.identifier, for: indexPath) as? PreviewReviewTableCell else { return UITableViewCell() }
-        
-        reviewCell.dataBind(model: reviewDummy[indexPath.row])
+        let reviewCell = tableView.dequeueReusableCell(withIdentifier: PreviewReviewTableCell.identifier, for: indexPath) as? PreviewReviewTableCell ?? PreviewReviewTableCell()
+        print(BodyReviewView.previewReviewData.count)
+        print(indexPath.row)
+        reviewCell.dataBind(model: BodyReviewView.previewReviewData[indexPath.row])
         reviewCell.selectionStyle = .none
         return reviewCell
-    }
-}
-
-
-extension BodyReviewView : UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
     }
 }

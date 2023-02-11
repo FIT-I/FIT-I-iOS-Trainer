@@ -19,7 +19,7 @@ enum EditProfileServices {
     case changeCategory(param: ChangeCategoryRequest)
     case uploadProfile(param: parameter)
     case uploadBackground(param: parameter)
-    case uploadEctImage(param: parameters)
+    case uploadEctImage(param: [parameter])
     case deleteEctImage(_ etcImgIdx:Int)
     case deleteProfileImage
 
@@ -95,7 +95,7 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
             
         case .uploadEctImage(param: let param):
             var formData: [Moya.MultipartFormData] = []
-            for index in 0...param.count-1{
+            for index in 0..<param.count{
                 let imageData = param[index].jpegData(compressionQuality: 1.0) ?? Data()
                 formData.append(Moya.MultipartFormData(provider: .data(imageData), name: "ectImage", fileName: "userImage.jpeg", mimeType: "image/jpeg"))
             }

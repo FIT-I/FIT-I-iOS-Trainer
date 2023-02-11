@@ -16,7 +16,6 @@ class RequestResultViewController: UIViewController {
     private let matchingProvider = MoyaProvider<MatchingService>()
     let requestSheet = RequestSheet()
     
-    
     var titleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
@@ -46,6 +45,7 @@ class RequestResultViewController: UIViewController {
         btn.addTarget(self, action: #selector(acceptEvent), for: .touchUpInside)
         return btn
     }()
+    
     private let rejectBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = UIColor.customColor(.gray)
@@ -58,18 +58,14 @@ class RequestResultViewController: UIViewController {
         btn.addTarget(self, action: #selector(rejectEvent), for: .touchUpInside)
         return btn
     }()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.topItem?.title = ""
-        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         
-        // Do any additional setup after loading the view.
         setSeverData()
         setViewHierarchy()
         setConstraints()
@@ -113,7 +109,6 @@ class RequestResultViewController: UIViewController {
             make.height.equalTo(50)
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
-            
         }
         requestSheet.snp.makeConstraints { make in
             make.top.equalTo(progressView.snp.bottom).offset(20)
@@ -125,23 +120,11 @@ class RequestResultViewController: UIViewController {
     }
     
     @objc func acceptEvent(){
-        let alert = UIAlertController(title: "매칭 요청", message: "매칭을 수락하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
-
-        let accecptAction = UIAlertAction(title: "수락", style: .default, handler: { okAction in
-//            self.patchMatcingAccept()
-            self.patchAcceptRequest()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
-                self.getMatchingServer()
-            }
-//            self.navigationController?.popViewController(animated: true)
-        })
-        
-        let noAction = UIAlertAction(title: "취소", style: .destructive, handler: { okAction in
-        })
-        
-        alert.addAction(noAction)
-        alert.addAction(accecptAction)
-        present(alert, animated: true, completion: nil)
+        if(RequestResultViewController.specificUser.openChat == "_"){
+            ifOpenChatNil()
+        } else{
+            ifOpenChatExist()
+        }
     }
     
     @objc func rejectEvent(){
@@ -164,6 +147,42 @@ class RequestResultViewController: UIViewController {
     
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    func ifOpenChatNil(){
+        let alert = UIAlertController(title: "채팅방 링크 입력", message: "채팅방 링크를 입력해주세요", preferredStyle: UIAlertController.Style.actionSheet)
+
+        let accecptAction = UIAlertAction(title: "페이지로 이동", style: .default, handler: { okAction in
+            let nextVC = setOpenChatViewController()
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        })
+        
+        let noAction = UIAlertAction(title: "취소", style: .destructive, handler: { okAction in
+        })
+        
+        alert.addAction(noAction)
+        alert.addAction(accecptAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func ifOpenChatExist(){
+        let alert = UIAlertController(title: "매칭 요청", message: "매칭을 수락하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
+
+        let accecptAction = UIAlertAction(title: "수락", style: .default, handler: { okAction in
+//            self.patchMatcingAccept()
+            self.patchAcceptRequest()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                self.getMatchingServer()
+            }
+//            self.navigationController?.popViewController(animated: true)
+        })
+        
+        let noAction = UIAlertAction(title: "취소", style: .destructive, handler: { okAction in
+        })
+        
+        alert.addAction(noAction)
+        alert.addAction(accecptAction)
+        present(alert, animated: true, completion: nil)
     }
     
     //MARK: - set Server
