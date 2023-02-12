@@ -118,12 +118,12 @@ class SignInViewController: UIViewController {
         signInViewAddUI()
         signInViewSetUI()
         
-//        self.realm.resetDB()
-//
-        if checkRealmToken() {
-            print(self.realm.getToken())
-            ifSuccessPushHome()
-        }
+        self.realm.resetDB()
+
+//        if checkRealmToken() {
+//            print(self.realm.getToken())
+//            ifSuccessPushHome()
+//        }
 
         self.dismissKeyboard()
     }

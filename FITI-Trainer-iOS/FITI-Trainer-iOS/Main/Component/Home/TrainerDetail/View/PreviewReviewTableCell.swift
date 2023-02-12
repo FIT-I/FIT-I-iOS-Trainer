@@ -105,8 +105,8 @@ class PreviewReviewTableCell: UITableViewCell {
         textView.snp.makeConstraints { make in
             make.height.equalTo(50)
         }
-        // 더미 데이터
-        textView.text = "친절한 지도 감사합니다:)"
+        textView.textContainer.maximumNumberOfLines = 2
+        textView.textContainer.lineBreakMode = .byTruncatingTail
         return textView
     }()
     
@@ -137,20 +137,7 @@ class PreviewReviewTableCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been impl")
     }
-    
-    
-    
 }
-
-//
-//extension PreviewReviewTableCell {
-//    func dataBind(model: ReviewModel) {
-//        reviewerImage.image = model.image
-//        name.text = model.name
-//        date.text = model.date
-//        reviewTextView.text = model.content
-//    }
-//}
 
 extension PreviewReviewTableCell {
     func dataBind(model: ReviewDto) {

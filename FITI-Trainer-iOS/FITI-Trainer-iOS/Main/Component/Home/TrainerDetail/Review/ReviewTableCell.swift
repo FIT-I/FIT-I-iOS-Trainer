@@ -96,6 +96,7 @@ class ReviewTableCell: UITableViewCell {
         textView.font = UIFont.systemFont(ofSize: 12.0)
         // 더미 데이터
         textView.text = "친절한 지도 감사합니다:)"
+
         return textView
     }()
     
