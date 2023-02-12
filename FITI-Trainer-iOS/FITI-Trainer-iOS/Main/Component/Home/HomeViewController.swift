@@ -216,9 +216,39 @@ class HomeViewController: UIViewController {
         return img
     }()
     
+    private lazy var matchingOffImage: UIImageView = {
+        let img = UIImageView()
+        img.image = UIImage(named: "matchingOff.svg")
+        return img
+    }()
+    
+    private lazy var matchingOffLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.textColor = UIColor.customColor(.blue)
+        return label
+    }()
+    
+    private lazy var matchingOffBottomLabel: UILabel = {
+        let label = UILabel()
+        label.text = "'My Page' → '내 매칭페이지 관리 ON'을 활성화 하세요."
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.textColor = UIColor.customColor(.blue)
+        return label
+    }()
+    
+    private lazy var matchingOffStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [matchingOffImage,matchingOffLabel,matchingOffBottomLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        stackView.alignment = .center
+        stackView.isHidden = true
+        return stackView
+    }()
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("=================================viewDidLoad=================================")
         self.view.backgroundColor = UIColor.white
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = .black
@@ -231,22 +261,20 @@ class HomeViewController: UIViewController {
         getMatchingServer()
         getMatchingSuccessServer()
         getMyPageServer()
-        // Do any additional setup after loading the view.
+        isMatchingOn()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("=================================viewWillAppear=================================")
         setServerData()
         getTrainerServer()
         getMatchingServer()
         getMatchingSuccessServer()
         getMyPageServer()
-//        print(didProfileShown)
-
+        isMatchingOn()
     }
     
-
+    //MARK: - Function
     func trainerEditViewAddUI() {
         view.addSubview(titleLabel)
         view.addSubview(rectView)
@@ -258,6 +286,7 @@ class HomeViewController: UIViewController {
         view.addSubview(underlineView)
         view.addSubview(profileButton)
         view.addSubview(unShownImage)
+        view.addSubview(matchingOffStackView)
     }
     
     func trainerEditViewSetUI(){
@@ -316,13 +345,27 @@ class HomeViewController: UIViewController {
             make.centerY.equalTo(boxView).offset(20)
             make.centerX.equalTo(boxView)
         }
+        
+        matchingOffStackView.snp.makeConstraints { make in
+            make.centerY.centerX.equalTo(boxView)
+        }
     }
     
     @objc func touchNextBtnEvent() {
         let nextVC = TrainerDetailViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
-        
     }
+//
+    func isMatchingOn(){
+        if(TrainerDetailViewController.userInfo.matching_state){
+            matchingOffStackView.isHidden = true
+            allStackView.isHidden = false
+        } else{
+            matchingOffStackView.isHidden = false
+            allStackView.isHidden = true
+        }
+    }
+    
     
     //MARK: - set Server
     
@@ -334,6 +377,7 @@ class HomeViewController: UIViewController {
         self.schoolLabel.text = HomeViewController.userInfo.school
         self.gradeLabel.text = "\(HomeViewController.userInfo.grade)"
         self.categoryIcon.image = UIImage(named: "\(HomeViewController.userInfo.category).svg")
+        self.matchingOffLabel.text = "현재 \(TrainerDetailViewController.userInfo.userName)님의 프로필은 가려진 상태입니다."
     }
     
     func getTrainerServer(){
@@ -341,8 +385,10 @@ class HomeViewController: UIViewController {
             switch response {
             case .success(let moyaResponse):
                 do{
+                    
 //                    print(moyaResponse.statusCode)
 //                    print(moyaResponse.response)
+                    
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
                     TrainerDetailViewController.userInfo.matching_state = responseData.result.matching_state
                     TrainerDetailViewController.userInfo.userName = responseData.result.name
@@ -363,6 +409,7 @@ class HomeViewController: UIViewController {
 //                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
 //                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
 //                    }
+                    
                     for index in 0..<(responseData.result.imageList?.count ?? 0){
                         let serverImage = UIImageView()
                         let imageURL = URL(string: responseData.result.imageList?[index].etcImgLink ?? "")
@@ -373,7 +420,6 @@ class HomeViewController: UIViewController {
                     }
                     MyPageViewController.MyInfo.openChatLink = responseData.result.openChatLink ?? ""
                     RequestResultViewController.specificUser.openChat = responseData.result.openChatLink ?? ""
-                    print("HomeVC - getTrainerServer=========================================================")
 //                    print(responseData)
  
                 } catch(let err) {
@@ -390,7 +436,6 @@ class HomeViewController: UIViewController {
             switch response {
             case .success(let moyaResponse):
                 do{
-                    print("HomeVC - getMatchingServer=========================================================")
                     let responseData = try moyaResponse.map(MatchingListResponse.self)
                     CommunityViewController.matchingList = responseData.result
                 } catch(let err){
@@ -407,7 +452,6 @@ class HomeViewController: UIViewController {
             switch response {
             case .success(let moyaResponse):
                 do{
-                    print("HomeVC - getMatchingSuccessServer=========================================================")
                     let responseData = try moyaResponse.map(MatchingSuccessResponse.self)
                     ChatViewController.matchingSuccessList = responseData.result
                     print(responseData)
@@ -435,7 +479,6 @@ class HomeViewController: UIViewController {
                     MyPageViewController.MyInfo.profile = responseData.result.profile
                     HomeViewController.userInfo.email = responseData.result.email
                     print(responseData)
-                    print("GradeTableViewController - getMyPageServer=========================================================")
                 } catch(let err) {
                     print(err.localizedDescription)
                 }

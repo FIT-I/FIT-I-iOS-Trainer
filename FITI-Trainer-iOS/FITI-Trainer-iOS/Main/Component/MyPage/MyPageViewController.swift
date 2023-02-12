@@ -14,6 +14,7 @@ class MyPageViewController: UIViewController {
     
     static var MyInfo = UserInfo()
     private let myPageProvider = MoyaProvider<MyPageServices>()
+    private let TrainerProvider = MoyaProvider<TrainerServices>()
     static var didProfileShown = true
     
     //MARK: - set UI
@@ -89,21 +90,14 @@ class MyPageViewController: UIViewController {
         }
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-////        delegate?.isShown(isProfileShown: didProfileShown)
-//
-//    }
-    
     //MARK: - set Function
+    
     func setViewLayer(){
         notiView.layer.cornerRadius = 10
     }
     
     func setViewHierarchy(){
-        
         self.setBtnEvents()
-
         view.addSubview(myPageTitleLabel)
         view.addSubview(settingBtn)
         view.addSubview(progressView)
@@ -161,7 +155,6 @@ class MyPageViewController: UIViewController {
         let nextVC = SettingViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
-    
     
     func setBtnEvents(){
         bottomBtn.updateBtn.addTarget(self, action: #selector(updateBtnEvent), for: .touchUpInside)
@@ -243,8 +236,12 @@ class MyPageViewController: UIViewController {
                     let responseData = try moyaResponse.map(MyMatchingResponse.self)
                     if(MyPageViewController.didProfileShown){
                         self.notiView.showProfileBtn.setImage(UIImage(named: "OFF.svg"), for: .normal)
+                        self.getTrainerServer()
+
                     }else {
                         self.notiView.showProfileBtn.setImage(UIImage(named: "ON.svg"), for: .normal)
+                        self.getTrainerServer()
+
                     }
                     MyPageViewController.didProfileShown = !MyPageViewController.didProfileShown
                     print(responseData)
@@ -278,4 +275,26 @@ class MyPageViewController: UIViewController {
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    func getTrainerServer(){
+        TrainerProvider.request(.loadTrainer){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                    TrainerDetailViewController.userInfo.matching_state = responseData.result.matching_state
+                        print(responseData)
+
+                } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
 }
+
+
+

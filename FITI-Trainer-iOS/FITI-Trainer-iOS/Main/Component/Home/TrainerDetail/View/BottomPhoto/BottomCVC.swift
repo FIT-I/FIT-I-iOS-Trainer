@@ -13,21 +13,17 @@ import Then
 class BottomCVC: UICollectionViewCell {
     
     static let identifier = "CustomCollectionCell"
-    
-    
+
     let editerChoiceImageView : UIImageView = {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
         img.contentMode = .scaleAspectFit
         return img
     }()
-
-    
     // MARK: - Life Cycles
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         
         contentView.backgroundColor = .clear
         editerChoiceImageView.contentMode = .scaleToFill
@@ -39,9 +35,7 @@ class BottomCVC: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 
-    
     private func setLayout() {
         contentView.addSubview(editerChoiceImageView)
         self.backgroundColor = .systemGroupedBackground

@@ -165,8 +165,6 @@ extension BodyReviewView : UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reviewCell = tableView.dequeueReusableCell(withIdentifier: PreviewReviewTableCell.identifier, for: indexPath) as? PreviewReviewTableCell ?? PreviewReviewTableCell()
-        print(BodyReviewView.previewReviewData.count)
-        print(indexPath.row)
         reviewCell.dataBind(model: BodyReviewView.previewReviewData[indexPath.row])
         reviewCell.selectionStyle = .none
         return reviewCell

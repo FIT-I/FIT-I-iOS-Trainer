@@ -57,6 +57,7 @@
 		0589C93B2993B94700C29144 /* DeleteEctImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C93A2993B94700C29144 /* DeleteEctImageModel.swift */; };
 		0589C93D2993C98500C29144 /* DeleteProfileImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C93C2993C98500C29144 /* DeleteProfileImageModel.swift */; };
 		0589C93F2994128300C29144 /* OpenChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C93E2994128300C29144 /* OpenChatModel.swift */; };
+		0589C94329991CA800C29144 /* emailCheckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C94229991CA800C29144 /* emailCheckModel.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -178,6 +179,7 @@
 		0589C93A2993B94700C29144 /* DeleteEctImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteEctImageModel.swift; sourceTree = "<group>"; };
 		0589C93C2993C98500C29144 /* DeleteProfileImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileImageModel.swift; sourceTree = "<group>"; };
 		0589C93E2994128300C29144 /* OpenChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenChatModel.swift; sourceTree = "<group>"; };
+		0589C94229991CA800C29144 /* emailCheckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckModel.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 			children = (
 				05840389298296DE002272B1 /* SignUpModel.swift */,
 				0584038B298296F4002272B1 /* SignInModel.swift */,
+				0589C94229991CA800C29144 /* emailCheckModel.swift */,
 			);
 			path = Sign;
 			sourceTree = "<group>";
@@ -982,6 +985,7 @@
 				059D80A22973F5970062C41A /* NoticeViewController.swift in Sources */,
 				05A11DF2296F1550008D85A9 /* BodyIntroView.swift in Sources */,
 				059D80B92975B5CE0062C41A /* RequestSheet.swift in Sources */,
+				0589C94329991CA800C29144 /* emailCheckModel.swift in Sources */,
 				05A11E08296F1BB6008D85A9 /* ReviewViewController.swift in Sources */,
 				05A11DDF296DBA96008D85A9 /* ChatViewController.swift in Sources */,
 				058403B12986CCBB002272B1 /* MyMatchingModel.swift in Sources */,
