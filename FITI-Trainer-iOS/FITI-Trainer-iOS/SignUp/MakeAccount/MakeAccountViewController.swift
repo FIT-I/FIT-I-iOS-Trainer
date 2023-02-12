@@ -226,24 +226,6 @@ class MakeAccountViewController: UIViewController {
         }
     }
     
-    func postServer(){
-        let param = SignUpRequest.init(self.nameTextField.text ?? "",self.emailTextField.text ?? "",self.pwTextField.text ?? "", MakeAccountViewController.userMajor)
-        provider.request(.signUp(param: param)) { response in
-                switch response {
-                case .success(let moyaResponse):
-                    do {
-                        print("success")
-                        let responseData = try moyaResponse.map(SignUpResponse.self)
-                        print(responseData.message)
-                    } catch(let err) {
-                        print(err.localizedDescription)
-                    }
-                case .failure(let err):
-                    print(err.localizedDescription)
-            }
-        }
-    }
-    
     var isPwEyeBtnTap = false
     var isCheckEyeBtnTap = false
     var email = true
@@ -364,6 +346,25 @@ class MakeAccountViewController: UIViewController {
     func checkPw(str: String) -> Bool {
         let pwRegex = "^(?=.*[A-Za-z])(?=.*[!@#$%^&+=])(?=.*[0-9]).{5,}"
         return  NSPredicate(format: "SELF MATCHES %@", pwRegex).evaluate(with: str)
+    }
+    
+    //MARK: - set Server
+    func postServer(){
+        let param = SignUpRequest.init(self.nameTextField.text ?? "",self.emailTextField.text ?? "",self.pwTextField.text ?? "", MakeAccountViewController.userMajor)
+        provider.request(.signUp(param: param)) { response in
+                switch response {
+                case .success(let moyaResponse):
+                    do {
+                        print("success")
+                        let responseData = try moyaResponse.map(SignUpResponse.self)
+                        print(responseData.message)
+                    } catch(let err) {
+                        print(err.localizedDescription)
+                    }
+                case .failure(let err):
+                    print(err.localizedDescription)
+            }
+        }
     }
     
 }

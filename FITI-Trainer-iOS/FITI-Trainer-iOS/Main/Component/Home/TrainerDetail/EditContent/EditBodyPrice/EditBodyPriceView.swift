@@ -17,8 +17,6 @@ class EditBodyPriceView: UIView {
     var isFourthPickBtnTouched : Bool = false
     var isBtnTapped : Bool = false
 
-    
-
     var freePickBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "emptyBox.svg"), for: .normal)

@@ -7,8 +7,12 @@
 
 import UIKit
 import SnapKit
+import Moya
 
 class resetPwViewController: UIViewController {
+    
+    let realm = RealmService()
+    private var myPageProvider = MoyaProvider<MyPageServices>()
 
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
@@ -206,7 +210,7 @@ class resetPwViewController: UIViewController {
     
     @objc func touchNextBtnEvent(sender: UIBarButtonItem) {
         if(wrongPwLabel.textColor == UIColor.customColor(.green)){
-            navigationController?.popViewController(animated: true)
+            patchChangePassword()
         }
     }
     
@@ -238,46 +242,6 @@ class resetPwViewController: UIViewController {
             isCheckEyeBtnTap = false
         }
     }
-    
-//    @objc func newPwTfDidChange(sender: UIBarButtonItem) {
-//        if(newPwTextField.text != ""){
-//            newPwTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
-//            newPwLabel.textColor = UIColor.customColor(.blue)
-//            pwRuleLabel.textColor = .systemBackground
-//        }
-//        if(newPwTextField.text != checkPwTextField.text){
-//            wrongPwLabel.textColor = UIColor.red
-//            checkPwTextField.layer.borderColor = UIColor.red.cgColor
-//            wrongPwLabel.text = "비밀번호가 일치하지 않습니다."
-//            newPwCheckLabel.textColor = UIColor.red
-//        }
-//        if(newPwTextField.text == checkPwTextField.text){
-//            wrongPwLabel.text = "새로운 비밀번호와 일치합니다."
-//            wrongPwLabel.textColor = UIColor.customColor(.green)
-//            checkPwTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
-//            newPwLabel.textColor = UIColor.customColor(.blue)
-//            newPwCheckLabel.textColor = UIColor.customColor(.blue)
-//            changePwBtn.backgroundColor = UIColor.customColor(.blue)
-//
-//        }
-//    }
-    
-//    @objc func checkPwTfDidChange(sender: UIBarButtonItem) {
-//        if(newPwTextField.text == checkPwTextField.text){
-//            wrongPwLabel.text = "새로운 비밀번호와 일치합니다."
-//            wrongPwLabel.textColor = UIColor(red: 0.08, green: 0.58, blue: 0.00, alpha: 1.00)
-//            checkPwTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
-//            newPwLabel.textColor = UIColor.customColor(.blue)
-//            newPwCheckLabel.textColor = UIColor.customColor(.blue)
-//            changePwBtn.backgroundColor = UIColor.customColor(.blue)
-//
-//        }else{
-//            wrongPwLabel.textColor = UIColor.red
-//            checkPwTextField.layer.borderColor = UIColor.red.cgColor
-//            newPwCheckLabel.textColor = UIColor.red
-//
-//        }
-//    }
     
     //비밀번호 유효성 검사 함수
     func checkPw(str: String) -> Bool {
@@ -325,6 +289,80 @@ class resetPwViewController: UIViewController {
             changePwBtn.backgroundColor = UIColor.customColor(.blue)
         }
     }
+    
+    func successAlert(message:String){
+        let alert = UIAlertController(title: "비밀번호 변경 성공", message: message, preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: { okAction in
+            let signInView = SignInViewController()
+            self.navigationController?.pushViewController(signInView, animated: true)
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func logOut(){
+        self.cleanData()
+        self.successAlert(message: "다시 로그인해주세요.")
+    }
+    
+    func cleanData(){
+        try! realm.localRealm?.write {
+            realm.localRealm?.deleteAll()
+        }
+        
+        EditBodyIntroViewController.userInfo = .init()
+        EditAboutServiceViewController.userInfo = .init()
+        EditPhotoViewController.imageArrayIdx = [Int]()
+        EditPhotoViewController.imageArray = [UIImage]()
+        BodyIntroView.userInfo = .init()
+        BodyReviewView.previewReviewData = .init()
+        TrainerDetailViewController.userInfo = .init()
+        HomeViewController.userInfo = .init()
+        HomeViewController.isActive = Bool()
+        CommunityViewController.matchingList = .init()
+        ChatViewController.matchingSuccessList = .init()
+        MyPageViewController.MyInfo = .init()
+        MyPageViewController.didProfileShown = Bool()
+        MakeAccountViewController.userMajor = String()
+    }
+    
+    func showExceptionNotification(){
+        let alertController = UIAlertController(
+            title: "비밀번호 변경 실패",
+            message: "다시 시도해주세요.",
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+            self.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    //MARK: - set Server
+    
+    func patchChangePassword(){
+        let param = ChangePasswordRequest.init(newPwTextField.text!, self.realm.getToken(), self.realm.getRefreshToken())
+        myPageProvider.request(.changPassword(param: param)) { response in
+            switch response {
+            case .success(let moyaResponse):
+                do {
+                    let responseData = try moyaResponse.map(ChangePasswordResponse.self)
+                    print(responseData.result as Any)
+                    if responseData.isSuccess == false {
+                        self.showExceptionNotification()
+                    }else {
+                        self.logOut()
+                    }
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
 }
 
 

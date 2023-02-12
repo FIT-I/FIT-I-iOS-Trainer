@@ -118,12 +118,12 @@ class SignInViewController: UIViewController {
         signInViewAddUI()
         signInViewSetUI()
         
-        self.realm.resetDB()
+//        self.realm.resetDB()
 
-//        if checkRealmToken() {
-//            print(self.realm.getToken())
-//            ifSuccessPushHome()
-//        }
+        if checkRealmToken() {
+            print(self.realm.getToken())
+            ifSuccessPushHome()
+        }
 
         self.dismissKeyboard()
     }
@@ -234,7 +234,7 @@ class SignInViewController: UIViewController {
                     do {
                         print(moyaResponse.statusCode)
                         let responseData = try moyaResponse.map(SignInResponse.self)
-                        self.addTokenInRealm(item: responseData.result.accessToken)
+                        self.addTokenInRealm(accessToken: responseData.result.accessToken, refreshToken: responseData.result.refreshToken )
                         self.ifSuccessPushHome()
                     } catch(let err) {
                         print(err.localizedDescription)
@@ -247,9 +247,8 @@ class SignInViewController: UIViewController {
         }
     }
         
-    func addTokenInRealm(item:String){
-        // add token in realm
-        realm.addToken(item: item)
+    private func addTokenInRealm(accessToken:String,refreshToken:String){
+        realm.addToken(accessToken: accessToken, refreshToken: refreshToken)
         print(realm.getToken())
     }
     
