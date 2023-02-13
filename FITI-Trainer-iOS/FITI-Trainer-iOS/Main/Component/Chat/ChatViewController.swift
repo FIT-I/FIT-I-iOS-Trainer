@@ -131,7 +131,6 @@ extension ChatViewController {
             switch response {
             case .success(let moyaResponse):
                 do {
-                    print("its me")
                     print(moyaResponse.statusCode)
                     let responseData = try moyaResponse.map(SpecificUserResponse.self)
                     RequestResultViewController.specificUser.pricePerHour = responseData.result.pricePerHour ?? ""
