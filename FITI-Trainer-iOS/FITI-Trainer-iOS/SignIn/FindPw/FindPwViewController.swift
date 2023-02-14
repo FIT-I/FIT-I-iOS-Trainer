@@ -8,9 +8,13 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class FindPwViewController: UIViewController {
     
+    private let signInProvider = MoyaProvider<SignServices>()
+    private var emailCheck = ""
+    private var findPassword = ""
     var isAllTrue = [false,false]
     
     var titleLabel : UILabel = {
@@ -110,7 +114,6 @@ class FindPwViewController: UIViewController {
         setConstraints()
         
         self.dismissKeyboard()
-
     }
 
     private func setViewHierarchy() {
@@ -172,29 +175,29 @@ class FindPwViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-15)
             make.height.equalTo(60)
         }
-    
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
     
-    
     @objc func touchNextBtnEvent() {
         
         if(isAllTrue[1]){
-            let nextVC = GradeTableViewController()
-            navigationController?.pushViewController(nextVC, animated: true)
+            if(emailCheck == authTextField.text){
+                getFindPassword(email: emailTextField.text ?? "")
+                
+            } else{
+                ifAuthError()
+            }
+            
         } else if(isAllTrue[0]){
-            //major  textField 활성화
+            getEmailCheckServer(email: emailTextField.text ?? "")
             authTextField.isHidden = false
             warningLabelForEmail.isHidden = true
-            
-            //버튼 다시 회색으로
             nextButton.backgroundColor = UIColor.customColor(.gray)
             nextButton.setTitle("완료", for: .normal)
 
-    
             self.grayView.snp.remakeConstraints({ make in
                 make.trailing.equalToSuperview()
                 make.height.equalTo(5)
@@ -208,7 +211,7 @@ class FindPwViewController: UIViewController {
     }
     
     @objc func handleAuthTfDidChange(_ notification: Notification) {
-        
+    
         if let textField = notification.object as? UITextField {
             if let text = textField.text {
                 if text.count < 6  {
@@ -230,7 +233,6 @@ class FindPwViewController: UIViewController {
                     authTextField.layer.borderColor = UIColor.red.cgColor
                     
                     self.isAllTrue[1] = false
-
                 }
             }
         }
@@ -273,5 +275,57 @@ class FindPwViewController: UIViewController {
         return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: str)
     }
     
+    func ifAuthError(){
+        let alert = UIAlertController(title: "인증코드 확인", message: "인증코드가 틀립니다. 인증코드를 확인해주세요.", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "확인", style: .destructive, handler: {okAction in})
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func ifAuthCorrect(){
+        let alert = UIAlertController(title: "비밀번호", message: "\(findPassword)", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "로그인 하러 가기", style: .default, handler: {okAction in
+            let nextVC = GradeTableViewController()
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK: - set Server
+    func getEmailCheckServer(email: String){
+        self.signInProvider.request(.checkEmail(email)){ response in
+            switch response{
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(emailCheckResponse.self)
+                    self.emailCheck = responseData.result ?? ""
+                    print(responseData)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func getFindPassword(email: String){
+        self.signInProvider.request(.findPassword(email)){ response in
+            switch response{
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(emailCheckResponse.self)
+                    self.findPassword = responseData.result ?? ""
+                    self.ifAuthCorrect()
+                    print(responseData)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 
 }

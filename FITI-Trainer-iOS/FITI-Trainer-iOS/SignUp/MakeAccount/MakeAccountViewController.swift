@@ -33,7 +33,7 @@ class MakeAccountViewController: UIViewController {
             btn.titleLabel?.font = UIFont(name: "Noto Sans", size: 0)
             btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
             btn.layer.cornerRadius = 10
-            btn.addTarget(self, action: #selector(touchNextBtnEvent), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(touchNextBtnEvent), for: .touchUpInside)
             return btn
         }()
     
@@ -60,7 +60,9 @@ class MakeAccountViewController: UIViewController {
             string: "이메일을 입력해주세요.",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.customColor(.gray)]
         )
-        tf.layer.borderColor = UIColor.customColor(.gray).cgColor
+        tf.text = "soongsil.ac.kr"
+        tf.isUserInteractionEnabled = false
+        tf.layer.borderColor = UIColor.customColor(.blue).cgColor
         tf.layer.borderWidth = 1
         tf.layer.cornerRadius = 10
         tf.font = UIFont.systemFont(ofSize: 20)
@@ -132,18 +134,16 @@ class MakeAccountViewController: UIViewController {
         btn.addTarget(self, action: #selector(touchCheckEyeBtnEvent), for: .touchUpInside)
         return btn
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.topItem?.title = ""
-        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
         NotificationCenter.default.addObserver(self, selector: #selector(handlePwTfDidChange(_:)), name: UITextField.textDidChangeNotification, object: pwTextField)
-        
         setViewHierarchy()
         setConstraints()
-        
         self.dismissKeyboard()
 
     }
@@ -180,7 +180,6 @@ class MakeAccountViewController: UIViewController {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(52)
-
         }
 
         pwTextField.snp.makeConstraints { make in
@@ -188,7 +187,6 @@ class MakeAccountViewController: UIViewController {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(52)
-
         }
 
         pwRuleLabel.snp.makeConstraints { make in
@@ -201,7 +199,6 @@ class MakeAccountViewController: UIViewController {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(52)
-
         }
 
         pwEyeButton.snp.makeConstraints { make in
@@ -229,42 +226,16 @@ class MakeAccountViewController: UIViewController {
         }
     }
     
-    func postServer(){
-        let param = SignUpRequest.init(self.nameTextField.text ?? "",self.emailTextField.text ?? "",self.pwTextField.text ?? "", MakeAccountViewController.userMajor)
-        provider.request(.signUp(param: param)) { response in
-                switch response {
-                case .success(let moyaResponse):
-                    do {
-                        print("success")
-                        let responseData = try moyaResponse.map(SignUpResponse.self)
-                        print(responseData.message)
-                    } catch(let err) {
-                        print(err.localizedDescription)
-                    }
-                case .failure(let err):
-                    print(err.localizedDescription)
-            }
-        }
-    }
+    var isPwEyeBtnTap = false
+    var isCheckEyeBtnTap = false
+    var email = true
+    var name = false
+    var pw = false
+    var pwCheck = false
     
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
-    
-    @objc func touchNextBtnEvent() {
-        if(nextButton.backgroundColor == UIColor.customColor(.blue)){
-            self.postServer()
-            let nextVC = SignInViewController()
-            navigationController?.pushViewController(nextVC, animated: true)
-        }
-    }
-    
-    var isPwEyeBtnTap = false
-    var isCheckEyeBtnTap = false
-    var email = false
-    var name = false
-    var pw = false
-    var pwCheck = false
     
     @objc func touchPwEyeBtnEvent() {
         if(isPwEyeBtnTap == false){
@@ -293,12 +264,19 @@ class MakeAccountViewController: UIViewController {
     }
     
     @objc func nameTfDidChange() {
-        nameTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
-        name = true
+        if(nameTextField.text == ""){
+            nameTextField.layer.borderColor = UIColor.customColor(.gray).cgColor
+            name = false
+        } else{
+            nameTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
+            name = true
+        }
         if(email && name && pw && pwCheck){
             nextButton.backgroundColor = UIColor.customColor(.blue)
+        } else{
+            nextButton.backgroundColor = UIColor.customColor(.gray)
         }
-        }
+    }
     
     @objc func emailTfDidChange() {
         emailTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
@@ -306,7 +284,7 @@ class MakeAccountViewController: UIViewController {
         if(email && name && pw && pwCheck){
             nextButton.backgroundColor = UIColor.customColor(.blue)
         }
-        }
+    }
     
     @objc func pwCheckTfDidChange() {
         checkPwTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
@@ -314,9 +292,12 @@ class MakeAccountViewController: UIViewController {
         if(pwTextField.text == ""){
             wrongPwLabel.text = "비밀번호를 먼저 입력해주세요"
             wrongPwLabel.textColor = UIColor.red
+            pwCheck = false
         } else if(checkPwTextField.text != pwTextField.text){
             wrongPwLabel.text = "비밀번호가 일치하지 않습니다."
             wrongPwLabel.textColor = UIColor.red
+            pwCheck = false
+
         } else{
             wrongPwLabel.textColor = UIColor.systemBackground
             pwRuleLabel.textColor = .systemBackground
@@ -324,13 +305,9 @@ class MakeAccountViewController: UIViewController {
         }
         if(email && name && pw && pwCheck){
             nextButton.backgroundColor = UIColor.customColor(.blue)
+        } else{
+            nextButton.backgroundColor = UIColor.customColor(.gray)
         }
-    }
-    
-    //비밀번호 유효성 검사 함수
-    func checkPw(str: String) -> Bool {
-        let pwRegex = "^(?=.*[A-Za-z])(?=.*[!@#$%^&+=])(?=.*[0-9]).{5,}"
-        return  NSPredicate(format: "SELF MATCHES %@", pwRegex).evaluate(with: str)
     }
     
     //비밀번호 입력 시 실행 함수
@@ -349,12 +326,46 @@ class MakeAccountViewController: UIViewController {
                     pw = true
                     if(email && name && pw && pwCheck){
                         nextButton.backgroundColor = UIColor.customColor(.blue)
+                    } else{
+                        nextButton.backgroundColor = UIColor.customColor(.gray)
                     }
                 }
             }
         }
     }
+    
+    @objc func touchNextBtnEvent() {
+        if(nextButton.backgroundColor == UIColor.customColor(.blue)){
+            self.postServer()
+            let nextVC = SignInViewController()
+            navigationController?.pushViewController(nextVC, animated: true)
+        }
+    }
 
+    //비밀번호 유효성 검사 함수
+    func checkPw(str: String) -> Bool {
+        let pwRegex = "^(?=.*[A-Za-z])(?=.*[!@#$%^&+=])(?=.*[0-9]).{5,}"
+        return  NSPredicate(format: "SELF MATCHES %@", pwRegex).evaluate(with: str)
+    }
+    
+    //MARK: - set Server
+    func postServer(){
+        let param = SignUpRequest.init(self.nameTextField.text ?? "",self.emailTextField.text ?? "",self.pwTextField.text ?? "", MakeAccountViewController.userMajor)
+        provider.request(.signUp(param: param)) { response in
+                switch response {
+                case .success(let moyaResponse):
+                    do {
+                        print("success")
+                        let responseData = try moyaResponse.map(SignUpResponse.self)
+                        print(responseData.message)
+                    } catch(let err) {
+                        print(err.localizedDescription)
+                    }
+                case .failure(let err):
+                    print(err.localizedDescription)
+            }
+        }
+    }
     
 }
 

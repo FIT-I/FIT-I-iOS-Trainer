@@ -57,6 +57,10 @@
 		0589C93B2993B94700C29144 /* DeleteEctImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C93A2993B94700C29144 /* DeleteEctImageModel.swift */; };
 		0589C93D2993C98500C29144 /* DeleteProfileImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C93C2993C98500C29144 /* DeleteProfileImageModel.swift */; };
 		0589C93F2994128300C29144 /* OpenChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C93E2994128300C29144 /* OpenChatModel.swift */; };
+		0589C94329991CA800C29144 /* emailCheckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C94229991CA800C29144 /* emailCheckModel.swift */; };
+		0589C94529995C7F00C29144 /* ChangePasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C94429995C7F00C29144 /* ChangePasswordRequest.swift */; };
+		0589C94A29996BA900C29144 /* ChangePasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C94929996BA900C29144 /* ChangePasswordModel.swift */; };
+		0589C94C299970D200C29144 /* WithDrawModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C94B299970D200C29144 /* WithDrawModel.swift */; };
 		059D806D2971540B0062C41A /* EditBodyPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D806C2971540B0062C41A /* EditBodyPriceView.swift */; };
 		059D80742972B18B0062C41A /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 059D80732972B18B0062C41A /* BSImagePicker */; };
 		059D80772972B7C00062C41A /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D80762972B7C00062C41A /* EditPhotoViewController.swift */; };
@@ -178,6 +182,10 @@
 		0589C93A2993B94700C29144 /* DeleteEctImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteEctImageModel.swift; sourceTree = "<group>"; };
 		0589C93C2993C98500C29144 /* DeleteProfileImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileImageModel.swift; sourceTree = "<group>"; };
 		0589C93E2994128300C29144 /* OpenChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenChatModel.swift; sourceTree = "<group>"; };
+		0589C94229991CA800C29144 /* emailCheckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckModel.swift; sourceTree = "<group>"; };
+		0589C94429995C7F00C29144 /* ChangePasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordRequest.swift; sourceTree = "<group>"; };
+		0589C94929996BA900C29144 /* ChangePasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordModel.swift; sourceTree = "<group>"; };
+		0589C94B299970D200C29144 /* WithDrawModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawModel.swift; sourceTree = "<group>"; };
 		059D806C2971540B0062C41A /* EditBodyPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBodyPriceView.swift; sourceTree = "<group>"; };
 		059D80762972B7C00062C41A /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		059D80792973270B0062C41A /* emailCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailCheckViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +348,7 @@
 			children = (
 				05840389298296DE002272B1 /* SignUpModel.swift */,
 				0584038B298296F4002272B1 /* SignInModel.swift */,
+				0589C94229991CA800C29144 /* emailCheckModel.swift */,
 			);
 			path = Sign;
 			sourceTree = "<group>";
@@ -364,6 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				058403AA29858B3A002272B1 /* MyPageServices.swift */,
+				0589C94429995C7F00C29144 /* ChangePasswordRequest.swift */,
 			);
 			path = MyPageAPI;
 			sourceTree = "<group>";
@@ -376,6 +386,8 @@
 				058403A829858B07002272B1 /* PolicyModel.swift */,
 				058403B42986F21F002272B1 /* patchLocationModel.swift */,
 				0589C93E2994128300C29144 /* OpenChatModel.swift */,
+				0589C94929996BA900C29144 /* ChangePasswordModel.swift */,
+				0589C94B299970D200C29144 /* WithDrawModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -921,9 +933,11 @@
 				059D807C2973E5500062C41A /* CommunityTableCell.swift in Sources */,
 				0589C920298C0B8600C29144 /* SpecificUserModel.swift in Sources */,
 				059D80B72975B5C00062C41A /* RequestResultViewController.swift in Sources */,
+				0589C94A29996BA900C29144 /* ChangePasswordModel.swift in Sources */,
 				05A11DC7296C9FD9008D85A9 /* TrainerCheckViewController.swift in Sources */,
 				059D80912973F47E0062C41A /* WithdrawViewController.swift in Sources */,
 				0584037929829387002272B1 /* SignUpRequest.swift in Sources */,
+				0589C94C299970D200C29144 /* WithDrawModel.swift in Sources */,
 				059D80A7297431A70062C41A /* resetPwViewController.swift in Sources */,
 				0589C924298E2F7100C29144 /* MatchingAcceptModel.swift in Sources */,
 				05A11E0F297025DB008D85A9 /* EditAboutServiceViewController.swift in Sources */,
@@ -972,6 +986,7 @@
 				059D809E2973F5660062C41A /* SearchViewController.swift in Sources */,
 				05A11E0D29702583008D85A9 /* EditBodyIntroViewController.swift in Sources */,
 				059D80AE2975570E0062C41A /* UpdateNoticeViewController.swift in Sources */,
+				0589C94529995C7F00C29144 /* ChangePasswordRequest.swift in Sources */,
 				05A11DE7296EBB68008D85A9 /* UIViewController+.swift in Sources */,
 				0589C93F2994128300C29144 /* OpenChatModel.swift in Sources */,
 				0589C922298C3CAE00C29144 /* LoadingView.swift in Sources */,
@@ -982,6 +997,7 @@
 				059D80A22973F5970062C41A /* NoticeViewController.swift in Sources */,
 				05A11DF2296F1550008D85A9 /* BodyIntroView.swift in Sources */,
 				059D80B92975B5CE0062C41A /* RequestSheet.swift in Sources */,
+				0589C94329991CA800C29144 /* emailCheckModel.swift in Sources */,
 				05A11E08296F1BB6008D85A9 /* ReviewViewController.swift in Sources */,
 				05A11DDF296DBA96008D85A9 /* ChatViewController.swift in Sources */,
 				058403B12986CCBB002272B1 /* MyMatchingModel.swift in Sources */,

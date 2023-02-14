@@ -10,6 +10,8 @@ import SnapKit
 
 class SettingViewController: UIViewController {
     
+    let realm = RealmService()
+
     var appImage : UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "realLogOut.svg")
@@ -67,16 +69,16 @@ class SettingViewController: UIViewController {
             make.top.equalToSuperview().offset(150)
         }
         logOutBtn.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(500)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(50)
+            make.bottom.equalTo(withDrawBtn.snp.top).offset(-15)
         }
         withDrawBtn.snp.makeConstraints { make in
-            make.top.equalTo(logOutBtn.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(50)
+            make.bottom.equalToSuperview().offset(-70)
         }
     }
     
@@ -87,6 +89,7 @@ class SettingViewController: UIViewController {
         })
         
         let okAction = UIAlertAction(title: "로그아웃", style: .default, handler: { okAction in
+            self.logOut()
         })
         
         alert.addAction(noAction)
@@ -102,7 +105,38 @@ class SettingViewController: UIViewController {
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
-
-
+    
+    func setNavigationController(){
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.topItem?.title = ""
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
+    }
+    
+    func logOut(){
+        self.cleanData()
+        let signInView = SignInViewController()
+        self.navigationController?.pushViewController(signInView, animated: true)
+    }
+    
+    func cleanData(){
+        try! realm.localRealm?.write {
+            realm.localRealm?.deleteAll()
+        }
+        EditBodyIntroViewController.userInfo = .init()
+        EditAboutServiceViewController.userInfo = .init()
+        EditPhotoViewController.imageArrayIdx = [Int]()
+        EditPhotoViewController.imageArray = [UIImage]()
+        BodyIntroView.userInfo = .init()
+        BodyReviewView.previewReviewData = .init()
+        TrainerDetailViewController.userInfo = .init()
+        HomeViewController.userInfo = .init()
+        HomeViewController.isActive = Bool()
+        CommunityViewController.matchingList = .init()
+        ChatViewController.matchingSuccessList = .init()
+        MyPageViewController.MyInfo = .init()
+        MyPageViewController.didProfileShown = Bool()
+        MakeAccountViewController.userMajor = String()
+    }
 }
+
 

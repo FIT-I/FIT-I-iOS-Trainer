@@ -153,8 +153,6 @@ class HeadView : UIView {
 
 extension HeadView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
-//            var newImage: UIImage? = nil // update 할 이미지
             
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
             reviewerImage.image = image
@@ -163,9 +161,6 @@ extension HeadView: UIImagePickerControllerDelegate, UINavigationControllerDeleg
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
                 picker.dismiss(animated: true, completion: nil)
             }
-
-//        editPhotoButton.setImage(newImage, for: .normal)
-        //self.photoImage.image = newImage // 받아온 이미지를 update
             picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
         
         }

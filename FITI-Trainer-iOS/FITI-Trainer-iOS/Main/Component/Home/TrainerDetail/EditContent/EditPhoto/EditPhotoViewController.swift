@@ -15,8 +15,10 @@ class EditPhotoViewController: UIViewController {
     //선택한 이미지를 저장할 배열
     var itemProviders: [NSItemProvider] = []
     static var imageArray : [UIImage] = []
+    static var imageArrayIdx : [Int] = []
     var addImage : [UIImage] = []
     let ectImageProvider = MoyaProvider<EditProfileServices>()
+    
     
 //    var bottomPhotoView = BottomPhotoView()
 
@@ -148,19 +150,18 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
         if(lastIndex == indexPath.row){
             selectImagePicker()
         } else{
-            let i = indexPath.row
-            
-            EditPhotoViewController.imageArray.remove(at: i)
-            self.deleteEctImage(etcImgIdx: indexPath.row)
+            self.deleteEctImage(etcImgIdx: EditPhotoViewController.imageArrayIdx[indexPath.row])
+            EditPhotoViewController.imageArray.remove(at: indexPath.row)
+            EditPhotoViewController.imageArrayIdx.remove(at: indexPath.row)
             collectionView.reloadData()
-                }
+        }
     }
     
     @objc func deletePreview(sender: UIButton){
-        //cell 삭제 //delete cell at index of collectionview
         self.editerPhotoChoiceCV.deleteItems(at: [IndexPath.init(row: sender.tag, section: 0)])
-          //이미지 아이템 배열의 데이터 삭제 // delete item at index of item array
+        self.deleteEctImage(etcImgIdx: EditPhotoViewController.imageArrayIdx[sender.tag])
         EditPhotoViewController.imageArray.remove(at: sender.tag)
+        EditPhotoViewController.imageArrayIdx.remove(at: sender.tag)
         }
     
     
@@ -189,7 +190,6 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
 //MARK: - PHPicker Extension
 extension EditPhotoViewController: PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        
         //PHPicker 닫기
         picker.dismiss(animated: true)
     
@@ -216,7 +216,6 @@ extension EditPhotoViewController{
             switch response{
             case .success(let moyaResponse):
                 do{
-                    print("EditPhotoVC - postEctImageServer ==============================================================")
                     let image = try JSONDecoder().decode(AddBottomImageResponse.self, from: moyaResponse.data)
                     print(moyaResponse)
                     print(image)
@@ -234,7 +233,6 @@ extension EditPhotoViewController{
             switch response{
             case .success(let moyaResponse):
                 do{
-                    print("EditPhotoVC - deleteEctImage ==============================================================")
                     let responseData = try moyaResponse.map(DeleteEctImageResponse.self)
                     print(responseData)
                 } catch(let err){

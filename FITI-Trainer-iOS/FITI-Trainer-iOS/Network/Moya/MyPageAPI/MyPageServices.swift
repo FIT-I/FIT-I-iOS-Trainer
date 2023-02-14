@@ -15,6 +15,8 @@ enum MyPageServices {
     case showProfile
     case locationSetting(_ location:String)
     case addOpenChat(_ openChatLink:String)
+    case changPassword(param: ChangePasswordRequest)
+    case withDraw
 }
 
 extension MyPageServices: TargetType {
@@ -37,6 +39,10 @@ extension MyPageServices: TargetType {
 
         case .addOpenChat(let openChatLink):
             return "/api/trainer/chat/\(openChatLink)"
+        case .changPassword:
+            return "/api/accounts/password"
+        case .withDraw:
+            return "/api/accounts/close"
         }
     }
     
@@ -54,6 +60,10 @@ extension MyPageServices: TargetType {
             return .patch
         case .addOpenChat(_):
             return .patch
+        case .changPassword:
+            return .patch
+        case .withDraw:
+            return .patch
         }
     }
     
@@ -70,6 +80,10 @@ extension MyPageServices: TargetType {
         case .locationSetting:
             return .requestPlain
         case .addOpenChat(_):
+            return .requestPlain
+        case .changPassword(let param):
+            return .requestJSONEncodable(param)
+        case .withDraw:
             return .requestPlain
         }
     }

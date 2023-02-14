@@ -65,14 +65,12 @@ class BottomPhotoView: UIView {
         cv.clipsToBounds = true
         cv.backgroundColor = .green
         cv.translatesAutoresizingMaskIntoConstraints = false
-        
         return cv
     }()
     
     // MARK: - View Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setViewHierarchy()
         setLayout()
         editerChoiceCV.backgroundColor = .clear
@@ -80,7 +78,6 @@ class BottomPhotoView: UIView {
         editerChoiceCV.delegate = self
         editerChoiceCV.dataSource = self
         editerChoiceCV.showsHorizontalScrollIndicator = false
-        
     }
     
     required init?(coder: NSCoder) {
@@ -118,9 +115,7 @@ class BottomPhotoView: UIView {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
-        
     }
-    
 }
 
 

@@ -131,8 +131,6 @@ class TrainerCheckViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    
-    
     @objc func handleSchoolTfDidChange(_ textField: UITextField) {
         if(schoolTextField.text != ""){
             //MARK: - 데이터 전달 방식 수정

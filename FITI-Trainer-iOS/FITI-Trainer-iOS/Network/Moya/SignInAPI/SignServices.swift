@@ -11,6 +11,8 @@ import Foundation
 enum SignServices {
     case signUp(param: SignUpRequest)
     case signIn(param: SignInRequest)
+    case checkEmail(_ email: String)
+    case findPassword(_ email: String)
 }
 
 extension SignServices: TargetType {
@@ -24,6 +26,10 @@ extension SignServices: TargetType {
         return "/api/accounts/trainer"
     case .signIn:
         return "/api/accounts/login"
+    case .checkEmail(let email):
+        return "/api/accounts/email/\(email)"
+    case .findPassword(let email):
+        return "/api/accounts/password/\(email)"
     }
   }
   
@@ -32,6 +38,10 @@ extension SignServices: TargetType {
     case .signUp,
          .signIn:
       return .post
+    case .checkEmail:
+        return .get
+    case .findPassword(_):
+        return .get
     }
   }
   
@@ -41,6 +51,10 @@ extension SignServices: TargetType {
         return .requestJSONEncodable(param)
     case .signIn(let param):
         return .requestJSONEncodable(param)
+    case .checkEmail:
+        return .requestPlain
+    case .findPassword(_):
+        return .requestPlain
     }
   }
 

@@ -9,9 +9,7 @@ import UIKit
 import SnapKit
 
 class EditCategoryView: UIView {
-
     
-
     var freePickBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "emptyBox.svg"), for: .normal)

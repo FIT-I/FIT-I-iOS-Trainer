@@ -8,9 +8,12 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class emailCheckViewController: UIViewController {
     
+    private let signInProvider = MoyaProvider<SignServices>()
+    private var emailCheck = ""
     var isAllTrue = [false,false]
     
     var titleLabel : UILabel = {
@@ -53,12 +56,6 @@ class emailCheckViewController: UIViewController {
     private let authTextField : UITextField = {
         let tf = UITextField()
         tf.isHidden = true
-//        tf.attributedPlaceholder = NSAttributedString(
-//                    string: "인증코드 6자리를 입력해주세요",
-//                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
-//                )
-//        tf.layer.borderColor = UIColor.white.cgColor
-        
         tf.layer.borderColor = UIColor.customColor(.gray).cgColor
         tf.attributedPlaceholder = NSAttributedString(
                     string: "인증코드 6자리를 입력해주세요",
@@ -188,8 +185,7 @@ class emailCheckViewController: UIViewController {
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
-    
-    
+
     var nextBtn = 0
     
     @objc func handleSchoolTfDidChange(_ textField: UITextField) {
@@ -208,39 +204,42 @@ class emailCheckViewController: UIViewController {
                     warningLabelForAuth.text = "6자리를 입력해주세요"
                     warningLabelForAuth.textColor = .red
                     authTextField.layer.borderColor = UIColor.red.cgColor
-
                     self.isAllTrue[1] = false
+                    
                 }else if(text.count == 6){
                     warningLabelForAuth.text = ""
                     warningLabelForAuth.textColor = .clear
                     authTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
                     nextButton.backgroundColor = UIColor.customColor(.blue)
-
                     self.isAllTrue[1] = true
+                    
                 }else{
                     warningLabelForAuth.text = "6자리를 입력해주세요"
                     warningLabelForAuth.textColor = .red
                     authTextField.layer.borderColor = UIColor.red.cgColor
-                    
                     self.isAllTrue[1] = false
-
                 }
             }
         }
     }
     
     @objc func touchNextBtnEvent() {
-        print(nextBtn)
         if(isAllTrue[1]){
-            let nextVC = MakeAccountViewController()
-            navigationController?.pushViewController(nextVC, animated: true)
-        } else if(isAllTrue[0]){ //올바른 이메일 형식이 입력되었을 때
-            //major  textField 활성화
+            if(emailCheck == authTextField.text){
+                let nextVC = MakeAccountViewController()
+                nextVC.emailTextField.text = self.emailTextField.text
+                navigationController?.pushViewController(nextVC, animated: true)
+            } else{
+                ifAuthError()
+            }
+            
+        } else if(isAllTrue[0]){
+            //올바른 이메일 형식이 입력되었을 때
+            getEmailCheckServer(email: emailTextField.text ?? "")
+            emailTextField.isUserInteractionEnabled = false
             authTextField.isHidden = false
             warningLabelForEmail.isHidden = true
-            //버튼 다시 회색으로
             nextButton.backgroundColor = UIColor.customColor(.gray)
-    
         }
     }
     
@@ -251,22 +250,22 @@ class emailCheckViewController: UIViewController {
                     warningLabelForEmail.text = "이메일을 입력해주세요."
                     warningLabelForEmail.textColor = .red
                     emailTextField.layer.borderColor = UIColor.red.cgColor
-
                     self.isAllTrue[0] = false
+                    
                 }else{
+                    
                     if checkEmail(str: text) == false {
-                        warningLabelForEmail.text = "올바르지 않은 이메일 형식입니다."
+                        warningLabelForEmail.text = "학교 이메일을 입력해주세요."
                         warningLabelForEmail.textColor = .red
                         emailTextField.layer.borderColor = UIColor.red.cgColor
-
                         self.isAllTrue[0] = false
+                        
                     }
                     else {
                         warningLabelForEmail.text = "올바른 이메일 형식입니다."
                         warningLabelForEmail.textColor = UIColor.customColor(.green)
                         emailTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
                         nextButton.backgroundColor = UIColor.customColor(.blue)
-
                         self.isAllTrue[0] = true
                     }
                 }
@@ -274,14 +273,39 @@ class emailCheckViewController: UIViewController {
         }
     }
     
-    //이메일 형식 검사 함수 - true || false 반환
     func checkEmail(str: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-//        print("check")
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.+(ac.kr)$"
         return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: str)
     }
     
+    /*
+     버튼 누르면 -> 인증번호 맞는지 틀리는지 검사 -> 틀리면 alert 띄우기 맞으면 다음으로
+     */
     
-
+    //인증번호 틀렸을 때
+    func ifAuthError(){
+        let alert = UIAlertController(title: "인증코드 확인", message: "인증코드가 틀립니다. 인증코드를 확인해주세요.", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "확인", style: .destructive, handler: {okAction in})
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK: - set Server
+    func getEmailCheckServer(email: String){
+        self.signInProvider.request(.checkEmail(email)){ response in
+            switch response{
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(emailCheckResponse.self)
+                    self.emailCheck = responseData.result ?? ""
+                    print(responseData)
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
 

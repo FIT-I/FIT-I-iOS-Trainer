@@ -119,7 +119,7 @@ class SignInViewController: UIViewController {
         signInViewSetUI()
         
 //        self.realm.resetDB()
-//
+
         if checkRealmToken() {
             print(self.realm.getToken())
             ifSuccessPushHome()
@@ -179,7 +179,6 @@ class SignInViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-15)
             make.height.equalTo(60)
         }
-
     }
     
 //    @objc func backTapped(sender: UIBarButtonItem) {
@@ -189,20 +188,17 @@ class SignInViewController: UIViewController {
     func checkRealmToken()->Bool{
         if realm.getToken() == ""{
             return false
-        }else{
+        } else{
             return true
         }
     }
     
     @objc func signUpBtnEvent(){
-        
         let nextVC = PolicyViewController()
         navigationController?.pushViewController(nextVC, animated: true)
-        
     }
     
     @objc func findPwBtnEvent(){
-        
         let nextVC = FindPwViewController()
         navigationController?.pushViewController(nextVC, animated: true)
         
@@ -212,11 +208,8 @@ class SignInViewController: UIViewController {
     var pw = false
     
     @objc func handleIdTfDidChange(){
-        
-        idTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
         id = true
-        
-        
+        idTextField.layer.borderColor = UIColor.customColor(.blue).cgColor
         if(id && pw){
             nextButton.backgroundColor = UIColor.customColor(.blue)
         }
@@ -241,7 +234,7 @@ class SignInViewController: UIViewController {
                     do {
                         print(moyaResponse.statusCode)
                         let responseData = try moyaResponse.map(SignInResponse.self)
-                        self.addTokenInRealm(item: responseData.result.accessToken)
+                        self.addTokenInRealm(accessToken: responseData.result.accessToken, refreshToken: responseData.result.refreshToken )
                         self.ifSuccessPushHome()
                     } catch(let err) {
                         print(err.localizedDescription)
@@ -254,9 +247,8 @@ class SignInViewController: UIViewController {
         }
     }
         
-    func addTokenInRealm(item:String){
-        // add token in realm
-        realm.addToken(item: item)
+    private func addTokenInRealm(accessToken:String,refreshToken:String){
+        realm.addToken(accessToken: accessToken, refreshToken: refreshToken)
         print(realm.getToken())
     }
     
@@ -309,7 +301,8 @@ class SignInViewController: UIViewController {
                     TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
                     EditPhotoViewController.imageArray.removeAll()
-                    TrainerDetailViewController.userInfo.imageList.removeAll()
+//                    TrainerDetailViewController.userInfo.imageList.removeAll()
+                    EditPhotoViewController.imageArrayIdx.removeAll()
                     TrainerDetailViewController.userInfo.profile = responseData.result.profile
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? ""
                     for index in 0..<(responseData.result.imageList?.count ?? 0){
@@ -317,8 +310,9 @@ class SignInViewController: UIViewController {
                         let imageURL = URL(string: responseData.result.imageList?[index].etcImgLink ?? "")
                         serverImage.kf.setImage(with: imageURL)
                         EditPhotoViewController.imageArray.append(serverImage.image ?? UIImage())
-                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
-                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
+//                        TrainerDetailViewController.userInfo.imageListIdx.append(responseData.result.imageList![index].etcImgIdx)
+//                        TrainerDetailViewController.userInfo.imageList.append(responseData.result.imageList![index].etcImgLink ?? "")
+                        EditPhotoViewController.imageArrayIdx.append(responseData.result.imageList![index].etcImgIdx)
                     }
                     MyPageViewController.MyInfo.openChatLink = responseData.result.openChatLink ?? ""
                     RequestResultViewController.specificUser.openChat = responseData.result.openChatLink ?? ""

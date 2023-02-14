@@ -204,23 +204,5 @@ extension SettingProfileViewController{
             }
         }
     }
-    
-//    func deleteProfileImage(){
-//        profileInfoProvider.request(.deleteProfileImage) { response in
-//                switch response {
-//                case .success(let moyaResponse):
-//                    do{
-//                        let responseData = try moyaResponse.map(DeleteProfileImageResponse.self)
-//                        print("TrainerDetailVC - deleteProfileImage ==============================================================")
-//                        self.getMyPageServer()
-//                        print(responseData)
-//                    } catch(let err) {
-//                        print(err.localizedDescription)
-//                    }
-//                case .failure(let err):
-//                    print(err.localizedDescription)
-//                }
-//        }
-//    }
 }
 

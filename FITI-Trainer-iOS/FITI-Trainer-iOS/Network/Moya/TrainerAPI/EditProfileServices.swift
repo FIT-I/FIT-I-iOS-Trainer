@@ -22,7 +22,6 @@ enum EditProfileServices {
     case uploadEctImage(param: [parameter])
     case deleteEctImage(_ etcImgIdx:Int)
     case deleteProfileImage
-
 }
 
 extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필요한 속성들을 제공! (밑의 path, method 같은 것들)
@@ -77,12 +76,10 @@ extension EditProfileServices: TargetType { //TargetType?: 네트워크에 필�
             return .requestJSONEncodable(param)
         case .changeCategory(param: let param):
             return .requestJSONEncodable(param)
-            
         /*
         name: key값, fileName: 서버에 업로드할 파일 이름, mimeType: 파일 형식
         이미지 말고도, 다른 데이터를 보낼 필요가 있을 때 multipart type으로 post해줌. 데이터 별로 쪼개서(multipart) key - value형태로(formData) 만든 후, 그걸 하나로 합쳐서(append) 전송
         */
-            
         case .uploadProfile(let param):
             let imageData = param.jpegData(compressionQuality: 1.0) ?? Data()
             let formData: [Moya.MultipartFormData] = [Moya.MultipartFormData(provider: .data(imageData), name: "profileImage", fileName: "userImage.jpeg", mimeType: "image/jpeg")]

@@ -109,12 +109,12 @@ extension ChatTableCell{
         date.text = model.createdAt.substring(from: 0, to: 9)
         id = model.matchingId
         pickUp.text = model.pickUp
+        reviewerImage.image = UIImage(named: "\(model.customerProfile ?? "").svg")
         
         if(model.pickUp == "트레이너가 갈게요"){
             location.text = model.customerLocation ?? "설정된 위치가 없습니다."
         } else{
             location.text = model.trainerLocation ?? "설정된 위치가 없습니다."
         }
-
     }
 }

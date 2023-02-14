@@ -93,26 +93,17 @@ class TrainerDetailViewController: UIViewController {
         setViewLayer()
         setLayout()
         setServerDate()
-//        imageDecoding()
         getTrainerServer()
         changeBackAlertEvent()
         changeProfileAlertEvent()
         bottomPhotoView.editerChoiceCV.reloadData()
-//        print("====================================================")
-//        let backImg = UIImage(named: "blueScreen.svg")
-//        let imageData:NSData = backImg!.pngData()! as NSData
-//        let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-//        print(strBase64)
-//        print("====================================================")
-
-        
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setServerDate()
         getTrainerServer()
         bottomPhotoView.editerChoiceCV.reloadData()
+
     }
     
     //MARK: - Func
@@ -208,12 +199,10 @@ class TrainerDetailViewController: UIViewController {
 
     @objc func tappedProfileTest(tapGestureRecognizer: UITapGestureRecognizer) {
         print("akjfak;jfkasjflkasdklfjasdk;fjas;kldfaklsdfjklasdflkjasdf;jkasdfkjas;kdfjaskdfjjalskdf")
-
      }
 
     func changeProfileNormal() {
         headView.reviewerImage.image = UIImage(named: "reviewerIcon.svg")
-
     }
 
     let profileAlertController = UIAlertController(title: "프로필 이미지 변경", message: "사진 앨범에서 선택 또는 기본 이미지", preferredStyle: .actionSheet)
@@ -281,8 +270,6 @@ extension TrainerDetailViewController {
         bodyIntroView.backgroundColor = UIColor.customColor(.boxGray)
         bodyIntroAboutService.backgroundColor = UIColor.customColor(.boxGray)
         bodyReviewView.backgroundColor = UIColor.customColor(.boxGray)
-        
-    
         
         //MARK: - scrollViewLayout
         contentScrollView.snp.makeConstraints {
@@ -381,7 +368,6 @@ extension TrainerDetailViewController {
         default:
             setCategory = HomeViewController.userInfo.category
         }
-
         return setCategory
     }
 }
@@ -389,21 +375,16 @@ extension TrainerDetailViewController {
 //MARK: - UIImagePicker Delegate
 extension TrainerDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
-//            var newImage: UIImage? = nil // update 할 이미지
-
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
-//            topView.contentMode = .scaleAspectFit
             topView.image = image
             patchBackgroundImage(image: image)
         }
-
+    
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
                 picker.dismiss(animated: true, completion: nil)
-            }
-            picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
-
         }
+            picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
+    }
 }
 
 extension TrainerDetailViewController: UIPopoverPresentationControllerDelegate {
@@ -450,8 +431,6 @@ extension TrainerDetailViewController{
 //            serverImage.kf.setImage(with: imageURL)
 //            EditPhotoViewController.imageArray.append(serverImage.image ?? UIImage())
 //        }
-        
-        
     }
     
     func getTrainerServer(){
@@ -483,7 +462,6 @@ extension TrainerDetailViewController{
             switch response{
             case .success(let moyaResponse):
                 do{
-                    print("TrainerDetailVC - patchBackgroundImage ==============================================================")
                     let image = try JSONDecoder().decode(ChangeProfileResponse.self, from: moyaResponse.data)
                         print(image)
                 } catch(let err){

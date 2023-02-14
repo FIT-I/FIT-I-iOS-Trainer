@@ -212,7 +212,6 @@ class RequestResultViewController: UIViewController {
             case .success(let moyaResponse):
                 do{
                     let responseData = try moyaResponse.map(MatchingAcceptResponse.self)
-                    print("RequestResultVC - patchAcceptRequest=========================================================")
                     print(responseData)
                 }catch(let err){
                     print(err.localizedDescription)
@@ -230,7 +229,6 @@ class RequestResultViewController: UIViewController {
                 do{
                     print(RequestResultViewController.id)
                     let responseData = try moyaResponse.map(MatchingRejectResponse.self)
-                    print("RequestResultVC - patchMatchingReject=========================================================")
                     print(responseData)
                 } catch(let err){
                     print(err.localizedDescription)
@@ -248,7 +246,6 @@ class RequestResultViewController: UIViewController {
                 do{
                     let responseData = try moyaResponse.map(MatchingListResponse.self)
                     CommunityViewController.matchingList = responseData.result
-                    print("RequestResultVC - getMatchingServer=========================================================")
                   
                         self.navigationController?.popViewController(animated: true)
                     
