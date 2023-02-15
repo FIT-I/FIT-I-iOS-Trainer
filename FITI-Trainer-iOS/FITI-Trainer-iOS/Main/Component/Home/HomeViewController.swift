@@ -454,7 +454,6 @@ class HomeViewController: UIViewController {
                 do{
                     let responseData = try moyaResponse.map(MatchingSuccessResponse.self)
                     ChatViewController.matchingSuccessList = responseData.result
-                    print(responseData)
                 } catch(let err){
                     print(err.localizedDescription)
                 }
@@ -478,7 +477,6 @@ class HomeViewController: UIViewController {
                     MyPageViewController.MyInfo.location = responseData.result.location ?? ""
                     MyPageViewController.MyInfo.profile = responseData.result.profile
                     HomeViewController.userInfo.email = responseData.result.email
-                    print(responseData)
                 } catch(let err) {
                     print(err.localizedDescription)
                 }

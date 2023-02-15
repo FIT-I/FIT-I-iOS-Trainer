@@ -115,9 +115,13 @@ class setOpenChatViewController: UIViewController {
     @objc func touchNextBtnEvent(sender: UIBarButtonItem) {
         if(setOpenChatBtn.backgroundColor == UIColor.customColor(.blue)){
             LoadingView.showLoading()
-            let component = URL(string: setOpenChatTextField.text ?? "") ?? URL(fileURLWithPath: "")
-            let openChatURL = component.absoluteString
-            patchOpenChat(openChatLink: openChatURL)
+//            let component = URL(string: setOpenChatTextField.text ?? "") ?? URL(fileURLWithPath: "")
+//            let openChatURL = component.absoluteString
+            let openChat = setOpenChatTextField.text
+            let url = openChat!.addingPercentEncoding(
+                withAllowedCharacters: .urlHostAllowed)
+            print(url as Any)
+            patchOpenChat(openChatLink: url ?? "")
         }
     }
 

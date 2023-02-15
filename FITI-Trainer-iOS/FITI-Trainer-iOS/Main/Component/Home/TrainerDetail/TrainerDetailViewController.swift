@@ -14,15 +14,15 @@ import Photos
 import Kingfisher
 
 class TrainerDetailViewController: UIViewController {
-    //MoyaTarget과 상호작용하는 MoyaProvider를 생성하기 위해 MoyaProvider인스턴스 생성
+
     private let profileInfoProvider = MoyaProvider<EditProfileServices>()
     private let TrainerProvider = MoyaProvider<TrainerServices>()
     static var userInfo = UserInfo()
     private var setCategory = ""
     private var setBackGround = UIImage(named: "blueScreen.svg")
 
-    
     //MARK: - UI Components
+    
     var topView : UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "blueScreen.svg")
@@ -39,13 +39,12 @@ class TrainerDetailViewController: UIViewController {
     lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
-            return picker
+        return picker
         }()
     
     var noticeImage : UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "notice.svg")
-        
         return img
     }()
     
@@ -76,7 +75,6 @@ class TrainerDetailViewController: UIViewController {
     // 사진 뷰
     let bottomPhotoView = BottomPhotoView()
     
-    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -103,7 +101,6 @@ class TrainerDetailViewController: UIViewController {
         setServerDate()
         getTrainerServer()
         bottomPhotoView.editerChoiceCV.reloadData()
-
     }
     
     //MARK: - Func
@@ -402,7 +399,6 @@ extension TrainerDetailViewController: UIPopoverPresentationControllerDelegate {
 //MARK: - ServerData
 extension TrainerDetailViewController{
     func setServerDate(){
-//        EditPhotoViewController.imageArray.removeAll()
         self.headView.name.text = TrainerDetailViewController.userInfo.userName
         self.headView.levelIcon.image =  UIImage(named: "\(TrainerDetailViewController.userInfo.level).svg")
         self.headView.grade.text = "\(TrainerDetailViewController.userInfo.grade)"
@@ -411,7 +407,6 @@ extension TrainerDetailViewController{
         self.bodyPriceView.priceForTimeLabel.text = "\(TrainerDetailViewController.userInfo.cost)"
         self.bodyIntroView.introTextView.text = TrainerDetailViewController.userInfo.intro
         self.bodyIntroAboutService.introServiceTextView.text = TrainerDetailViewController.userInfo.service
-        
         if(TrainerDetailViewController.userInfo.profile == "trainerProfile"){
             self.headView.reviewerImage.image = UIImage(named: "reviewerIcon.svg")
         } else{
@@ -424,13 +419,9 @@ extension TrainerDetailViewController{
         } else{
             let backgroundURL = URL(string: TrainerDetailViewController.userInfo.backGround)
             self.topView.kf.setImage(with: backgroundURL)
+            self.topView.contentMode = .scaleAspectFill
+            self.topView.clipsToBounds = true
         }
-//        for index in 0..<TrainerDetailViewController.userInfo.imageList.count{
-//            let serverImage = UIImageView()
-//            let imageURL = URL(string: TrainerDetailViewController.userInfo.imageList[index])
-//            serverImage.kf.setImage(with: imageURL)
-//            EditPhotoViewController.imageArray.append(serverImage.image ?? UIImage())
-//        }
     }
     
     func getTrainerServer(){
@@ -444,8 +435,6 @@ extension TrainerDetailViewController{
                     TrainerDetailViewController.userInfo.cost = responseData.result.cost
                     EditBodyIntroViewController.userInfo.intro = responseData.result.intro ?? "작성된 소개글이 없습니다."
                     EditAboutServiceViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
-                    
-//                    print(responseData)
 
                 } catch(let err) {
                     print(err.localizedDescription)
@@ -453,7 +442,6 @@ extension TrainerDetailViewController{
             case .failure(let err):
                 print(err.localizedDescription)
             }
-            
         }
     }
     
@@ -469,7 +457,6 @@ extension TrainerDetailViewController{
                 }
             case .failure(let err):
                     print(err.localizedDescription)
-                
             }
         }
     }

@@ -21,7 +21,6 @@ class ReviewTableCell: UITableViewCell {
         return imgView
     }()
 
-
     var name : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12.0)
@@ -53,6 +52,13 @@ class ReviewTableCell: UITableViewCell {
         label.text = "4.3"
         label.textColor = UIColor.customColor(.darkGray)
         return label
+    }()
+    
+    var report : UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "report.svg"), for: .normal)
+//        btn.addTarget(self, action: #selector(<#T##@objc method#>), for: .touchUpInside)
+        return btn
     }()
     
     lazy var rateStackView : UIStackView = {
@@ -111,23 +117,24 @@ class ReviewTableCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubview(self.globalStackView)
-
+        self.contentView.addSubview(self.report)
+        
         globalStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.bottom.equalToSuperview().offset(-10)
             make.leading.trailing.equalToSuperview()
         }
-        
-        print(globalStackView)
+        report.snp.makeConstraints { make in
+            make.top.equalTo(globalStackView)
+            make.trailing.equalToSuperview().offset(-10)
+            make.height.width.equalTo(20)
 
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been impl")
     }
-    
-    
-    
 }
 
 extension ReviewTableCell {

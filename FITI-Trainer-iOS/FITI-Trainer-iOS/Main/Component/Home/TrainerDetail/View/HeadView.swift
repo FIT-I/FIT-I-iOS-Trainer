@@ -15,7 +15,7 @@ class HeadView : UIView {
     var reviewerImage : UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "reviewerIcon.svg")
-        imgView.layer.cornerRadius = 23
+        imgView.layer.cornerRadius = 20
         imgView.clipsToBounds = true
         imgView.isUserInteractionEnabled = true
 //        imgView.contentMode = .scaleAspectFill

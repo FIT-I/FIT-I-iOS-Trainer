@@ -22,6 +22,7 @@ class WithdrawViewController: UIViewController {
         imgView.image = UIImage(named: "finialLogOut.svg")
         return imgView
     }()
+    
     private lazy var goBackBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = UIColor.customColor(.skyblue1)
@@ -32,6 +33,7 @@ class WithdrawViewController: UIViewController {
         btn.addTarget(self, action: #selector(backBtn), for: .touchUpInside)
         return btn
     }()
+    
     private lazy var finialWithDrawBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = UIColor.customColor(.boxGray)

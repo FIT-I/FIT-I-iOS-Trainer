@@ -147,6 +147,7 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.deleteImgButton.tag = indexPath.row
         cell.deleteImgButton.addTarget(self, action: #selector(deletePreview(sender:)), for: .touchUpInside)
         
+        print(indexPath.row)
         if(lastIndex == indexPath.row){
             selectImagePicker()
         } else{
