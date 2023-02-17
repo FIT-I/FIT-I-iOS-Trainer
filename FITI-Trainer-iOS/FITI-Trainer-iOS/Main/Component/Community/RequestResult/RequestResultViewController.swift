@@ -32,6 +32,7 @@ class RequestResultViewController: UIViewController {
         }
         return view
     }()
+    
 
     private let acceptBtn : UIButton = {
         let btn = UIButton()

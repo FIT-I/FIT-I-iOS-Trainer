@@ -66,7 +66,6 @@ class TrainerCheckViewController: UIViewController {
             return btn
         }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground

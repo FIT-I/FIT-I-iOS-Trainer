@@ -82,7 +82,7 @@ class SignInViewController: UIViewController {
         btn.titleLabel?.font = UIFont(name: "Noto Sans", size: 0)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         btn.addTarget(self, action: #selector(signUpBtnEvent), for: .touchUpInside)
-        return btn
+        return btn  
     }()
 
     private let horizontalStackView : UIStackView = {

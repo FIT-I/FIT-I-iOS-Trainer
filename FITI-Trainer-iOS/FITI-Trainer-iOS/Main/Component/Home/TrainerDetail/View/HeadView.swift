@@ -18,7 +18,7 @@ class HeadView : UIView {
         imgView.layer.cornerRadius = 20
         imgView.clipsToBounds = true
         imgView.isUserInteractionEnabled = true
-//        imgView.contentMode = .scaleAspectFill
+        imgView.contentMode = .scaleAspectFill
 //        imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
     }()

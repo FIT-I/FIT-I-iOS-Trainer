@@ -16,6 +16,7 @@ class ProfileView : UIView {
         imgView.image = UIImage(named: "reviewerIcon.svg")
         imgView.clipsToBounds = true
         imgView.layer.cornerRadius = 10
+        imgView.contentMode = .scaleAspectFill
         imgView.snp.makeConstraints { make in
             make.height.width.equalTo(45)
         }
