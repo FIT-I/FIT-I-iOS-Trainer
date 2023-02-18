@@ -174,6 +174,7 @@ class RequestResultViewController: UIViewController {
             self.patchAcceptRequest()
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                 self.getMatchingServer()
+                self.getMatchingSuccessServer()
             }
 //            self.navigationController?.popViewController(animated: true)
         })
@@ -256,6 +257,22 @@ class RequestResultViewController: UIViewController {
             case .failure(let err):
                 print(err.localizedDescription)
 
+            }
+        }
+    }
+    
+    func getMatchingSuccessServer(){
+        self.matchingProvider.request(.MatchingSuccessList){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(MatchingSuccessResponse.self)
+                    ChatViewController.matchingSuccessList = responseData.result
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
             }
         }
     }
