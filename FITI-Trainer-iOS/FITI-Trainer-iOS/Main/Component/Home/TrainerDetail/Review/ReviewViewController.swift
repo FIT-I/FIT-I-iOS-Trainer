@@ -23,7 +23,7 @@ class ReviewViewController: UIViewController {
     // 리뷰를 보여주는 테이블 뷰
     let reviewTableView : UITableView = {
         let tableview = UITableView()
-//        tableview.separatorStyle = .none
+        tableview.separatorStyle = .none
         tableview.showsVerticalScrollIndicator = false
         return tableview
     }()

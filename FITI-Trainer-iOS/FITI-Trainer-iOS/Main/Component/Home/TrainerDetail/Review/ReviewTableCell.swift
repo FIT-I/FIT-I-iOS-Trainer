@@ -56,7 +56,7 @@ class ReviewTableCell: UITableViewCell {
     
     var report : UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(named: "report.svg"), for: .normal)
+        btn.setImage(UIImage(named: "goReport.svg"), for: .normal)
 //        btn.addTarget(self, action: #selector(<#T##@objc method#>), for: .touchUpInside)
         return btn
     }()
@@ -126,7 +126,7 @@ class ReviewTableCell: UITableViewCell {
         }
         report.snp.makeConstraints { make in
             make.top.equalTo(globalStackView)
-            make.trailing.equalToSuperview().offset(-10)
+            make.trailing.equalToSuperview()
             make.height.width.equalTo(20)
 
         }
