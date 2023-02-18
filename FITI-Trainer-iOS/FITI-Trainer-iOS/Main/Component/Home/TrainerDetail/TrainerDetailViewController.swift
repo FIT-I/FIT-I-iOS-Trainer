@@ -155,7 +155,6 @@ class TrainerDetailViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    
     @objc func moveToReviewTableView(){
         let nextVC = ReviewViewController()
         navigationController?.pushViewController(nextVC, animated: true)
@@ -234,7 +233,6 @@ class TrainerDetailViewController: UIViewController {
         print("klsjfakl;sfj;asdl")
              self.present(profileAlertController, animated: true, completion: nil)
      }
-    
 }
 
 //MARK: - Extension
@@ -404,7 +402,7 @@ extension TrainerDetailViewController{
         self.headView.grade.text = "\(TrainerDetailViewController.userInfo.grade)"
         self.headView.school.text = TrainerDetailViewController.userInfo.school
         self.categoryView.choosedCategoryLabel.text = selectedCost()
-        self.bodyPriceView.priceForTimeLabel.text = "\(TrainerDetailViewController.userInfo.cost)"
+        self.bodyPriceView.priceForTimeLabel.text = "₩ \(TrainerDetailViewController.userInfo.cost) 원"
         self.bodyIntroView.introTextView.text = TrainerDetailViewController.userInfo.intro
         self.bodyIntroAboutService.introServiceTextView.text = TrainerDetailViewController.userInfo.service
         if(TrainerDetailViewController.userInfo.profile == "trainerProfile"){

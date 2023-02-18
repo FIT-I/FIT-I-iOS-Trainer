@@ -502,6 +502,8 @@ class HomeViewController: UIViewController {
                     TrainerDetailViewController.userInfo.service = responseData.result.service ?? "작성된 상세설명이 없습니다."
                     TrainerDetailViewController.userInfo.category = responseData.result.category ?? "pt"
                     TrainerDetailViewController.userInfo.backGround = responseData.result.background ?? "blueScreen"
+                    TrainerDetailViewController.userInfo.reviewDto = responseData.result.reviewDto
+                    BodyReviewView.previewReviewData = responseData.result.reviewDto ?? [ReviewDto]()
                     EditPhotoViewController.imageArray.removeAll()
                     TrainerDetailViewController.userInfo.imageList.removeAll()
                     TrainerDetailViewController.userInfo.profile = responseData.result.profile

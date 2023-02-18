@@ -168,10 +168,7 @@ class ReportViewController: UIViewController {
         if self.reportStackView.reportReason == "" {
             showToast(message: "신고 사유를 선택해주세요.")
         }else {
-//            let reportData = ReportRequest(customerId: TrainerDetailViewController.userInfo.reviewDto[ReportViewController.reviewerIdx].customerIdx, reason: self.reportStackView.reportReason)
-//            self.reportAlert(reportData: reportData)
             self.reportAlert()
-
         }
     }
     
@@ -192,8 +189,8 @@ class ReportViewController: UIViewController {
     func reportAlert(){
         let alert = UIAlertController(title: "신고하기", message: "정말 신고하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
         let okAction = UIAlertAction(title: "계정신고", style: .default, handler: { okAction in
-//            self.postReportServer(body: reportData)
-//            print(reportData)
+            let reportData = ReportRequest(customerId: TrainerDetailViewController.userInfo.reviewDto?[ReportViewController.reviewerIdx].customerIdx ?? 0, reason: self.reportStackView.reportReason)
+            self.postReportServer(body: reportData)
         })
         let noAction = UIAlertAction(title: "취소", style: .destructive, handler: { okAction in
         })
@@ -224,7 +221,7 @@ class ReportViewController: UIViewController {
     func showExceptionNotification(description:String){
         let alertController = UIAlertController(
             title: description,
-            message: "이미 신고한 트레이너입니다.",
+            message: "무분별한 신고를 막기 위해 24시간 이후 다시 신고해주세요.",
             preferredStyle: .alert
         )
         let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
@@ -248,6 +245,7 @@ extension ReportViewController {
                         self.showExceptionNotification(description: reportResponse.message ?? "")
                     }else {
                         self.showToast(message: "신고에 성공하였습니다.")
+                        print(reportResponse)
                     }
                 } catch(let err){
                     print(err.localizedDescription)

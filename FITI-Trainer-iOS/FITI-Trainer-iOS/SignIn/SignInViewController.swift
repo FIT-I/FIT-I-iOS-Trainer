@@ -336,7 +336,6 @@ class SignInViewController: UIViewController {
                 do{
                     let responseData = try moyaResponse.map(AnnouncementResponse.self)
                     NoticeViewController.announcementList = responseData.result ?? [news]()
-                    print("<<<<<<<<<<<<<<<<<<<<<")
                     print(responseData)
                 } catch(let err){
                     print(err.localizedDescription)

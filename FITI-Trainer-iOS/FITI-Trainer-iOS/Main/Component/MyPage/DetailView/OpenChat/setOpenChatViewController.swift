@@ -191,7 +191,6 @@ extension setOpenChatViewController{
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
 
                     MyPageViewController.MyInfo.openChatLink = responseData.result.openChatLink ?? ""
-//                    let nextVC = TrainerDetailViewController()
                     RequestResultViewController.specificUser.openChat = responseData.result.openChatLink ?? ""
                     
                     print("MyPageVC - getTrainerServer=========================================================")

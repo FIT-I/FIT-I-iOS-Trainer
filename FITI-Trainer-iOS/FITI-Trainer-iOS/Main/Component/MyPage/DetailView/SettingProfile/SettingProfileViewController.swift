@@ -181,6 +181,7 @@ extension SettingProfileViewController{
             let profileURL = URL(string: MyPageViewController.MyInfo.profile)
             self.topStackView.settingUserProfile.kf.setImage(with: profileURL)
         }
+        bottomInfoView.openChatLink.text = RequestResultViewController.specificUser.openChat
     }
     
     func getMyPageServer(){
