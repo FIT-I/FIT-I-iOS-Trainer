@@ -23,18 +23,19 @@ class EditPhotoTableCell: UICollectionViewCell {
         }
         return btn
     }()
+    
     let editerChoiceImageView : UIImageView = {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
-        img.contentMode = .scaleAspectFit
+        img.contentMode = .scaleAspectFill
         return img
     }()
+    
     let cellView : UIView = {
         let view = UIView()
         
         return view
     }()
-    
     
     lazy var cellStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [editerChoiceImageView,deleteImgButton])
@@ -48,14 +49,10 @@ class EditPhotoTableCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
         contentView.backgroundColor = .clear
-        editerChoiceImageView.contentMode = .scaleToFill
+        editerChoiceImageView.contentMode = .scaleAspectFill
         setLayout()
         editerChoiceImageView.layer.cornerRadius = 12
-//        deleteImgButton.layer.zPosition = 1
-        
     }
     
     required init?(coder: NSCoder) {
@@ -63,25 +60,13 @@ class EditPhotoTableCell: UICollectionViewCell {
     }
 
     private func setLayout() {
-//        contentView.addSubview(deleteImgButton)
-//        contentView.addSubview(cellStackView)
-        
         self.backgroundColor = .systemGroupedBackground
-//        addSubview(deleteImgButton)
         addSubview(cellStackView)
     
         cellStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-//        deleteImgButton.snp.makeConstraints { make in
-//            make.top.equalTo(editerChoiceImageView).offset(5)
-//            make.trailing.equalTo(editerChoiceImageView).offset(-5)
-//
-//        }
-        
     }
-    
 }
 
 

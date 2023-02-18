@@ -14,6 +14,7 @@ class SignInViewController: UIViewController {
     
     private let provider = MoyaProvider<SignServices>()
     let TrainerProvider = MoyaProvider<TrainerServices>()
+    private let myPageProvider = MoyaProvider<MyPageServices>()
     let realm = RealmService()
 
     //MARK: - UI Component
@@ -266,6 +267,7 @@ class SignInViewController: UIViewController {
     
     private func ifSuccessPushHome(){
         self.getTrainerServer()
+        self.getNoticeServer()
         let nextVC = GradeTableViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -280,13 +282,13 @@ class SignInViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    //MARK: - Network
+    
     func getTrainerServer(){
         self.TrainerProvider.request(.loadTrainer){ response in
             switch response {
             case .success(let moyaResponse):
                 do{
-//                    print(moyaResponse.statusCode)
-//                    print(moyaResponse.response)
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
                     TrainerDetailViewController.userInfo.matching_state = responseData.result.matching_state
                     TrainerDetailViewController.userInfo.userName = responseData.result.name
@@ -316,10 +318,26 @@ class SignInViewController: UIViewController {
                     }
                     MyPageViewController.MyInfo.openChatLink = responseData.result.openChatLink ?? ""
                     RequestResultViewController.specificUser.openChat = responseData.result.openChatLink ?? ""
-                    print("HomeVC - getTrainerServer=========================================================")
 //                    print(responseData)
  
                 } catch(let err) {
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func getNoticeServer(){
+        self.myPageProvider.request(.announcement){ response in
+            switch response {
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(AnnouncementResponse.self)
+                    NoticeViewController.announcementList = responseData.result ?? [news]()
+                    print(responseData)
+                } catch(let err){
                     print(err.localizedDescription)
                 }
             case .failure(let err):

@@ -33,6 +33,13 @@ class ChatViewController: UIViewController {
         return view
     }()
     
+    private var noMatchingImage : UIImageView = {
+        let imgView = UIImageView()
+        imgView.image = UIImage(named: "noMatching.svg")
+        imgView.isHidden = true
+        return imgView
+    }()
+    
     // 받은 요청을 보여주는 테이블 뷰
     let finishMatchingTableView : UITableView = {
         let tableview = UITableView()
@@ -50,10 +57,12 @@ class ChatViewController: UIViewController {
         
         setViewHierarchy()
         setConstraints()
+        isMatchingExist()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         finishMatchingTableView.reloadData()
+        isMatchingExist()
     }
     
     //MARK: - Function
@@ -61,6 +70,7 @@ class ChatViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(progressView)
         view.addSubview(finishMatchingTableView)
+        view.addSubview(noMatchingImage)
     }
     
     func setConstraints(){
@@ -82,8 +92,26 @@ class ChatViewController: UIViewController {
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        
+        noMatchingImage.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+    }
+    
+    func isMatchingExist(){
+        if(ChatViewController.matchingSuccessList.count == 0){
+            noMatchingImage.isHidden = false
+            titleLabel.isHidden = true
+            progressView.isHidden = true
+        } else{
+            noMatchingImage.isHidden = true
+            titleLabel.isHidden = false
+            progressView.isHidden = false
+        }
     }
 }
+
+
 
 //MARK: - TableView Extension
 

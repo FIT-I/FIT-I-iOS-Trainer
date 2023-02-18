@@ -39,6 +39,7 @@ struct ReviewDto: Codable {
     let grade: Double
     let createdAt: String
     var contents: String? = nil
+    let customerIdx: Int
 }
 
 struct EctImageArray: Codable {

@@ -115,9 +115,11 @@ class setOpenChatViewController: UIViewController {
     @objc func touchNextBtnEvent(sender: UIBarButtonItem) {
         if(setOpenChatBtn.backgroundColor == UIColor.customColor(.blue)){
             LoadingView.showLoading()
-            let component = URL(string: setOpenChatTextField.text ?? "") ?? URL(fileURLWithPath: "")
-            let openChatURL = component.absoluteString
-            patchOpenChat(openChatLink: openChatURL)
+//            let component = URL(string: setOpenChatTextField.text ?? "") ?? URL(fileURLWithPath: "")
+//            let openChatURL = component.absoluteString
+            let openChat = setOpenChatTextField.text
+            let openChatToServer = openChat?.replacingOccurrences(of: "/", with: "#") ?? ""
+            patchOpenChat(openChatLink: openChatToServer)
         }
     }
 
@@ -189,7 +191,6 @@ extension setOpenChatViewController{
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
 
                     MyPageViewController.MyInfo.openChatLink = responseData.result.openChatLink ?? ""
-                    let nextVC = TrainerDetailViewController()
                     RequestResultViewController.specificUser.openChat = responseData.result.openChatLink ?? ""
                     
                     print("MyPageVC - getTrainerServer=========================================================")

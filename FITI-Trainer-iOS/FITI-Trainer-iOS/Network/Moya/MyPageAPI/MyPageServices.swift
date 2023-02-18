@@ -10,13 +10,13 @@ import Moya
 
 enum MyPageServices {
     case myPage
-    case notice
     case policy
     case showProfile
     case locationSetting(_ location:String)
     case addOpenChat(_ openChatLink:String)
     case changPassword(param: ChangePasswordRequest)
     case withDraw
+    case announcement
 }
 
 extension MyPageServices: TargetType {
@@ -28,8 +28,6 @@ extension MyPageServices: TargetType {
         switch self {
         case .myPage:
             return "/api/communal/mypage"
-        case .notice:
-            return "/api/communal/announcement"
         case .policy:
             return "/api/communal/terms"
         case .showProfile:
@@ -43,14 +41,14 @@ extension MyPageServices: TargetType {
             return "/api/accounts/password"
         case .withDraw:
             return "/api/accounts/close"
+        case .announcement:
+            return "/api/communal/announcement"
         }
     }
     
     var method: Moya.Method {
         switch self {
         case .myPage:
-            return .get
-        case .notice:
             return .get
         case .policy:
             return .get
@@ -64,14 +62,14 @@ extension MyPageServices: TargetType {
             return .patch
         case .withDraw:
             return .patch
+        case .announcement:
+            return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
         case .myPage:
-            return .requestPlain
-        case .notice:
             return .requestPlain
         case .policy:
             return .requestPlain
@@ -84,6 +82,8 @@ extension MyPageServices: TargetType {
         case .changPassword(let param):
             return .requestJSONEncodable(param)
         case .withDraw:
+            return .requestPlain
+        case .announcement:
             return .requestPlain
         }
     }

@@ -10,14 +10,16 @@ import SnapKit
 
 class NoticeViewController: UIViewController {
     
+    static var announcementList = [news]()
+    
     var myPageTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20.0)
         label.text = "공지사항"
-        label.textColor = UIColor.black
+        label.textColor = UIColor.customColor(.blue)
         return label
     }()
-    
+
     private var progressView : UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.customColor(.boxGray)
@@ -27,27 +29,10 @@ class NoticeViewController: UIViewController {
         return view
     }()
     
-    private var touchLineBtn : UIButton = {
-        let btn = UIButton()
-        btn.backgroundColor = .clear
-        btn.addTarget(self, action: #selector(tapUpdateEvent), for: .touchUpInside)
-//        btn.backgroundColor = .systemMint
-        return btn
+    private let noticeTableView: UITableView = {
+        let tableview = UITableView()
+        return tableview
     }()
-    
-    private var touchSecLineBtn : UIButton = {
-        let btn = UIButton()
-        btn.backgroundColor = .clear
-        btn.addTarget(self, action: #selector(tapPrivacyEvent), for: .touchUpInside)
-//        btn.backgroundColor = .systemMint
-        return btn
-    }()
-    
-    
-    
-    let bottomLabelStack = NoticeLabelView()
-    let bottomBtnStack = NoticeBtnView()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,85 +45,68 @@ class NoticeViewController: UIViewController {
         
         setViewHierarchy()
         setConstraints()
-        setBtnEvents()
+        setTableCell()
     }
     
     func setViewHierarchy(){
-        view.addSubview(myPageTitleLabel)
-        view.addSubview(progressView)
-        view.addSubview(touchLineBtn)
-        view.addSubview(bottomLabelStack)
-        view.addSubview(bottomBtnStack)
-        view.addSubview(touchSecLineBtn)
-
-
-
+        view.addSubviews(myPageTitleLabel,
+                         progressView,
+                         noticeTableView
+        )
     }
     
     func setConstraints(){
         myPageTitleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(80)
+            make.top.equalToSuperview().offset(60)
             make.centerX.equalToSuperview()
         }
-        
         progressView.snp.makeConstraints { make in
             make.top.equalTo(myPageTitleLabel.snp.bottom).offset(20)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
-        
-        bottomLabelStack.snp.makeConstraints { make in
-            make.top.equalTo(progressView).offset(18)
-            make.leading.equalToSuperview().offset(20)
-            
-        }
-        
-        bottomBtnStack.snp.makeConstraints { make in
-            make.top.equalTo(bottomLabelStack)
-            make.trailing.equalToSuperview().offset(-20)
-        }
-        
-        touchLineBtn.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-10)
-            make.leading.equalToSuperview().offset(10)
-            make.top.equalTo(progressView).offset(20)
-            make.height.equalTo(bottomLabelStack.updateNoticeLabel)
-        }
-        
-        touchSecLineBtn.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-10)
-            make.leading.equalToSuperview().offset(10)
-            make.centerY.equalTo(bottomLabelStack.privacyNoticeLabel)
-            make.height.equalTo(bottomLabelStack.updateNoticeLabel)
+        noticeTableView.snp.makeConstraints { make in
+            make.top.equalTo(progressView.snp.bottom)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
     
-    func setBtnEvents(){
-//        let tapNoticeLabel = UITapGestureRecognizer(target: self, action: #selector(tapUpdateEvent))
-//        let tapPrivacyLabel = UITapGestureRecognizer(target: self, action: #selector(tapPrivacyEvent))
-//        bottomStack.updateNoticeDateLabel.addGestureRecognizer(tapNoticeLabel)
-//        bottomStack.privacyNoticeLabel.addGestureRecognizer(tapPrivacyLabel)
-//
-//        bottomStack.goUpdateNoticeBtn.addTarget(self, action: #selector(tapUpdateEvent), for: .touchUpInside)
-//        bottomStack.goPrivacyNoticeBtn.addTarget(self, action: #selector(tapPrivacyEvent), for: .touchUpInside)
-       
-
+    func setTableCell(){
+        noticeTableView.register(NoticeTableCell.self, forCellReuseIdentifier: NoticeTableCell.identifier)
+        noticeTableView.delegate = self
+        noticeTableView.dataSource = self
     }
     
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
-    
-    @objc func tapUpdateEvent(){
-        let nextVC = UpdateNoticeViewController()
-        navigationController?.pushViewController(nextVC, animated: true)
+}
+
+extension NoticeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let noticeDetailView = DetailNoticeViewController()
+        noticeDetailView.introTextView.text = NoticeViewController.announcementList[indexPath.row].contents
+        self.navigationController?.pushViewController(noticeDetailView, animated: true)
+    }
+}
+
+extension NoticeViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return NoticeViewController.announcementList.count
     }
     
-    @objc func tapPrivacyEvent(){
-        let nextVC = PrivacyNoticeViewController()
-        navigationController?.pushViewController(nextVC, animated: true)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: NoticeTableCell.identifier, for: indexPath) as? NoticeTableCell ?? NoticeTableCell()
+        cell.bindingNoticeList(model: NoticeViewController.announcementList[indexPath.row])
+        cell.selectionStyle = .none
+        cell.accessoryType = .disclosureIndicator
+        return cell
     }
-
-
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 }
 

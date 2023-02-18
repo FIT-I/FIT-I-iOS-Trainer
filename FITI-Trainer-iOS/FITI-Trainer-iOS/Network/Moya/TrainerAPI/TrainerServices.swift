@@ -11,6 +11,7 @@ import Moya
 enum TrainerServices {
     //param에 들어가는 것: request 할 값
     case loadTrainer
+    case report(param: ReportRequest)
 }
 
 extension TrainerServices: TargetType { //TargetType?: 네트워크에 필요한 속성들을 제공! (밑의 path, method 같은 것들)
@@ -25,6 +26,8 @@ extension TrainerServices: TargetType { //TargetType?: 네트워크에 필요한
         switch self {
         case .loadTrainer:
             return "/api/trainer/information"
+        case .report:
+            return "/api/redbell/customer"
         }
     }
     
@@ -32,6 +35,8 @@ extension TrainerServices: TargetType { //TargetType?: 네트워크에 필요한
         switch self {
         case .loadTrainer:
             return .get
+        case .report:
+            return .post
         }
     }
     
@@ -39,6 +44,8 @@ extension TrainerServices: TargetType { //TargetType?: 네트워크에 필요한
         switch self {
         case .loadTrainer:
             return .requestPlain
+        case .report(let param):
+            return . requestJSONEncodable(param)
         }
     }
     

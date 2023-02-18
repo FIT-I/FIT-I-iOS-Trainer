@@ -17,7 +17,8 @@ class BottomCVC: UICollectionViewCell {
     let editerChoiceImageView : UIImageView = {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
-        img.contentMode = .scaleAspectFit
+//        img.clipsToBounds = true
+        img.contentMode = .scaleAspectFill
         return img
     }()
     // MARK: - Life Cycles
@@ -26,7 +27,7 @@ class BottomCVC: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.backgroundColor = .clear
-        editerChoiceImageView.contentMode = .scaleToFill
+        editerChoiceImageView.contentMode = .scaleAspectFill
         setLayout()
         editerChoiceImageView.layer.cornerRadius = 12
         

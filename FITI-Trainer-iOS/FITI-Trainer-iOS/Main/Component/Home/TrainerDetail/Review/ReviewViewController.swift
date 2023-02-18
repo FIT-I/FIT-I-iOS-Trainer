@@ -24,6 +24,7 @@ class ReviewViewController: UIViewController {
     let reviewTableView : UITableView = {
         let tableview = UITableView()
         tableview.separatorStyle = .none
+        tableview.showsVerticalScrollIndicator = false
         return tableview
     }()
 
@@ -36,7 +37,6 @@ class ReviewViewController: UIViewController {
         navigationController?.navigationBar.topItem?.title = ""
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(named: "leftIcon.svg"), style: .plain, target: self, action: #selector(backTapped))
-        
         
         reviewTableView.register(ReviewTableCell.self, forCellReuseIdentifier: ReviewTableCell.identifier)
         reviewTableView.delegate = self
@@ -65,7 +65,7 @@ class ReviewViewController: UIViewController {
         reviewTableView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(40)
             make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-20)
             make.bottom.equalToSuperview().offset(-10)
         }
     }
@@ -73,14 +73,18 @@ class ReviewViewController: UIViewController {
     @objc func backTapped(sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
+    
+    @objc func reportButtonTapped(sender: UIButton) {
+        let nextVC = ReportViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+        
+    }
 
     func setReviewData(){
         self.reviewData = TrainerDetailViewController.userInfo.reviewDto ?? [ReviewDto]()
         print(reviewData)
     }
-
 }
-
 
 extension ReviewViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -95,6 +99,9 @@ extension ReviewViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ReviewTableCell.identifier, for: indexPath) as? ReviewTableCell ?? ReviewTableCell()
         cell.reviewTableBnding(model: reviewData[indexPath.row])
         cell.selectionStyle = .none
+        cell.report.tag = indexPath.row
+        ReportViewController.reviewerIdx = cell.report.tag
+        cell.report.addTarget(self, action: #selector(reportButtonTapped(sender: )), for: .touchUpInside)
         return cell
     }
 }

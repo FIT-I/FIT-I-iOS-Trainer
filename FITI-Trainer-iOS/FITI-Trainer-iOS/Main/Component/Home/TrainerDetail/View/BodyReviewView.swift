@@ -67,6 +67,7 @@ class BodyReviewView : UIView {
         let btn = UIButton()
         btn.backgroundColor = UIColor.systemBackground
         btn.setImage(UIImage(named: "rightBtn"), for: .normal)
+        btn.backgroundColor = UIColor.customColor(.boxGray)
 //        btn.addTarget(self, action: #selector(moveToReviewTableView), for: .touchUpInside)
         return btn
     }()
@@ -100,6 +101,7 @@ class BodyReviewView : UIView {
         setViewHierarchy()
         setConstraints()
         register()
+        setServerData()
     }
     
     func setViewHierarchy(){
@@ -149,6 +151,11 @@ extension BodyReviewView {
         reviewTableView.register(PreviewReviewTableCell.self,
                                  forCellReuseIdentifier: PreviewReviewTableCell.identifier
         )
+    }
+    
+    private func setServerData(){
+        reviewLabel.text = "후기 \(TrainerDetailViewController.userInfo.reviewDto?.count ?? 0)건"
+        reviewGradeLabel.text = "평균 \(TrainerDetailViewController.userInfo.grade)"
     }
 }
 extension BodyReviewView : UITableViewDelegate {}

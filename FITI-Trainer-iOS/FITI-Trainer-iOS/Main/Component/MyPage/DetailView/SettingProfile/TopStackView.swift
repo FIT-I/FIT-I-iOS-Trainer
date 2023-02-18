@@ -17,7 +17,7 @@ class TopStackView : UIView {
         imgView.layer.cornerRadius = 10
         imgView.clipsToBounds = true
         imgView.isUserInteractionEnabled = true
-//        imgView.contentMode = .scaleAspectFit
+        imgView.contentMode = .scaleAspectFill
 //        imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
     }()

@@ -32,6 +32,7 @@ class RequestResultViewController: UIViewController {
         }
         return view
     }()
+    
 
     private let acceptBtn : UIButton = {
         let btn = UIButton()
@@ -120,7 +121,7 @@ class RequestResultViewController: UIViewController {
     }
     
     @objc func acceptEvent(){
-        if(RequestResultViewController.specificUser.openChat == "_"){
+        if(RequestResultViewController.specificUser.openChat == ""){
             ifOpenChatNil()
         } else{
             ifOpenChatExist()
@@ -207,7 +208,7 @@ class RequestResultViewController: UIViewController {
     }
     
     func patchAcceptRequest(){
-        self.matchingProvider.request(.acceptRequest(RequestResultViewController.id, "https://open.kakao.com/o/szgx3A2e")){ response in
+        self.matchingProvider.request(.acceptRequest(RequestResultViewController.id, RequestResultViewController.specificUser.openChat)){ response in
             switch response {
             case .success(let moyaResponse):
                 do{
