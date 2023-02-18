@@ -41,6 +41,9 @@ class HomeViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = UIColor.customColor(.boxGray)
         view.layer.cornerRadius = 10
+        view.isUserInteractionEnabled = true
+        let guesture = UITapGestureRecognizer(target: self, action: #selector(touchNextBtnEvent))
+        view.addGestureRecognizer(guesture)
         return view
     }()
     
@@ -206,6 +209,9 @@ class HomeViewController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = 40
         stackView.alignment = .leading
+        stackView.isUserInteractionEnabled = true
+        let guesture = UITapGestureRecognizer(target: self, action: #selector(touchNextBtnEvent))
+        stackView.addGestureRecognizer(guesture)
         return stackView
     }()
     
@@ -243,6 +249,9 @@ class HomeViewController: UIViewController {
         stackView.spacing = 12
         stackView.alignment = .center
         stackView.isHidden = true
+        stackView.isUserInteractionEnabled = true
+        let guesture = UITapGestureRecognizer(target: self, action: #selector(touchNextBtnEvent))
+        stackView.addGestureRecognizer(guesture)
         return stackView
     }()
     
@@ -352,7 +361,6 @@ class HomeViewController: UIViewController {
     }
     
     @objc func touchNextBtnEvent() {
-        LoadingView.showLoading()
         self.getTrainerDetailServer()
     }
 //
@@ -492,6 +500,7 @@ class HomeViewController: UIViewController {
             case .success(let moyaResponse):
                 do{
                     let responseData = try moyaResponse.map(GetTrainerInfoResponse.self)
+                    LoadingView.showLoading()
                     TrainerDetailViewController.userInfo.matching_state = responseData.result.matching_state
                     TrainerDetailViewController.userInfo.userName = responseData.result.name
                     TrainerDetailViewController.userInfo.grade = responseData.result.grade
