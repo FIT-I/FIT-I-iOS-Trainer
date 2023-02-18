@@ -89,20 +89,20 @@ class WithdrawViewController: UIViewController {
         navigationController?.pushViewController(nextVC, animated: true)
     }
     @objc func withDraw(){
-        try! realm.localRealm?.write {
-            realm.localRealm?.deleteAll()
-        }
         self.withDrawServer()
     }
 }
 
 extension WithdrawViewController {
     func withDrawServer(){
-        myPageProvider.request(.withDraw){ response in
+        myPageProvider.request(.withDraw){ [self] response in
             switch response{
             case .success(let moyaResponse):
                 do{
                     let responseData = try moyaResponse.map(WithDrawResponse.self)
+                    try! realm.localRealm?.write {
+                        realm.localRealm?.deleteAll()
+                    }
                     if responseData.isSuccess == true {
                         let alert = UIAlertController(title: "회원탈퇴", message: "정상적으로 탈퇴되었습니다.", preferredStyle: UIAlertController.Style.alert)
                         let okAction = UIAlertAction(title: "확인", style: .default, handler: { okAction in
