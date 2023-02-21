@@ -114,12 +114,6 @@ class HeadView : UIView {
         setConstraints()
     }
     
-//    func ifImageViewTouched(){
-//           //클릭 가능하도록 설정
-//        self.reviewerImage.isUserInteractionEnabled = true
-//           //제쳐스 추가
-//       }
-    
     func setViewHierarchy(){
         self.addSubview(reviewerImage)
         self.addSubview(name)
