@@ -117,7 +117,12 @@ class EditPhotoViewController: UIViewController {
     
     @objc func backTapped(sender: UIBarButtonItem) {
         if(addImage.count != 0){
-            self.postEctImageServer(imageArray: addImage)
+//            print("hohiiihi")
+//            LoadingView.showLoading()
+//            print(addImage)
+//            self.postEctImageServer(imageArray: addImage)
+        } else{
+//            print("ddieideiedie")
         }
         navigationController?.popViewController(animated: true)
     }
@@ -150,7 +155,13 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
         print(indexPath.row)
         if(lastIndex == indexPath.row){
             selectImagePicker()
-        } else{
+        }
+//        else if(indexPath.row){
+//            EditPhotoViewController.imageArray.remove(at: indexPath.row)
+//            EditPhotoViewController.imageArrayIdx.remove(at: indexPath.row)
+//        }
+        
+        else{
             self.deleteEctImage(etcImgIdx: EditPhotoViewController.imageArrayIdx[indexPath.row])
             EditPhotoViewController.imageArray.remove(at: indexPath.row)
             EditPhotoViewController.imageArrayIdx.remove(at: indexPath.row)
@@ -164,8 +175,6 @@ extension EditPhotoViewController: UICollectionViewDelegate, UICollectionViewDat
         EditPhotoViewController.imageArray.remove(at: sender.tag)
         EditPhotoViewController.imageArrayIdx.remove(at: sender.tag)
         }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -193,20 +202,25 @@ extension EditPhotoViewController: PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         //PHPicker 닫기
         picker.dismiss(animated: true)
-    
         itemProviders = results.map(\.itemProvider)
+        LoadingView.showLoading()
         for item in itemProviders {
-             if item.canLoadObject(ofClass: UIImage.self) {
-                 item.loadObject(ofClass: UIImage.self) { image, error in
-                     DispatchQueue.main.async {
-                         guard let image = image as? UIImage else { return }
-                         EditPhotoViewController.imageArray.append(image)
-                         self.addImage.append(image)
-                         self.editerPhotoChoiceCV.reloadData()
-                     }
-                 }
-             }
-         }
+            if item.canLoadObject(ofClass: UIImage.self) {
+                item.loadObject(ofClass: UIImage.self) { image, error in
+                    DispatchQueue.main.async {
+                        guard let image = image as? UIImage else { return }
+                        EditPhotoViewController.imageArray.append(image)
+                        self.addImage.append(image)
+                        self.editerPhotoChoiceCV.reloadData()
+                        
+                    }
+                }
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2){
+            print(self.addImage)
+//            self.postEctImageServer(imageArray: self.addImage)
+        }
     }
 }
 
@@ -220,6 +234,7 @@ extension EditPhotoViewController{
                     let image = try JSONDecoder().decode(AddBottomImageResponse.self, from: moyaResponse.data)
                     print(moyaResponse)
                     print(image)
+                    LoadingView.hideLoading()
                 } catch(let err){
                     print(err.localizedDescription)
                 }
